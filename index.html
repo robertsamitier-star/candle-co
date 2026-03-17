@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC Candle Co. — Business Plan 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: rgba(255,255,255,0.06);
+    --glow-cyan: #00e5ff;
+    --glow-purple: #a855f7;
+    --glow-green: #22d3ee;
+    --glow-orange: #f97316;
+    --glow-pink: #ec4899;
+    --text: #e8e8ec;
+    --text-dim: #8888a0;
+    --text-bright: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Background */
+  .bg-grid {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+  .bg-glow {
+    position: fixed; width: 600px; height: 600px;
+    border-radius: 50%; filter: blur(180px); opacity: 0.10;
+    pointer-events: none; z-index: 0;
+  }
+  .bg-glow.cyan { background: var(--glow-cyan); top: -200px; right: -100px; }
+  .bg-glow.purple { background: var(--glow-purple); bottom: -200px; left: -100px; }
+
+  /* Deck & Slides */
+  .deck { width: 100%; height: 100%; position: relative; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 50px 40px 80px;
+    overflow-y: auto;
+    z-index: 1;
+  }
+  .slide.active { display: flex; }
+
+  /* Typography */
+  .slide-number {
+    position: absolute; top: 20px; left: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text-dim);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900; letter-spacing: -1.5px;
+    line-height: 1.1; text-align: center; margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    font-weight: 800; letter-spacing: -1px;
+    line-height: 1.2; text-align: center; margin-bottom: 10px;
+  }
+  h3 {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600; margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+    color: var(--text-dim); text-align: center;
+    max-width: 650px; line-height: 1.6;
+  }
+  .accent { color: var(--glow-cyan); }
+  .accent-purple { color: var(--glow-purple); }
+  .accent-green { color: var(--glow-green); }
+  .accent-orange { color: var(--glow-orange); }
+
+  .tag {
+    display: inline-block; padding: 4px 14px;
+    border-radius: 20px; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .tag-cyan { background: rgba(0,229,255,0.1); color: var(--glow-cyan); border: 1px solid rgba(0,229,255,0.2); }
+  .tag-purple { background: rgba(168,85,247,0.1); color: var(--glow-purple); border: 1px solid rgba(168,85,247,0.2); }
+
+  /* Cards */
+  .card-grid {
+    display: grid; gap: 16px;
+    width: 100%; max-width: 900px; margin-top: 20px;
+  }
+  .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card-grid.cols-6 { grid-template-columns: repeat(3, 1fr); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; position: relative; overflow: hidden;
+  }
+  .card .icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+  .card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
+  .card .glow-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .glow-bar.cyan { background: linear-gradient(90deg, transparent, var(--glow-cyan), transparent); }
+  .glow-bar.purple { background: linear-gradient(90deg, transparent, var(--glow-purple), transparent); }
+  .glow-bar.green { background: linear-gradient(90deg, transparent, var(--glow-green), transparent); }
+  .glow-bar.orange { background: linear-gradient(90deg, transparent, var(--glow-orange), transparent); }
+  .glow-bar.pink { background: linear-gradient(90deg, transparent, var(--glow-pink), transparent); }
+
+  /* Tables */
+  .data-table {
+    width: 100%; max-width: 900px;
+    border-collapse: collapse; margin-top: 16px; font-size: 0.85rem;
+  }
+  .data-table th {
+    text-align: left; padding: 8px 12px;
+    font-weight: 600; font-size: 0.72rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-dim); border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border); color: var(--text);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .highlight {
+    color: var(--glow-cyan); font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Flow Diagram */
+  .flow {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 20px; width: 100%; max-width: 900px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .flow-node {
+    flex: 1; min-width: 130px; max-width: 170px;
+    padding: 14px 12px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 10px;
+    text-align: center; font-size: 0.82rem;
+  }
+  .flow-node .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--glow-cyan); display: block; margin-bottom: 4px;
+  }
+  .flow-node .step-title { font-weight: 600; display: block; margin-bottom: 4px; }
+  .flow-node .step-desc { font-size: 0.75rem; color: var(--text-dim); }
+  .flow-arrow { font-size: 1.2rem; color: var(--glow-cyan); }
+
+  /* Stat Row */
+  .stat-row {
+    display: flex; gap: 40px; margin-top: 20px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat .num {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--glow-cyan);
+  }
+  .stat .label {
+    font-size: 0.78rem; color: var(--text-dim);
+    margin-top: 4px; display: block;
+  }
+
+  /* Timeline */
+  .timeline {
+    width: 100%; max-width: 800px; margin-top: 20px;
+    position: relative; padding-left: 30px;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 8px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--glow-cyan), var(--glow-purple));
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 24px; padding-left: 20px;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -26px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--glow-cyan); border: 2px solid var(--bg);
+  }
+  .timeline-item .phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--glow-purple);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .timeline-item h3 { margin-top: 2px; font-size: 1rem; }
+  .timeline-item p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; margin-top: 4px; }
+
+  /* Check List */
+  .check-list { list-style: none; margin-top: 10px; }
+  .check-list li {
+    padding: 6px 0; font-size: 0.85rem;
+    color: var(--text-dim); padding-left: 20px;
+    position: relative;
+  }
+  .check-list li::before {
+    content: '✓'; position: absolute; left: 0;
+    color: var(--glow-cyan); font-weight: 700;
+  }
+
+  /* VS Box */
+  .vs-box {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; width: 100%; max-width: 700px; margin-top: 16px;
+  }
+  .vs-side {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; text-align: center;
+  }
+  .vs-side .vs-label {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 10px;
+  }
+  .vs-side .vs-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem; font-weight: 900;
+    color: var(--glow-cyan);
+  }
+  .vs-side .vs-detail {
+    font-size: 0.8rem; color: var(--text-dim);
+    margin-top: 6px; line-height: 1.5;
+  }
+  .vs-side .vs-margin {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--glow-purple); margin-top: 8px;
+  }
+
+  /* Scorecard table overrides */
+  .scorecard { font-size: 0.75rem; }
+  .scorecard th { font-size: 0.65rem; padding: 6px 8px; text-align: center; }
+  .scorecard td { padding: 6px 8px; text-align: center; font-size: 0.75rem; }
+  .scorecard td:first-child, .scorecard th:first-child { text-align: left; }
+
+  /* Supplier cards */
+  .supplier-card { position: relative; }
+  .supplier-card .rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem; font-weight: 900;
+    color: var(--glow-cyan); opacity: 0.3;
+    position: absolute; top: 10px; right: 16px;
+  }
+  .supplier-card h3 { font-size: 1.1rem; margin-bottom: 2px; }
+  .supplier-card .url { font-size: 0.72rem; color: var(--glow-cyan); margin-bottom: 8px; display: block; }
+  .supplier-card .best-for {
+    font-size: 0.78rem; color: var(--glow-green);
+    margin-top: 8px; font-weight: 500;
+  }
+  .supplier-card .gap {
+    font-size: 0.78rem; color: var(--glow-orange);
+    margin-top: 4px; font-weight: 500;
+  }
+
+  /* Week grid for First 30 Days */
+  .week-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; width: 100%; max-width: 900px; margin-top: 16px;
+  }
+  .week-col h3 {
+    font-size: 0.85rem; margin-bottom: 8px;
+    padding-bottom: 6px; border-bottom: 2px solid;
+  }
+  .week-col .week-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--text-dim);
+    letter-spacing: 1px; margin-bottom: 2px;
+    display: block;
+  }
+  .week-col .week-task {
+    font-size: 0.78rem; color: var(--text-dim);
+    line-height: 1.4; margin-bottom: 6px;
+  }
+
+  /* Numbers grid */
+  .numbers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; width: 100%; max-width: 900px; margin-top: 16px;
+  }
+  .numbers-section {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px;
+  }
+  .numbers-section h3 {
+    font-size: 0.85rem; margin-bottom: 10px;
+    color: var(--glow-cyan);
+  }
+  .numbers-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .numbers-row:last-child { border-bottom: none; }
+  .numbers-row .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+
+  /* CTA Button */
+  .cta-btn {
+    display: inline-block; margin-top: 20px;
+    padding: 14px 32px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--glow-cyan), var(--glow-purple));
+    color: var(--bg); font-weight: 700;
+    font-size: 0.95rem; text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: center; align-items: center;
+    gap: 16px; padding: 14px 20px;
+    background: rgba(10,10,15,0.92);
+    border-top: 1px solid var(--border);
+    z-index: 100;
+  }
+  .nav-btn {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); padding: 8px 20px;
+    border-radius: 8px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .nav-btn:hover { border-color: var(--glow-cyan); color: var(--glow-cyan); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .nav-btn:disabled:hover { border-color: var(--border); color: var(--text); }
+
+  .dots {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--text-dim); cursor: pointer;
+    border: none; padding: 0;
+    opacity: 0.4;
+  }
+  .dot.active {
+    background: var(--glow-cyan); opacity: 1;
+    width: 10px; height: 10px;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4, .card-grid.cols-6 { grid-template-columns: 1fr; }
+    .vs-box { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: 1fr; }
+    .numbers-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+    .slide { padding: 40px 16px 80px; }
+    .scorecard { font-size: 0.65rem; }
+    .scorecard th, .scorecard td { padding: 4px 4px; }
+  }
+
+  /* Footnote */
+  .footnote {
+    font-size: 0.72rem; color: var(--text-dim);
+    margin-top: 16px; text-align: center;
+    max-width: 700px; line-height: 1.5;
+  }
+
+  /* Section divider label */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--text-dim);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* Shipping strategy pills */
+  .pill-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center; margin-top: 12px;
+  }
+  .pill {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 0.78rem; color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow cyan"></div>
+<div class="bg-glow purple"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ═══════════════ SLIDE 1: TITLE ═══════════════ -->
+  <div class="slide active" data-slide="0">
+    <span class="tag tag-cyan">Business Plan 2026</span>
+    <h1 style="font-size:clamp(3rem,7vw,5rem);letter-spacing:-2px;">IC <span class="accent">CANDLE</span> CO.</h1>
+    <p class="subtitle" style="margin-top:8px;">Custom candles powered by AI.</p>
+    <div class="stat-row" style="margin-top:40px;">
+      <div class="stat">
+        <span class="num">4</span>
+        <span class="label">Members</span>
+      </div>
+      <div class="stat">
+        <span class="num">$40</span>
+        <span class="label">/mo Operating Cost</span>
+      </div>
+      <div class="stat">
+        <span class="num">$0</span>
+        <span class="label">Marketing Agency</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 2: EXECUTIVE SUMMARY ═══════════════ -->
+  <div class="slide" data-slide="1">
+    <span class="slide-number">02 / 17</span>
+    <span class="tag tag-cyan">Overview</span>
+    <h2>Executive Summary</h2>
+    <p class="subtitle">IC Candle Co. is a direct-to-consumer candle brand powered by AI and fulfilled through print-on-demand. We sell custom, personalized candles online with zero inventory and near-zero operating costs.</p>
+    <div class="card-grid cols-2" style="margin-top:24px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Mission</h3>
+        <p>To brighten homes with clean-burning, thoughtfully curated scents that provide a moment of peace — delivered through a modern, AI-driven e-commerce experience with zero waste and zero inventory risk.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>The Model</h3>
+        <p>Customers order personalized candles from our Shopify storefront. Orders auto-route to our POD supplier who hand-pours and ships directly under our brand. AI handles all marketing, copy, SEO, and email — replacing $11K–19K/mo in agency costs.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3>Core Values</h3>
+        <p>Sustainability, transparency in ingredients, premium quality. All candles use plant-based wax, phthalate-free fragrance, and recyclable vessels.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <h3>Key Advantage</h3>
+        <p>4-person team, each with domain expertise. AI replaces an entire marketing department. We launch for ~$830 total (~$208/person) and break even at just 30 candle sales.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 3: THE TEAM ═══════════════ -->
+  <div class="slide" data-slide="2">
+    <span class="slide-number">03 / 17</span>
+    <span class="tag tag-purple">People</span>
+    <h2>The Team</h2>
+    <p class="subtitle">Four roles. Zero overlap.</p>
+    <div class="card-grid cols-4" style="margin-top:24px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <span class="icon">⚡</span>
+        <h3>Ricardo</h3>
+        <p style="color:var(--glow-cyan);font-weight:600;font-size:0.75rem;margin-bottom:6px;">Creative Director / Tech Lead</p>
+        <p>Website design, AI prompt engineering, SEO content, brand identity, product mockup templates. Produces all creative assets with Claude.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <span class="icon">📦</span>
+        <h3>Robert</h3>
+        <p style="color:var(--glow-purple);font-weight:600;font-size:0.75rem;margin-bottom:6px;">COO / Operations & Supply Chain</p>
+        <p>Supplier sourcing, quality control, fulfillment, shipping, returns, customer service. Former REI head manager — retail ops expert.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <span class="icon">🚀</span>
+        <h3>Jose</h3>
+        <p style="color:var(--glow-green);font-weight:600;font-size:0.75rem;margin-bottom:6px;">Store Manager & Paid Marketing</p>
+        <p>Shopify setup, product listings, Meta/TikTok ads, email platform (Klaviyo), analytics. Has Shopify experience — hits the ground running.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <span class="icon">📊</span>
+        <h3>Mark</h3>
+        <p style="color:var(--glow-orange);font-weight:600;font-size:0.75rem;margin-bottom:6px;">CFO & Business Strategy</p>
+        <p>LLC formation, bookkeeping, P&L reporting, ad budget allocation, tax planning, capital fund management. Finance professional.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 4: HOW THE MODEL WORKS ═══════════════ -->
+  <div class="slide" data-slide="3">
+    <span class="slide-number">04 / 17</span>
+    <span class="tag tag-cyan">Model</span>
+    <h2>How the Model Works</h2>
+    <p class="subtitle">Print-on-demand fulfillment — you only pay after the customer pays you.</p>
+    <div class="flow">
+      <div class="flow-node">
+        <span class="step-num">01</span>
+        <span class="step-title">Customer Orders</span>
+        <span class="step-desc">Buyer places order on your Shopify or Etsy store</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node">
+        <span class="step-num">02</span>
+        <span class="step-title">Auto-Routed</span>
+        <span class="step-desc">Order routes automatically to POD supplier via app integration</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node">
+        <span class="step-num">03</span>
+        <span class="step-title">Produced</span>
+        <span class="step-desc">Supplier hand-pours candle with your label applied</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node">
+        <span class="step-num">04</span>
+        <span class="step-title">Shipped</span>
+        <span class="step-desc">Ships directly to customer — fully under your brand</span>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node">
+        <span class="step-num">05</span>
+        <span class="step-title">You Profit</span>
+        <span class="step-desc">You collect the margin. Zero inventory, zero touchpoints</span>
+      </div>
+    </div>
+    <div class="card" style="max-width:700px;margin-top:24px;">
+      <div class="glow-bar cyan"></div>
+      <h3 class="accent">Key Insight</h3>
+      <p>You only pay the supplier <strong>after</strong> the customer pays you. The difference between your retail price and supplier cost is your margin. Zero inventory risk, zero upfront product cost.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 5: UNFAIR ADVANTAGE ═══════════════ -->
+  <div class="slide" data-slide="4">
+    <span class="slide-number">05 / 17</span>
+    <span class="tag tag-purple">Advantage</span>
+    <h2>Our Unfair Advantage</h2>
+    <p class="subtitle">AI replaces services that would cost $11.5–19K/mo if hired — for the price of one subscription.</p>
+    <table class="data-table" style="max-width:700px;">
+      <thead>
+        <tr>
+          <th>Agency Role</th>
+          <th>Market Rate</th>
+          <th>Our Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Web Designer</td><td>$2,000–4,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>SEO Specialist</td><td>$1,500–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Copywriter</td><td>$2,000–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Email Marketer</td><td>$1,000–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Social Media Manager</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Brand Strategist</td><td>$2,000–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Market Researcher</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);">
+          <td><strong>Total Replaced</strong></td>
+          <td><strong>$11,500–19,000/mo</strong></td>
+          <td class="highlight" style="font-size:1.1rem;"><strong>$0</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════ SLIDE 6: MARKET ANALYSIS ═══════════════ -->
+  <div class="slide" data-slide="5">
+    <span class="slide-number">06 / 17</span>
+    <span class="tag tag-cyan">Market</span>
+    <h2>Market Analysis</h2>
+    <div class="card-grid cols-3" style="margin-top:24px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Industry Trends (2026)</h3>
+        <p>The global scented candle market is growing, with a strong shift towards sustainability and wellness-focused aromas. Consumers increasingly seek clean-burning, non-toxic options with premium ingredients.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>Target Market</h3>
+        <p>Individuals aged 25–40, primarily homeowners or apartment dwellers who prioritize interior décor and self-care routines. Eco-conscious professionals seeking premium, personalized products.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3>Competitive Advantage</h3>
+        <p>Unlike mass-market brands, IC Candle Co. offers unique, artisanal scent profiles with premium non-toxic wax blends — delivered via a lean POD model that eliminates inventory risk and enables rapid iteration.</p>
+      </div>
+    </div>
+    <div class="card" style="max-width:900px;margin-top:16px;">
+      <div class="glow-bar orange"></div>
+      <h3>Why POD + AI Wins</h3>
+      <p>Traditional candle startups carry $3K–10K in raw materials inventory, require production space, and spend months iterating. Our POD model launches in weeks with ~$830 total investment. AI handles all brand, marketing, and content creation — letting us move at the speed of a tech startup while selling a physical product.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 7: NICHE & POSITIONING ═══════════════ -->
+  <div class="slide" data-slide="6">
+    <span class="slide-number">07 / 17</span>
+    <span class="tag tag-purple">Strategy</span>
+    <h2>Niche & Positioning</h2>
+    <p class="subtitle">The scent itself is not the niche — the <strong class="accent">story</strong> around it is.</p>
+    <table class="data-table" style="max-width:850px;">
+      <thead>
+        <tr>
+          <th>Niche</th>
+          <th>Candle Bliss Scents</th>
+          <th>Target Buyer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Memorial / Sympathy</td><td>Lavender, Vanilla Bean, Cashmere Vanilla, Fresh Linen, Serenity</td><td>Grieving families, funeral directors, hospice</td></tr>
+        <tr><td>Profession-Specific Gifting</td><td>Sandalwood & Cedar, Oakmoss, Fresh Linen, Coastal Cottage, Cinnamon Chai</td><td>Corporate buyers, HR, admin assistants</td></tr>
+        <tr><td>Outdoors / Adventure</td><td>Fraser Fir, Woodland Forest, Evergreen & Apple, Oakmoss, Coastal Cottage</td><td>Hikers, campers, national park fans</td></tr>
+        <tr><td>Cultural Celebrations</td><td>Cinnamon Chai, Mango & Coconut Milk, Fiesta Pineapple Margarita, Yuzu Blossom</td><td>Multicultural consumers, event planners</td></tr>
+        <tr><td>Manifestation / Intention</td><td>Bohemian Rose, Lavender, Sandalwood & Cedar, Serenity, Island</td><td>Spiritual practitioners, yoga community</td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">Etsy buyers search "sympathy candle gift personalized" — not "lavender candle." Label design, listing copy, and photography do the niche targeting.</p>
+  </div>
+
+  <!-- ═══════════════ SLIDE 8: SALES CHANNELS ═══════════════ -->
+  <div class="slide" data-slide="7">
+    <span class="slide-number">08 / 17</span>
+    <span class="tag tag-cyan">Channels</span>
+    <h2>Sales Channels</h2>
+    <p class="subtitle">Shopify is home base. We push product to every platform where customers already shop.</p>
+    <div class="card-grid cols-3" style="margin-top:24px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <span class="icon">🛒</span>
+        <h3>Shopify</h3>
+        <p>Home base. Full brand experience + custom orders. High-converting checkout with built-in inventory management.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <span class="icon">🎨</span>
+        <h3>Etsy</h3>
+        <p>Built-in audience. #1 for personalized gifts. Organic discovery from day one.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <span class="icon">📱</span>
+        <h3>TikTok Shop</h3>
+        <p>Sell directly inside viral videos. Massive organic reach for visual products.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar pink"></div>
+        <span class="icon">📸</span>
+        <h3>Instagram Shop</h3>
+        <p>Tag products in posts and reels. Lifestyle imagery drives impulse purchases.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <span class="icon">📦</span>
+        <h3>Amazon</h3>
+        <p>Massive trust + gift traffic. Access the world's largest marketplace audience.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <span class="icon">🌐</span>
+        <h3>SEO Blog</h3>
+        <p>AI-generated blog content drives free Google traffic to Shopify storefront long-term.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 9: MARGIN MODEL ═══════════════ -->
+  <div class="slide" data-slide="8">
+    <span class="slide-number">09 / 17</span>
+    <span class="tag tag-purple">Margins</span>
+    <h2>Margin Model</h2>
+    <p class="section-label">Mid-Range Pricing ($25–$45)</p>
+    <div class="vs-box">
+      <div class="vs-side">
+        <div class="vs-label">Conservative</div>
+        <div class="vs-price">$28</div>
+        <div class="vs-detail">
+          Supplier Cost: ~$13<br>
+          Platform Fees: ~$2.80<br>
+          Net Margin: ~$12
+        </div>
+        <div class="vs-margin">~43%</div>
+      </div>
+      <div class="vs-side">
+        <div class="vs-label">Strong</div>
+        <div class="vs-price">$42</div>
+        <div class="vs-detail">
+          Supplier Cost: ~$15<br>
+          Platform Fees: ~$4.20<br>
+          Net Margin: ~$23
+        </div>
+        <div class="vs-margin">~55%</div>
+      </div>
+    </div>
+    <p class="footnote">Platform fees: Etsy ~10%, Shopify ~3% · Shipping passed to customer or absorbed into price · Returns buffer: allow 2–3% of revenue</p>
+    <div style="margin-top:16px;text-align:center;">
+      <p class="section-label">Shipping Strategy</p>
+      <div class="pill-row">
+        <span class="pill">Pass to customer (standard)</span>
+        <span class="pill">Build into price ("free shipping")</span>
+        <span class="pill">Free ship threshold (2+ candles)</span>
+        <span class="pill">Candle Bliss: Free at $99+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 10: SUPPLIER SCORECARD — OPS ═══════════════ -->
+  <div class="slide" data-slide="9">
+    <span class="slide-number">10 / 17</span>
+    <span class="tag tag-cyan">Suppliers</span>
+    <h2>Supplier Scorecard</h2>
+    <p class="section-label">Product, Fulfillment & Integration</p>
+    <table class="data-table scorecard">
+      <thead>
+        <tr>
+          <th style="min-width:140px;">Criteria</th>
+          <th>Candle Bliss</th>
+          <th>Candle Bldrs</th>
+          <th>Printify</th>
+          <th>Printed Mint</th>
+          <th>Printful</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Product</td></tr>
+        <tr><td>True POD / No Inventory</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>White Label Only</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Scent Variety</td><td>✅ 20+</td><td>✅ 8+</td><td>✅ 10+</td><td>⚠ 4</td><td>⚠ 9</td></tr>
+        <tr><td>Vessel Variety</td><td>✅ Tins+3</td><td>⚠ 3 glass</td><td>⚠ Glass</td><td>✅ Multi</td><td>❌ 1 jar</td></tr>
+        <tr><td>Wax Type</td><td>Coco/Apricot</td><td>Soy only</td><td>Soy</td><td>Coco/Apricot</td><td>Soy only</td></tr>
+        <tr><td>Gift Packaging</td><td>✅</td><td>✅ WL</td><td>❌</td><td>✅ Full</td><td>❌</td></tr>
+        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Fulfillment</td></tr>
+        <tr><td>Fulfillment Speed</td><td>✅ 1–3d</td><td>✅ 1–2d</td><td>⚠ Varies</td><td>⚠ 4–7d</td><td>✅ Fast</td></tr>
+        <tr><td>US-Based Fulfillment</td><td>✅ AZ</td><td>✅ NH</td><td>✅ Most</td><td>✅</td><td>✅</td></tr>
+        <tr><td>No MOQ</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Integration</td></tr>
+        <tr><td>Shopify Integration</td><td>✅ Native</td><td>✅ Native</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Etsy Integration</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Amazon / Other</td><td>❌</td><td>❌</td><td>✅ Multi</td><td>✅ OD</td><td>✅ 23+</td></tr>
+        <tr><td>Personalization</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Startup Cost</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════ SLIDE 11: SUPPLIER SCORECARD — SUSTAINABILITY ═══════════════ -->
+  <div class="slide" data-slide="10">
+    <span class="slide-number">11 / 17</span>
+    <span class="tag tag-cyan">Suppliers</span>
+    <h2>Supplier Scorecard</h2>
+    <p class="section-label">Sustainability & Risk Mitigation</p>
+    <table class="data-table scorecard">
+      <thead>
+        <tr>
+          <th style="min-width:160px;">Criteria</th>
+          <th>Candle Bliss</th>
+          <th>Candle Bldrs</th>
+          <th>Printify</th>
+          <th>Printed Mint</th>
+          <th>Printful</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" style="color:var(--glow-green);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Sustainability</td></tr>
+        <tr><td>Plant-Based / Renewable Wax</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>No Paraffin</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Vegan / Cruelty-Free</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⚠ N/S</td></tr>
+        <tr><td>Phthalate-Free Fragrance</td><td>✅ Prop65</td><td>✅</td><td>⚠ Varies</td><td>✅</td><td>⚠ N/S</td></tr>
+        <tr><td>Clean Wick (No Lead/Zinc)</td><td>⚠ N/S</td><td>✅ Cotton</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
+        <tr><td>No Synthetic Dyes</td><td>✅</td><td>⚠ N/S</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
+        <tr><td>Recyclable Vessel</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>USA-Sourced Materials</td><td>✅ Wax+Fr</td><td>✅ Wax+Fr</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
+        <tr><td colspan="6" style="color:var(--glow-orange);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Risk Mitigation</td></tr>
+        <tr><td>Record Keeping / Tracking</td><td>✅ Auto</td><td>✅ Auto</td><td>✅ Dashboard</td><td>⚠ Manual</td><td>✅ Full</td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">N/S = Not stated publicly. Recommend direct supplier outreach to verify before making sustainability claims in marketing.</p>
+  </div>
+
+  <!-- ═══════════════ SLIDE 12: RECOMMENDED SUPPLIERS ═══════════════ -->
+  <div class="slide" data-slide="11">
+    <span class="slide-number">12 / 17</span>
+    <span class="tag tag-purple">Top Picks</span>
+    <h2>Recommended Suppliers</h2>
+    <div class="card-grid cols-3" style="margin-top:24px;">
+      <div class="card supplier-card">
+        <div class="glow-bar cyan"></div>
+        <span class="rank">#1</span>
+        <h3>Candle Bliss</h3>
+        <span class="url">candlebliss.com</span>
+        <p>Best scent library (20+), strong packaging, free Shopify/Etsy apps, Phoenix AZ fulfillment, 1–3 day turnaround.</p>
+        <p class="best-for">Best for: Gifting niche, scent-forward brand, mid-range pricing</p>
+        <p class="gap">Gap: Coconut/apricot wax only. No beeswax.</p>
+      </div>
+      <div class="card supplier-card">
+        <div class="glow-bar purple"></div>
+        <span class="rank">#2</span>
+        <h3>Printed Mint</h3>
+        <span class="url">printedmint.com</span>
+        <p>Best gift packaging (ribbons, crinkle paper, inserts). Broad marketplace reach via Order Desk. Strong gifting appeal.</p>
+        <p class="best-for">Best for: Gift-focused niche, premium unboxing experience</p>
+        <p class="gap">Gap: Only 4 scents. Fulfillment 4–7 days. Manual record keeping.</p>
+      </div>
+      <div class="card supplier-card">
+        <div class="glow-bar green"></div>
+        <span class="rank">#3</span>
+        <h3>Candle Builders</h3>
+        <span class="url">candlebuilders.com</span>
+        <p>Fast turnaround (1–2 days), native Shopify/Etsy integrations, 8+ scents, white-label gift packaging. New Hampshire fulfillment.</p>
+        <p class="best-for">Best for: Speed-focused brand, quick fulfillment, soy wax positioning</p>
+        <p class="gap">Gap: Soy only. Limited vessel options (3 glass types).</p>
+      </div>
+    </div>
+    <p class="footnote" style="margin-top:20px;"><strong class="accent">Recommendation:</strong> Launch with Candle Bliss on Etsy. Add Printed Mint for gift-focused SKUs once volume justifies a second supplier.</p>
+  </div>
+
+  <!-- ═══════════════ SLIDE 13: THE NUMBERS ═══════════════ -->
+  <div class="slide" data-slide="12">
+    <span class="slide-number">13 / 17</span>
+    <span class="tag tag-cyan">Financials</span>
+    <h2>The Numbers</h2>
+    <div class="numbers-grid">
+      <div class="numbers-section">
+        <h3>Startup Cost</h3>
+        <div class="numbers-row"><span>Florida LLC</span><span class="val">$125</span></div>
+        <div class="numbers-row"><span>Shopify (monthly)</span><span class="val">$39</span></div>
+        <div class="numbers-row"><span>Domain</span><span class="val">$15</span></div>
+        <div class="numbers-row"><span>POD Samples</span><span class="val">$150</span></div>
+        <div class="numbers-row"><span>Initial Ad Budget</span><span class="val">$500</span></div>
+        <div class="numbers-row" style="border-top:2px solid var(--glow-cyan);margin-top:6px;padding-top:8px;"><span><strong>Total to Launch</strong></span><span class="val accent">~$830</span></div>
+        <div class="numbers-row"><span><strong>Per Person</strong></span><span class="val accent">~$208</span></div>
+      </div>
+      <div class="numbers-section">
+        <h3>Unit Economics</h3>
+        <div class="numbers-row"><span>Sale Price</span><span class="val">$28–38</span></div>
+        <div class="numbers-row"><span>POD Cost</span><span class="val">-$12–16</span></div>
+        <div class="numbers-row"><span>Shipping</span><span class="val">-$5–8</span></div>
+        <div class="numbers-row" style="border-top:2px solid var(--glow-cyan);margin-top:6px;padding-top:8px;"><span><strong>Gross Profit</strong></span><span class="val accent">$10–14</span></div>
+        <div class="numbers-row" style="margin-top:12px;"><span>Monthly Overhead</span><span class="val">~$140</span></div>
+        <div class="numbers-row"><span><strong>Break-Even</strong></span><span class="val accent">~30 candles</span></div>
+      </div>
+      <div class="numbers-section">
+        <h3>Profit Split</h3>
+        <div class="numbers-row"><span>Reinvest in Business</span><span class="val" style="color:var(--glow-cyan);">60%</span></div>
+        <div class="numbers-row"><span>Cash Reserve</span><span class="val" style="color:var(--glow-purple);">25%</span></div>
+        <div class="numbers-row"><span>Member Distribution</span><span class="val" style="color:var(--glow-green);">15%</span></div>
+        <div style="margin-top:16px;padding-top:10px;border-top:1px solid var(--border);">
+          <p style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">General Liability Insurance: ~$55/mo. Shopify Plan: $39/mo. Total monthly overhead: ~$40/person.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 14: LAUNCH CHECKLIST — WEEKS 1-2 ═══════════════ -->
+  <div class="slide" data-slide="13">
+    <span class="slide-number">14 / 17</span>
+    <span class="tag tag-purple">Phase 1</span>
+    <h2>Foundation — Weeks 1–2</h2>
+    <p class="subtitle">Legal, brand, supplier research, and infrastructure.</p>
+    <div class="week-grid">
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-cyan);">⚡ Ricardo — Creative/Tech</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Research competitor Shopify stores for design inspo</li>
+          <li>Select brand color palette and typography</li>
+          <li>Design IC Candle Co. logo in Canva</li>
+          <li>Create homepage wireframe/mockup</li>
+          <li>Design 3 product label templates</li>
+          <li>Set up brand Instagram + TikTok accounts</li>
+          <li>Create brand style guide document</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-purple);">📦 Robert — Operations</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Compare top 5 POD candle suppliers</li>
+          <li>Apply to Candle Bliss (free, same-day approval)</li>
+          <li>Apply to Printed Mint account</li>
+          <li>Order sample packs from top 2 suppliers</li>
+          <li>Document supplier pricing, terms, lead times</li>
+          <li>Research liability insurance (Next, Thimble, Hiscox)</li>
+          <li>Create supplier evaluation spreadsheet</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-green);">🚀 Jose — Store/Marketing</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Create Shopify account ($39/mo Basic plan)</li>
+          <li>Purchase domain name (~$15)</li>
+          <li>Install Candle Bliss + Klaviyo apps</li>
+          <li>Set up Shopify Payments + PayPal</li>
+          <li>Research competitor pricing on Etsy</li>
+          <li>Install Google Analytics + Facebook Pixel</li>
+          <li>Create placeholder product collections</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-orange);">📊 Mark — Finance</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>File Florida LLC ($125 via Sunbiz.org)</li>
+          <li>Apply for EIN (IRS.gov, same day)</li>
+          <li>Open business bank account (Mercury/Relay)</li>
+          <li>Set up Wave accounting (free)</li>
+          <li>Draft 4-member operating agreement</li>
+          <li>Create startup budget tracker</li>
+          <li>Research FL sales tax nexus requirements</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 15: LAUNCH CHECKLIST — WEEKS 3-4 ═══════════════ -->
+  <div class="slide" data-slide="14">
+    <span class="slide-number">15 / 17</span>
+    <span class="tag tag-cyan">Phase 2</span>
+    <h2>Build — Weeks 3–4</h2>
+    <p class="subtitle">Store, products, listings, and financial infrastructure.</p>
+    <div class="week-grid">
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-cyan);">⚡ Ricardo — Creative/Tech</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Build full Shopify theme (home, about, FAQ, contact)</li>
+          <li>Design product pages with lifestyle imagery</li>
+          <li>Build candle customizer (photo upload)</li>
+          <li>Generate AI product mockup photos</li>
+          <li>Write SEO descriptions for 8–10 SKUs</li>
+          <li>Design email signup popup + landing page</li>
+          <li>Create social content templates</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-purple);">📦 Robert — Operations</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Burn-test + evaluate all received samples</li>
+          <li>Select primary supplier, finalize agreement</li>
+          <li>Set up automated fulfillment (Candle Bliss app)</li>
+          <li>Configure shipping rate profiles in Shopify</li>
+          <li>Draft returns and exchange policy</li>
+          <li>Write CS email templates (10 scenarios)</li>
+          <li>Secure product liability insurance (~$300–600/yr)</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-green);">🚀 Jose — Store/Marketing</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Upload all products with photos + copy</li>
+          <li>Configure shipping zones + tax settings</li>
+          <li>Open Etsy seller account</li>
+          <li>Create 5 Etsy listings (optimized titles/tags)</li>
+          <li>Set up Klaviyo email capture form</li>
+          <li>Build welcome email sequence (3 emails)</li>
+          <li>Set up Meta Business Manager account</li>
+        </ul>
+      </div>
+      <div class="week-col">
+        <h3 style="border-color:var(--glow-orange);">📊 Mark — Finance</h3>
+        <ul class="check-list" style="margin-top:0;">
+          <li>Build pricing model (all costs per channel)</li>
+          <li>Calculate unit economics per product</li>
+          <li>Create weekly P&L tracking template</li>
+          <li>Enable Shopify sales tax collection</li>
+          <li>Set ad budget rules ($500, $20–30/day cap)</li>
+          <li>Build 3/6/12-month financial projections</li>
+          <li>Set up profit-split tracking (60/25/15)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 16: LAUNCH CHECKLIST — WEEKS 5-8+ ═══════════════ -->
+  <div class="slide" data-slide="15">
+    <span class="slide-number">16 / 17</span>
+    <span class="tag tag-purple">Phases 3–5</span>
+    <h2>Launch, Ads & Scale — Weeks 5–8+</h2>
+    <div class="card-grid cols-3" style="margin-top:16px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3 style="font-size:0.9rem;">Soft Launch · Wk 5–6</h3>
+        <ul class="check-list" style="font-size:0.78rem;">
+          <li><strong style="color:var(--glow-cyan);">Ricardo:</strong> QA entire store (links, checkout, mobile). Create launch graphics. Publish 2 SEO blog posts. Begin daily social content. Film product unboxing video.</li>
+          <li><strong style="color:var(--glow-purple);">Robert:</strong> Place test order through full pipeline. Verify tracking + notification emails. Time end-to-end fulfillment. Coordinate 5–10 F&F test orders. Confirm returns process.</li>
+          <li><strong style="color:var(--glow-green);">Jose:</strong> Remove Shopify password — GO LIVE. Submit for Instagram Shopping. Apply for TikTok Shop. Send launch email to networks. Collect first reviews.</li>
+          <li><strong style="color:var(--glow-orange);">Mark:</strong> Record test-order financials. Verify sales tax collection. Reconcile Shopify payouts. Deliver first weekly P&L. Verify insurance is active.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3 style="font-size:0.9rem;">Paid Ads · Wk 7–8</h3>
+        <ul class="check-list" style="font-size:0.78rem;">
+          <li><strong style="color:var(--glow-cyan);">Ricardo:</strong> Create 5 ad creative variants. Design retargeting visuals. Publish 2 more blog posts. A/B test product pages. Prep seasonal mockups.</li>
+          <li><strong style="color:var(--glow-purple);">Robert:</strong> Monitor fulfillment quality. Set weekly supplier check-in. Optimize shipping costs. Build FAQ from common questions. Evaluate Printed Mint for gift SKUs.</li>
+          <li><strong style="color:var(--glow-green);">Jose:</strong> Launch 3 Meta ad campaigns ($20–30/day). Activate abandoned cart email flow. Set up review-request automation. Start TikTok push (3–5 vids/wk). Kill underperformers daily.</li>
+          <li><strong style="color:var(--glow-orange);">Mark:</strong> Track ad spend vs. ROAS daily. Calculate actual CAC per channel. Adjust budget on performance. Monthly P&L review. Begin quarterly tax prep.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3 style="font-size:0.9rem;">Scale · Month 3+</h3>
+        <ul class="check-list" style="font-size:0.78rem;">
+          <li>Double budget on winning ad campaigns</li>
+          <li>Expand to Google Shopping ads</li>
+          <li>Launch TikTok paid ads</li>
+          <li>Plan first seasonal collection</li>
+          <li>Explore Amazon FBA listing</li>
+          <li>Add Printed Mint as second supplier</li>
+          <li>Reinvest 60% of profits into growth</li>
+          <li>Quarterly business plan review</li>
+          <li>First member profit distribution</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SLIDE 17: RISK MANAGEMENT ═══════════════ -->
+  <div class="slide" data-slide="16">
+    <span class="slide-number">17 / 17</span>
+    <span class="tag tag-purple">Risk</span>
+    <h2>Risk Management</h2>
+    <div class="card-grid cols-2" style="margin-top:24px;">
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <span class="icon">⚠️</span>
+        <h3>Chargeback Risk</h3>
+        <p>You are the seller of record. If a customer disputes a charge, YOU are named first — not the supplier. Document every order with tracking number, fulfillment confirmation, and customer communications. Chargebacks without documentation are almost always lost.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <span class="icon">↩️</span>
+        <h3>Returns</h3>
+        <ul class="check-list">
+          <li>Suppliers do NOT accept returns on POD items</li>
+          <li>Damaged/wrong → replace, no return required</li>
+          <li>Customer changed mind → store credit or exchange</li>
+          <li>Personalized items → final sale (state on listing)</li>
+          <li>Budget 2–3% of revenue as returns buffer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <span class="icon">🛡️</span>
+        <h3>Insurance</h3>
+        <ul class="check-list">
+          <li>You carry exposure as the visible brand</li>
+          <li>Get General + Product Liability (~$300–600/yr)</li>
+          <li>Providers: Next Insurance, Thimble, Hiscox</li>
+          <li>Read supplier terms — know where liability ends</li>
+          <li>Get coverage BEFORE your first sale</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <span class="icon">📋</span>
+        <h3>Record Keeping</h3>
+        <ul class="check-list">
+          <li>Log every order: tracking #, fulfillment date, destination</li>
+          <li>Screenshot customer comms if issues arise</li>
+          <li>Use platform dashboards (Printify/Candle Bliss)</li>
+          <li>For Printed Mint — supplement with manual records</li>
+          <li>Records are your defense in any payment dispute</li>
+        </ul>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a class="cta-btn" href="IC_Candle_Co_Business_Plan_2026.pdf" target="_blank">Download Business Plan (PDF)</a>
+      <a class="cta-btn" href="business-plan.html" target="_blank" style="background:linear-gradient(135deg, var(--glow-purple), var(--glow-cyan));">View Business Plan (Web)</a>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="go(-1)">← Prev</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsBox = document.getElementById('dots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let cur = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => jump(i);
+    dotsBox.appendChild(d);
+  });
+
+  function jump(n) {
+    if (n < 0 || n >= slides.length) return;
+    slides[cur].classList.remove('active');
+    dotsBox.children[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dotsBox.children[cur].classList.add('active');
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === slides.length - 1;
+  }
+
+  function go(dir) { jump(cur + dir); }
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+  });
+
+  // Initial state
+  prevBtn.disabled = true;
+</script>
+
+</body>
+</html>

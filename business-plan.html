@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC Candle Co. — Business Plan 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --accent: #0ea5e9;
+    --accent-dark: #0369a1;
+    --purple: #7c3aed;
+    --green: #059669;
+    --orange: #d97706;
+    --text: #1e293b;
+    --text-dim: #64748b;
+    --border: #e2e8f0;
+    --surface: #f8fafc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.7;
+    font-size: 11pt;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 40px 50px;
+  }
+
+  /* Cover Page */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    border-bottom: 4px solid var(--accent);
+  }
+  .cover h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .cover h1 span { color: var(--accent); }
+  .cover .cover-sub {
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+  }
+  .cover .cover-meta {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 2;
+  }
+
+  /* Sections */
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-top: 48px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: -0.5px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 28px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+
+  p { margin-bottom: 12px; }
+
+  ul, ol {
+    margin: 12px 0 12px 24px;
+  }
+  li { margin-bottom: 6px; }
+
+  strong { font-weight: 600; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 20px;
+    font-size: 0.9rem;
+  }
+  th {
+    background: var(--surface);
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+  }
+  .callout.warning {
+    border-left-color: var(--orange);
+    background: #fffbeb;
+  }
+  .callout.success {
+    border-left-color: var(--green);
+    background: #f0fdf4;
+  }
+
+  /* Footer */
+  .doc-footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  /* Print */
+  @media print {
+    body { font-size: 10pt; }
+    .page { padding: 20mm 25mm; max-width: none; }
+    .cover { min-height: auto; padding: 40px 20px; page-break-after: always; }
+    h2 { page-break-after: avoid; }
+    .callout { break-inside: avoid; }
+    table { break-inside: avoid; }
+    .back-link { display: none; }
+    @page { size: A4; margin: 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a class="back-link" href="index.html">← Back to Presentation</a>
+
+  <!-- ═══════════════ COVER ═══════════════ -->
+  <div class="cover">
+    <h1>IC <span>CANDLE</span> CO.</h1>
+    <p class="cover-sub">Business Plan 2026</p>
+    <p class="cover-meta">
+      Custom Candles Powered by AI<br>
+      Print-on-Demand · Direct-to-Consumer · Multi-Channel<br><br>
+      Prepared by the IC Candle Co. Founding Team<br>
+      Ricardo · Robert · Jose · Mark<br><br>
+      Florida, United States<br>
+      2026
+    </p>
+  </div>
+
+  <!-- ═══════════════ TABLE OF CONTENTS ═══════════════ -->
+  <h2>Table of Contents</h2>
+  <ol style="font-size:1rem;line-height:2.2;">
+    <li><a href="#exec" style="color:var(--accent-dark);text-decoration:none;">Executive Summary</a></li>
+    <li><a href="#company" style="color:var(--accent-dark);text-decoration:none;">Company Overview</a></li>
+    <li><a href="#products" style="color:var(--accent-dark);text-decoration:none;">Products & Pricing</a></li>
+    <li><a href="#market" style="color:var(--accent-dark);text-decoration:none;">Market Analysis</a></li>
+    <li><a href="#marketing" style="color:var(--accent-dark);text-decoration:none;">Marketing & Sales Strategy</a></li>
+    <li><a href="#operations" style="color:var(--accent-dark);text-decoration:none;">Operational Plan</a></li>
+    <li><a href="#financial" style="color:var(--accent-dark);text-decoration:none;">Financial Plan</a></li>
+  </ol>
+
+  <!-- ═══════════════ 1.0 EXECUTIVE SUMMARY ═══════════════ -->
+  <h2 id="exec">1.0 Executive Summary</h2>
+
+  <p>IC Candle Co. is a direct-to-consumer candle brand specializing in custom, personalized candles designed to enhance home aesthetics and promote relaxation. Operating primarily through Shopify with multi-channel distribution across Etsy, TikTok Shop, Instagram Shop, Amazon, and an SEO-driven blog, we leverage a <strong>print-on-demand (POD) fulfillment model</strong> that eliminates inventory risk, upfront production costs, and warehousing overhead.</p>
+
+  <p>Our founding team of four brings complementary expertise across creative/technology, operations, e-commerce/advertising, and finance. What sets IC Candle Co. apart is our <strong>AI-powered approach</strong>: we use artificial intelligence to handle web design, SEO, copywriting, email marketing, social media management, brand strategy, and market research — services that would cost a traditional startup $11,500–$19,000 per month if outsourced to agencies. Our total monthly operating cost is approximately <strong>$40 per person</strong>.</p>
+
+  <p>Our goal is to achieve profitability within the first 3 months, targeting break-even at approximately 30 candle sales per month while maintaining gross margins of 43–55% depending on pricing strategy.</p>
+
+  <div class="callout success">
+    <strong>Key Differentiators:</strong> Zero inventory risk through POD fulfillment · AI replaces $11.5–19K/mo in agency costs · 4-person team with zero role overlap · Total launch cost ~$830 (~$208 per person) · Break-even at ~30 candles.
+  </div>
+
+  <!-- ═══════════════ 2.0 COMPANY OVERVIEW ═══════════════ -->
+  <h2 id="company">2.0 Company Overview</h2>
+
+  <h3>Mission Statement</h3>
+  <p>To brighten homes with clean-burning, thoughtfully curated scents that provide a moment of peace — delivered through a modern, AI-driven e-commerce experience with zero waste and zero inventory risk.</p>
+
+  <h3>Business Structure</h3>
+  <p>LLC registered in the State of Florida. The company operates as a 4-member limited liability company with clearly defined roles and responsibilities.</p>
+
+  <h3>Location</h3>
+  <p>Fully virtual with e-commerce operations. All production and fulfillment is handled by our POD supplier partners (primarily US-based). No physical storefront or production space required.</p>
+
+  <h3>Core Values</h3>
+  <ul>
+    <li><strong>Clean Ingredients</strong> — Coconut apricot wax (a vegan blend of natural apricot, coconut, and soy), cotton wicks (lead and zinc free) and FSC-certified wood wicks, natural wax color with no added dyes</li>
+    <li><strong>Clean Scents&trade;</strong> — All fragrances are phthalate-free and formulated without carcinogens, mutagens, reproductive toxins, organ toxins, or acute toxins. California Prop 65 compliant</li>
+    <li><strong>American Made</strong> — Every candle hand-poured in the USA using domestically sourced coconut apricot wax and fragrance oils. Recyclable glass, tin, and crystal vessels</li>
+    <li><strong>Transparency</strong> — Full ingredient disclosure on every listing, honest marketing, clear return and exchange policies</li>
+    <li><strong>Innovation</strong> — AI-first marketing and operations, enabling a lean 4-person team to compete with funded brands at near-zero marketing cost</li>
+  </ul>
+
+  <h3>The Founding Team</h3>
+  <table>
+    <thead>
+      <tr><th>Member</th><th>Role</th><th>Responsibilities</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ricardo</strong></td>
+        <td>Creative Director / Tech Lead</td>
+        <td>Website design, AI prompt engineering, SEO content, brand identity, product mockup templates. Produces all creative assets with Claude AI.</td>
+      </tr>
+      <tr>
+        <td><strong>Robert</strong></td>
+        <td>COO / Operations & Supply Chain</td>
+        <td>Supplier sourcing, quality control, fulfillment pipeline, shipping, returns, customer service. Former REI head manager with deep retail operations expertise.</td>
+      </tr>
+      <tr>
+        <td><strong>Jose</strong></td>
+        <td>Store Manager & Paid Marketing</td>
+        <td>Shopify setup, product listings, Meta/TikTok ads, email platform (Klaviyo), analytics. Has existing Shopify experience.</td>
+      </tr>
+      <tr>
+        <td><strong>Mark</strong></td>
+        <td>CFO & Business Strategy</td>
+        <td>LLC formation, bookkeeping, P&L reporting, ad budget allocation, tax planning, capital fund management. Finance professional.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════ 3.0 PRODUCTS & PRICING ═══════════════ -->
+  <h2 id="products">3.0 Products & Pricing</h2>
+
+  <h3>Product Line</h3>
+  <p>IC Candle Co. operates a <strong>dropship / print-on-demand model</strong> through Candle Bliss. We design branded labels; Candle Bliss hand-pours, labels, and ships each candle directly to the customer under our brand. We carry zero inventory and never touch the product. Our catalog spans multiple vessel types, sizes, and 20+ scent options — all produced on-demand per order.</p>
+
+  <h3>Product Catalog — Candle Bliss Dropship Pricing</h3>
+  <table>
+    <thead>
+      <tr><th>Product</th><th>Size</th><th>Our Cost (POD)</th><th>Burn Time</th><th>Vessel / Wick</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Clear Glass Jar Candle</td><td class="mono">4 oz</td><td class="mono">$6.50</td><td>~20 hrs</td><td>Clear glass, gold lid / Cotton</td></tr>
+      <tr><td>Clear Glass Jar Candle</td><td class="mono">9 oz</td><td class="mono">$10.50</td><td>~50 hrs</td><td>Clear glass, gold lid / Cotton</td></tr>
+      <tr><td>Amber Glass Jar Candle</td><td class="mono">4 oz</td><td class="mono">$6.50</td><td>~20 hrs</td><td>Amber glass, gold lid / Cotton</td></tr>
+      <tr><td>Amber Glass Jar Candle</td><td class="mono">9 oz</td><td class="mono">$10.50</td><td>~50 hrs</td><td>Amber glass, gold lid / Cotton</td></tr>
+      <tr><td>Mason Jar Candle</td><td class="mono">8 oz</td><td class="mono">$7.00</td><td>~40 hrs</td><td>Clear glass mason jar / Cotton</td></tr>
+      <tr><td>Mason Jar Candle</td><td class="mono">16 oz</td><td class="mono">$12.00</td><td>~70 hrs</td><td>Clear glass mason jar / Cotton</td></tr>
+      <tr><td>Candle Tin (Gold / Silver / Black)</td><td class="mono">8 oz</td><td class="mono">$8.50</td><td>~40 hrs</td><td>Metal tin with lid / Cotton</td></tr>
+      <tr><td>Frosted Glass Candle</td><td class="mono">11 oz</td><td class="mono">$13.50</td><td>~50 hrs</td><td>Frosted glass, wood lid / Wood wick</td></tr>
+      <tr><td>Faceted Crystal Glass Candle</td><td class="mono">10.5 oz</td><td class="mono">$18.50</td><td>~50 hrs</td><td>Cut crystal, matching lid / Wood wick</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Accessories:</strong> Wick Trimmer ($7.50, black/gold/silver) · Fragrance Sample Pack ($12.00–$16.00) · Reed Diffusers: Clear Cube ($15.50), Matte Black Cube ($15.50), Classic Square ($18.50). Wholesale bulk: 12-pack amber jars from $60 (4oz) / $78 (9oz). Best Sellers 36-pack: $282.
+  </div>
+
+  <h3>Wax & Materials</h3>
+  <ul>
+    <li><strong>Wax:</strong> Coconut Apricot Wax — a vegan blend of natural apricot, coconut, and soy wax, made in the USA. Toxin-free, paraben-free, phthalate-free, from renewable sources. Contains a minuscule amount of highly refined food-grade paraffin for structural stability</li>
+    <li><strong>Fragrance:</strong> Clean Scents&trade; fragrance oils — phthalate-free, Prop 65 compliant, formulated without carcinogens, mutagens, reproductive toxins, organ toxins, or acute toxins</li>
+    <li><strong>Wicks:</strong> Cotton wicks (lead and zinc free) for jar and tin candles; FSC-certified wood wicks for frosted glass and crystal vessels</li>
+    <li><strong>Color:</strong> Natural wax color — no synthetic dyes added</li>
+    <li><strong>Vessels:</strong> Clear glass, amber glass, mason jar, metal tin (gold/silver/black), frosted glass, faceted crystal — all recyclable</li>
+  </ul>
+
+  <h3>Available Scents (20+)</h3>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Scents</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Floral</strong></td><td>Bohemian Rose, Lavender, Sea Salt & Orchid, Yuzu Blossom, Lychee Lotus</td></tr>
+      <tr><td><strong>Warm / Gourmand</strong></td><td>Vanilla Bean, Cherry Vanilla, Cashmere Vanilla, Cinnamon Chai, Blackberry</td></tr>
+      <tr><td><strong>Fresh / Clean</strong></td><td>Fresh Linen, Beach Linen, Coastal Cottage, Sunwashed, Sea Minerals</td></tr>
+      <tr><td><strong>Earthy / Woodsy</strong></td><td>Sandalwood & Cedar, Oakmoss, Black Coral & Moss, Woodland Forest</td></tr>
+      <tr><td><strong>Seasonal</strong></td><td>Fraser Fir, Cranberry Balsam, Pumpkin, Evergreen & Apple, Merry & Bright</td></tr>
+      <tr><td><strong>Tropical / Fruity</strong></td><td>Mango & Coconut Milk, Island, Fiesta Pineapple Margarita, Ripe Juicy Pear</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Niche Positioning Strategy</h3>
+  <p>The scent itself is not the niche — the <strong>story</strong> around it is. The same Candle Bliss candle, renamed and repositioned with custom label design, targets a completely different buyer. We focus on five high-intent niches where buyers search by occasion, not by scent.</p>
+
+  <table>
+    <thead>
+      <tr><th>Niche</th><th>Candle Bliss Scents</th><th>Target Buyer</th><th>Search Intent</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Memorial / Sympathy</strong></td>
+        <td>Lavender, Vanilla Bean, Cashmere Vanilla, Fresh Linen, Serenity</td>
+        <td>Grieving families, funeral directors, hospice workers</td>
+        <td>"sympathy candle gift", "memorial candle for loss of loved one"</td>
+      </tr>
+      <tr>
+        <td><strong>Profession-Specific Gifting</strong></td>
+        <td>Sandalwood & Cedar, Oakmoss, Fresh Linen, Coastal Cottage, Cinnamon Chai</td>
+        <td>Corporate gift buyers, HR departments, admin assistants</td>
+        <td>"teacher appreciation candle", "realtor closing gift", "nurse gift"</td>
+      </tr>
+      <tr>
+        <td><strong>Outdoors / Adventure</strong></td>
+        <td>Fraser Fir, Woodland Forest, Evergreen & Apple, Oakmoss, Coastal Cottage</td>
+        <td>Hikers, campers, national park fans, outdoors lifestyle</td>
+        <td>"campfire candle gift", "mountain cabin candle", "adventure gift for him"</td>
+      </tr>
+      <tr>
+        <td><strong>Cultural Celebrations</strong></td>
+        <td>Cinnamon Chai, Mango & Coconut Milk, Fiesta Pineapple Margarita, Yuzu Blossom, Cranberry Balsam</td>
+        <td>Multicultural consumers, holiday shoppers, event planners</td>
+        <td>"Diwali candle gift", "Lunar New Year candle", "Día de los Muertos candle"</td>
+      </tr>
+      <tr>
+        <td><strong>Manifestation / Intention</strong></td>
+        <td>Bohemian Rose, Lavender, Sandalwood & Cedar, Serenity, Island</td>
+        <td>Spiritual practitioners, yoga community, new-age wellness</td>
+        <td>"manifestation candle", "intention setting candle", "meditation candle gift"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Key Insight:</strong> Etsy buyers search "sympathy candle gift personalized" — not "lavender candle." The label design, listing copy, and product photography do the niche targeting. We launch with 3–5 SKUs per niche and expand based on sales data and review velocity.
+  </div>
+
+  <h3>Pricing Strategy</h3>
+  <p>Premium-affordable positioning. Every product is priced to achieve a <strong>minimum 50% gross margin</strong> after supplier cost and platform fees. Pricing uses a 2.5x–3x retail markup on actual Candle Bliss POD costs.</p>
+
+  <table>
+    <thead>
+      <tr><th>Product</th><th>Size</th><th>POD Cost</th><th>Our Retail</th><th>Fee (~7%)</th><th>Net Margin</th><th>Margin %</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Clear Glass Jar</td><td class="mono">4 oz</td><td class="mono">$6.50</td><td class="mono">$18.00</td><td class="mono">$1.26</td><td class="mono"><strong>$10.24</strong></td><td class="mono">57%</td></tr>
+      <tr><td>Clear Glass Jar</td><td class="mono">9 oz</td><td class="mono">$10.50</td><td class="mono">$28.00</td><td class="mono">$1.96</td><td class="mono"><strong>$15.54</strong></td><td class="mono">55%</td></tr>
+      <tr><td>Amber Glass Jar</td><td class="mono">4 oz</td><td class="mono">$6.50</td><td class="mono">$18.00</td><td class="mono">$1.26</td><td class="mono"><strong>$10.24</strong></td><td class="mono">57%</td></tr>
+      <tr><td>Amber Glass Jar</td><td class="mono">9 oz</td><td class="mono">$10.50</td><td class="mono">$28.00</td><td class="mono">$1.96</td><td class="mono"><strong>$15.54</strong></td><td class="mono">55%</td></tr>
+      <tr><td>Mason Jar</td><td class="mono">8 oz</td><td class="mono">$7.00</td><td class="mono">$22.00</td><td class="mono">$1.54</td><td class="mono"><strong>$13.46</strong></td><td class="mono">61%</td></tr>
+      <tr><td>Mason Jar</td><td class="mono">16 oz</td><td class="mono">$12.00</td><td class="mono">$34.00</td><td class="mono">$2.38</td><td class="mono"><strong>$19.62</strong></td><td class="mono">58%</td></tr>
+      <tr><td>Candle Tin (Gold/Silver/Black)</td><td class="mono">8 oz</td><td class="mono">$8.50</td><td class="mono">$24.00</td><td class="mono">$1.68</td><td class="mono"><strong>$13.82</strong></td><td class="mono">58%</td></tr>
+      <tr><td>Frosted Glass</td><td class="mono">11 oz</td><td class="mono">$13.50</td><td class="mono">$36.00</td><td class="mono">$2.52</td><td class="mono"><strong>$19.98</strong></td><td class="mono">55%</td></tr>
+      <tr><td>Faceted Crystal</td><td class="mono">10.5 oz</td><td class="mono">$18.50</td><td class="mono">$48.00</td><td class="mono">$3.36</td><td class="mono"><strong>$26.14</strong></td><td class="mono">54%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <strong>Margin Summary:</strong> Average margin across the catalog is <strong>55–58%</strong>. The 4oz jars and tins are ideal for gifting bundles and lower-price-point entry. Frosted glass and crystal lines command premium pricing for memorial, manifestation, and cultural celebration niches. Platform fee estimate blends Etsy (~10%) and Shopify (~3%) at ~7%.
+  </div>
+
+  <p><strong>Accessories & Add-Ons:</strong></p>
+  <table>
+    <thead>
+      <tr><th>Product</th><th>POD Cost</th><th>Our Retail</th><th>Margin</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Wick Trimmer (Black / Gold / Silver)</td><td class="mono">$7.50</td><td class="mono">$14.00</td><td class="mono">$6.50 (46%)</td></tr>
+      <tr><td>Clear Cube Reed Diffuser</td><td class="mono">$15.50</td><td class="mono">$38.00</td><td class="mono">$22.50 (59%)</td></tr>
+      <tr><td>Matte Black Cube Reed Diffuser</td><td class="mono">$15.50</td><td class="mono">$38.00</td><td class="mono">$22.50 (59%)</td></tr>
+      <tr><td>Classic Square Reed Diffuser</td><td class="mono">$18.50</td><td class="mono">$46.00</td><td class="mono">$27.50 (60%)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════ 4.0 MARKET ANALYSIS ═══════════════ -->
+  <h2 id="market">4.0 Market Analysis</h2>
+
+  <h3>Industry Trends (2026)</h3>
+  <p>The global scented candle market continues to grow, driven by a strong consumer shift towards sustainability, wellness-focused aromas, and personalized products. The trend towards clean-burning, non-toxic candles with premium ingredients is accelerating, creating a natural opening for brands that prioritize transparency and quality.</p>
+
+  <h3>Target Market</h3>
+  <ul>
+    <li><strong>Demographics:</strong> Individuals aged 25–40, primarily homeowners or apartment dwellers</li>
+    <li><strong>Psychographics:</strong> Eco-conscious professionals who prioritize interior décor, self-care routines, and thoughtful gifting</li>
+    <li><strong>Behavior:</strong> Active online shoppers who discover products through social media, Etsy search, and Instagram. Willing to pay premium for personalized, sustainable products</li>
+    <li><strong>Gift buyers:</strong> A significant portion of candle purchases are gifts — wedding favors, housewarming, holidays, corporate gifts</li>
+  </ul>
+
+  <h3>Competitive Advantage</h3>
+  <p>Unlike large mass-market brands, IC Candle Co. offers unique, artisanal scent profiles and superior non-toxic wax blends, catering to conscious consumers. Our POD model provides several structural advantages over traditional candle startups:</p>
+
+  <table>
+    <thead>
+      <tr><th>Factor</th><th>Traditional Candle Startup</th><th>IC Candle Co. (POD)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Startup Cost</td><td>$3,000–$10,000+</td><td class="mono">~$830</td></tr>
+      <tr><td>Inventory Risk</td><td>High (unsold stock)</td><td>Zero</td></tr>
+      <tr><td>Production Space</td><td>Required</td><td>Not needed</td></tr>
+      <tr><td>Time to Market</td><td>2–6 months</td><td>2–4 weeks</td></tr>
+      <tr><td>Marketing Cost</td><td>$2K–10K/mo (agency)</td><td class="mono">~$0 (AI)</td></tr>
+      <tr><td>SKU Flexibility</td><td>Limited by inventory</td><td>Unlimited (no cost to add)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════ 5.0 MARKETING & SALES ═══════════════ -->
+  <h2 id="marketing">5.0 Marketing & Sales Strategy</h2>
+
+  <h3>AI-Powered Marketing Stack</h3>
+  <p>AI handles everything a traditional marketing agency would — web design, SEO, copywriting, email campaigns, social media management, brand strategy, and market research — at near-zero cost. This is our primary competitive moat.</p>
+
+  <table>
+    <thead>
+      <tr><th>Agency Role Replaced</th><th>Market Rate</th><th>Our Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Web Designer</td><td>$2,000–4,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>SEO Specialist</td><td>$1,500–3,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>Copywriter</td><td>$2,000–3,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>Email Marketer</td><td>$1,000–2,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>Social Media Manager</td><td>$1,500–2,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>Brand Strategist</td><td>$2,000–3,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td>Market Researcher</td><td>$1,500–2,000/mo</td><td class="mono">$0</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>$11,500–19,000/mo</strong></td><td class="mono"><strong>$0</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sales Channels</h3>
+  <ol>
+    <li><strong>Shopify</strong> — Home base. Full brand experience, custom orders, high-converting checkout with built-in inventory management and social media integration</li>
+    <li><strong>Etsy</strong> — Built-in audience, #1 platform for personalized gifts. Organic discovery from day one. Primary launch channel</li>
+    <li><strong>TikTok Shop</strong> — Sell directly inside viral videos. Massive organic reach for visual products</li>
+    <li><strong>Instagram Shop</strong> — Tag products in posts and reels. Lifestyle imagery drives impulse purchases</li>
+    <li><strong>Amazon</strong> — Massive trust and gift traffic. Access the world's largest marketplace audience</li>
+    <li><strong>SEO Blog</strong> — AI-generated blog content drives free Google traffic to Shopify storefront long-term</li>
+  </ol>
+
+  <h3>Marketing Tactics</h3>
+  <ul>
+    <li><strong>Instagram & TikTok:</strong> Lifestyle imagery showing candles in home settings, short-form video content, behind-the-scenes of our brand story</li>
+    <li><strong>Email Marketing:</strong> "Find Your Signature Scent" quiz and 10% off incentive via Shopify Forms to build email list from day one. Abandoned cart flows via Klaviyo</li>
+    <li><strong>Influencer Outreach:</strong> Partner with micro-influencers in home décor/wellness niches through product gifting</li>
+    <li><strong>Paid Advertising:</strong> Meta ad campaigns ($20–30/day initial), testing 3–5 creatives, scaling winners</li>
+    <li><strong>SEO:</strong> AI-written blog posts targeting long-tail keywords (e.g., "best personalized candle gifts for bridesmaids")</li>
+  </ul>
+
+  <!-- ═══════════════ 6.0 OPERATIONAL PLAN ═══════════════ -->
+  <h2 id="operations">6.0 Operational Plan</h2>
+
+  <h3>Print-on-Demand Model</h3>
+  <p>IC Candle Co. operates a print-on-demand (POD) fulfillment model. When a customer places an order, it automatically routes to our supplier partner who hand-pours the candle with our custom label and ships directly to the customer under our brand. We never touch inventory.</p>
+
+  <div class="callout">
+    <strong>How It Works:</strong> Customer Orders → Auto-Routed to Supplier → Produced (hand-poured with our label) → Shipped Directly to Customer → We Collect the Margin. You only pay the supplier after the customer pays you.
+  </div>
+
+  <h3>Primary Supplier: Candle Bliss</h3>
+  <ul>
+    <li>20+ scent options, coconut/apricot wax blend</li>
+    <li>Free Shopify and Etsy app integrations — automated fulfillment</li>
+    <li>Phoenix, AZ fulfillment center — 1–3 day turnaround</li>
+    <li>White-label only, strong gift packaging options</li>
+    <li>Free to join, no minimum order quantity</li>
+    <li>Prop 65 compliant, phthalate-free fragrance</li>
+  </ul>
+
+  <h3>Secondary Supplier: Printed Mint</h3>
+  <ul>
+    <li>Best gift packaging (ribbons, crinkle paper, custom inserts)</li>
+    <li>Broad marketplace reach via Order Desk integration</li>
+    <li>Limited to 4 scents, 4–7 day fulfillment, manual record keeping</li>
+    <li>Best for gift-focused niche requiring premium unboxing</li>
+  </ul>
+
+  <h3>Tertiary Supplier: Candle Builders</h3>
+  <ul>
+    <li>Fast turnaround (1–2 days), New Hampshire fulfillment center</li>
+    <li>Native Shopify and Etsy integrations, 8+ scent options</li>
+    <li>White-label gift packaging, soy wax only</li>
+    <li>Free to join, no MOQ — good speed-focused backup supplier</li>
+    <li>Limited vessel variety (3 glass types)</li>
+  </ul>
+
+  <h3>Shipping Strategy</h3>
+  <ul>
+    <li><strong>Standard:</strong> Pass shipping cost to customer</li>
+    <li><strong>"Free shipping":</strong> Build shipping into retail price</li>
+    <li><strong>Threshold:</strong> Free shipping on 2+ candle orders</li>
+    <li><strong>Candle Bliss:</strong> Free shipping at $99+ order value</li>
+  </ul>
+
+  <h3>Risk Management</h3>
+
+  <div class="callout warning">
+    <strong>Chargeback Risk:</strong> As seller of record, IC Candle Co. is named first in any customer dispute — not the supplier. Every order must be documented with tracking number, fulfillment confirmation, and customer communications. Chargebacks without documentation are almost always lost.
+  </div>
+
+  <p><strong>Returns Policy:</strong></p>
+  <ul>
+    <li>POD suppliers do NOT accept returns on custom items</li>
+    <li>Damaged or wrong orders → replacement shipped, no return required</li>
+    <li>Customer changed mind → store credit or exchange</li>
+    <li>Personalized items → final sale (clearly stated on all listings)</li>
+    <li>Budget 2–3% of revenue as returns/replacement buffer</li>
+  </ul>
+
+  <p><strong>Insurance:</strong></p>
+  <ul>
+    <li>General Liability + Product Liability Insurance required (~$300–600/year)</li>
+    <li>Recommended providers: Next Insurance, Thimble, Hiscox</li>
+    <li>Coverage must be secured BEFORE first sale</li>
+    <li>Review supplier terms to understand where their liability ends</li>
+  </ul>
+
+  <p><strong>Record Keeping:</strong></p>
+  <ul>
+    <li>Log every order: tracking #, fulfillment date, destination</li>
+    <li>Screenshot customer communications when issues arise</li>
+    <li>Use platform dashboards (Candle Bliss/Printify auto-track)</li>
+    <li>For Printed Mint — supplement with manual records</li>
+    <li>Records are primary defense in any payment dispute</li>
+  </ul>
+
+  <h3>Launch Timeline Overview</h3>
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>Timing</th><th>Gate Criteria</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Foundation</strong></td><td>Week 1–2</td><td>LLC filed, bank open, Shopify created, suppliers applied, brand identity done</td></tr>
+      <tr><td><strong>Build</strong></td><td>Week 3–4</td><td>Store designed, 8–10 products listed, Etsy live, fulfillment tested, insurance secured</td></tr>
+      <tr><td><strong>Soft Launch</strong></td><td>Week 5–6</td><td>Shopify live, 5–10 test orders fulfilled, reviews collected, financials reconciled</td></tr>
+      <tr><td><strong>Paid Ads</strong></td><td>Week 7–8</td><td>3 Meta campaigns running, abandoned cart flow active, ROAS tracked daily</td></tr>
+      <tr><td><strong>Scale</strong></td><td>Month 3+</td><td>Winning ads doubled, Google Shopping live, seasonal collection planned</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 1: Foundation — Weeks 1–2</h3>
+  <table>
+    <thead>
+      <tr><th style="width:25%;">Ricardo (Creative/Tech)</th><th style="width:25%;">Robert (Operations)</th><th style="width:25%;">Jose (Store/Marketing)</th><th style="width:25%;">Mark (Finance)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          &bull; Research competitor Shopify stores<br>
+          &bull; Select brand color palette + typography<br>
+          &bull; Design IC Candle Co. logo in Canva<br>
+          &bull; Create homepage wireframe/mockup<br>
+          &bull; Design 3 product label templates<br>
+          &bull; Set up brand Instagram + TikTok<br>
+          &bull; Create brand style guide
+        </td>
+        <td>
+          &bull; Compare top 5 POD candle suppliers<br>
+          &bull; Apply to Candle Bliss (free, same-day)<br>
+          &bull; Apply to Printed Mint account<br>
+          &bull; Order sample packs from top 2<br>
+          &bull; Document pricing, terms, lead times<br>
+          &bull; Research insurance (Next, Thimble, Hiscox)<br>
+          &bull; Create supplier evaluation spreadsheet
+        </td>
+        <td>
+          &bull; Create Shopify account ($39/mo Basic)<br>
+          &bull; Purchase domain name (~$15)<br>
+          &bull; Install Candle Bliss + Klaviyo apps<br>
+          &bull; Set up Shopify Payments + PayPal<br>
+          &bull; Research competitor pricing on Etsy<br>
+          &bull; Install Google Analytics + Facebook Pixel<br>
+          &bull; Create placeholder product collections
+        </td>
+        <td>
+          &bull; File Florida LLC ($125 via Sunbiz.org)<br>
+          &bull; Apply for EIN (IRS.gov, same day)<br>
+          &bull; Open business bank account (Mercury)<br>
+          &bull; Set up Wave accounting (free)<br>
+          &bull; Draft 4-member operating agreement<br>
+          &bull; Create startup budget tracker<br>
+          &bull; Research FL sales tax requirements
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 2: Build — Weeks 3–4</h3>
+  <table>
+    <thead>
+      <tr><th style="width:25%;">Ricardo (Creative/Tech)</th><th style="width:25%;">Robert (Operations)</th><th style="width:25%;">Jose (Store/Marketing)</th><th style="width:25%;">Mark (Finance)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          &bull; Build full Shopify theme (home, about, FAQ)<br>
+          &bull; Design product pages with lifestyle imagery<br>
+          &bull; Build candle customizer (photo upload)<br>
+          &bull; Generate AI product mockup photos<br>
+          &bull; Write SEO descriptions for 8–10 SKUs<br>
+          &bull; Design email signup popup<br>
+          &bull; Create social content templates
+        </td>
+        <td>
+          &bull; Burn-test + evaluate all samples<br>
+          &bull; Select primary supplier, finalize agreement<br>
+          &bull; Set up automated fulfillment (CB app)<br>
+          &bull; Configure shipping rates in Shopify<br>
+          &bull; Draft returns and exchange policy<br>
+          &bull; Write CS email templates (10 scenarios)<br>
+          &bull; Secure product liability insurance
+        </td>
+        <td>
+          &bull; Upload all products with photos + copy<br>
+          &bull; Configure shipping zones + tax settings<br>
+          &bull; Open Etsy seller account<br>
+          &bull; Create 5 Etsy listings (optimized tags)<br>
+          &bull; Set up Klaviyo email capture form<br>
+          &bull; Build welcome email sequence (3 emails)<br>
+          &bull; Set up Meta Business Manager
+        </td>
+        <td>
+          &bull; Build pricing model (all costs/channel)<br>
+          &bull; Calculate unit economics per product<br>
+          &bull; Create weekly P&L tracking template<br>
+          &bull; Enable Shopify sales tax collection<br>
+          &bull; Set ad budget rules ($500, $20–30/day)<br>
+          &bull; Build 3/6/12-month financial projections<br>
+          &bull; Set up profit-split tracking (60/25/15)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 3: Soft Launch — Weeks 5–6</h3>
+  <table>
+    <thead>
+      <tr><th style="width:25%;">Ricardo (Creative/Tech)</th><th style="width:25%;">Robert (Operations)</th><th style="width:25%;">Jose (Store/Marketing)</th><th style="width:25%;">Mark (Finance)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          &bull; QA entire store (links, checkout, mobile)<br>
+          &bull; Create launch graphics for social<br>
+          &bull; Publish first 2 SEO blog posts<br>
+          &bull; Begin daily social content (IG + TikTok)<br>
+          &bull; Film product unboxing video<br>
+          &bull; Design review-request email template
+        </td>
+        <td>
+          &bull; Place test order through full pipeline<br>
+          &bull; Verify tracking + notification emails<br>
+          &bull; Time end-to-end fulfillment cycle<br>
+          &bull; Coordinate 5–10 F&amp;F test orders<br>
+          &bull; Resolve any fulfillment issues<br>
+          &bull; Confirm returns process works
+        </td>
+        <td>
+          &bull; Remove Shopify password — GO LIVE<br>
+          &bull; Submit for Instagram Shopping approval<br>
+          &bull; Apply for TikTok Shop seller account<br>
+          &bull; Launch organic posts with product tags<br>
+          &bull; Send launch email to personal networks<br>
+          &bull; Follow up with buyers for reviews
+        </td>
+        <td>
+          &bull; Record all test-order financials in Wave<br>
+          &bull; Compare actual vs. projected economics<br>
+          &bull; Verify sales tax collection is correct<br>
+          &bull; Reconcile Shopify payouts with bank<br>
+          &bull; Deliver first weekly P&amp;L to team<br>
+          &bull; Verify insurance is active and adequate
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 4: Paid Ads — Weeks 7–8</h3>
+  <table>
+    <thead>
+      <tr><th style="width:25%;">Ricardo (Creative/Tech)</th><th style="width:25%;">Robert (Operations)</th><th style="width:25%;">Jose (Store/Marketing)</th><th style="width:25%;">Mark (Finance)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          &bull; Create 5 ad creative variants<br>
+          &bull; Design retargeting ad visuals<br>
+          &bull; Publish 2 more SEO blog posts<br>
+          &bull; A/B test product page layouts<br>
+          &bull; Prep seasonal/holiday mockups
+        </td>
+        <td>
+          &bull; Monitor fulfillment quality on live orders<br>
+          &bull; Set weekly supplier check-in cadence<br>
+          &bull; Optimize shipping cost structure<br>
+          &bull; Build FAQ from common questions<br>
+          &bull; Evaluate Printed Mint for gift SKUs
+        </td>
+        <td>
+          &bull; Launch 3 Meta ad campaigns ($20–30/day)<br>
+          &bull; Activate abandoned cart email flow<br>
+          &bull; Set up post-purchase review automation<br>
+          &bull; Start TikTok push (3–5 videos/week)<br>
+          &bull; Kill underperforming ads daily
+        </td>
+        <td>
+          &bull; Track ad spend vs. ROAS daily<br>
+          &bull; Calculate actual CAC per channel<br>
+          &bull; Adjust budget based on performance<br>
+          &bull; First monthly P&amp;L review with team<br>
+          &bull; Begin quarterly tax planning
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 5: Scale — Month 3+</h3>
+  <ul>
+    <li>Double budget on winning ad campaigns</li>
+    <li>Expand to Google Shopping ads</li>
+    <li>Launch TikTok paid ads</li>
+    <li>Plan and launch first seasonal collection</li>
+    <li>Explore Amazon FBA listing</li>
+    <li>Add Printed Mint as second supplier for gift-focused SKUs</li>
+    <li>Reinvest 60% of profits into growth channels</li>
+    <li>Quarterly business plan review and update</li>
+    <li>First member profit distribution (if profitable)</li>
+  </ul>
+
+  <!-- ═══════════════ 7.0 FINANCIAL PLAN ═══════════════ -->
+  <h2 id="financial">7.0 Financial Plan</h2>
+
+  <h3>Startup Costs</h3>
+  <table>
+    <thead>
+      <tr><th>Item</th><th>Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Florida LLC Registration</td><td class="mono">$125</td></tr>
+      <tr><td>Shopify Plan (first month)</td><td class="mono">$39</td></tr>
+      <tr><td>Domain Name</td><td class="mono">$15</td></tr>
+      <tr><td>POD Sample Orders</td><td class="mono">$150</td></tr>
+      <tr><td>Initial Advertising Budget</td><td class="mono">$500</td></tr>
+      <tr><td><strong>Total to Launch</strong></td><td class="mono"><strong>~$830</strong></td></tr>
+      <tr><td><strong>Per Person (4 members)</strong></td><td class="mono"><strong>~$208</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Fixed Monthly Expenses</h3>
+  <table>
+    <thead>
+      <tr><th>Expense</th><th>Monthly Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Shopify Plan</td><td class="mono">$39</td></tr>
+      <tr><td>General Liability Insurance</td><td class="mono">~$55</td></tr>
+      <tr><td>App Subscriptions (Klaviyo, etc.)</td><td class="mono">~$20</td></tr>
+      <tr><td>AI Tools</td><td class="mono">~$20</td></tr>
+      <tr><td>Domain/Hosting</td><td class="mono">~$5</td></tr>
+      <tr><td><strong>Total Monthly Overhead</strong></td><td class="mono"><strong>~$140</strong></td></tr>
+      <tr><td><strong>Per Person</strong></td><td class="mono"><strong>~$35</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Unit Economics</h3>
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>Conservative</th><th>Strong</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Retail Price</td><td class="mono">$28</td><td class="mono">$42</td></tr>
+      <tr><td>POD Supplier Cost</td><td class="mono">-$13</td><td class="mono">-$15</td></tr>
+      <tr><td>Platform Fees</td><td class="mono">-$2.80</td><td class="mono">-$4.20</td></tr>
+      <tr><td><strong>Net Margin per Unit</strong></td><td class="mono"><strong>~$12</strong></td><td class="mono"><strong>~$23</strong></td></tr>
+      <tr><td><strong>Margin %</strong></td><td class="mono"><strong>~43%</strong></td><td class="mono"><strong>~55%</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Break-Even Analysis</h3>
+  <p>With monthly overhead of approximately $140 (excluding ad spend) and an average net margin of $12–$23 per unit:</p>
+  <ul>
+    <li><strong>Conservative scenario ($12/unit):</strong> Break-even at ~12 candles/month (overhead only) or ~30 candles/month (including ad spend at $200/mo)</li>
+    <li><strong>Strong scenario ($23/unit):</strong> Break-even at ~7 candles/month (overhead only) or ~15 candles/month (including ad spend)</li>
+  </ul>
+
+  <h3>Profit Distribution</h3>
+  <table>
+    <thead>
+      <tr><th>Allocation</th><th>Percentage</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Reinvest in Business</strong></td><td class="mono">60%</td><td>Advertising budget, new product development, supplier expansion, tools/apps</td></tr>
+      <tr><td><strong>Cash Reserve</strong></td><td class="mono">25%</td><td>Emergency fund, seasonal inventory buffers, insurance deductibles, returns buffer</td></tr>
+      <tr><td><strong>Member Distribution</strong></td><td class="mono">15%</td><td>Equal quarterly distribution to all four members</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Key Metrics to Track</h3>
+  <ul>
+    <li><strong>Average Order Value (AOV)</strong> — target $30+ to monitor pricing effectiveness</li>
+    <li><strong>Customer Acquisition Cost (CAC)</strong> — target below $10 through organic and paid mix</li>
+    <li><strong>Conversion Rate</strong> — Shopify benchmark 2–3%, target 3%+</li>
+    <li><strong>Return Rate</strong> — budget 2–3%, target below 2%</li>
+    <li><strong>Monthly Revenue</strong> — Week 1–4 goal: first 10 orders. Month 2: 30+ orders. Month 3+: scale</li>
+  </ul>
+
+  <div class="callout success">
+    <strong>Summary:</strong> IC Candle Co. launches for ~$830, breaks even at ~30 candles/month, operates at ~$40/person/month, and replaces $11.5–19K/mo in agency costs with AI. The POD model eliminates inventory risk while maintaining 43–55% gross margins. Our 4-person team covers all functional areas with zero overlap, enabling rapid execution from day one.
+  </div>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <div class="doc-footer">
+    <p><em>This business plan is a living document and will be updated quarterly to reflect market changes, product feedback, and sales performance.</em></p>
+    <p style="margin-top:12px;">IC Candle Co. · Florida, USA · 2026</p>
+    <p style="margin-top:8px;"><a href="index.html" style="color:var(--accent);text-decoration:none;">← Return to Presentation</a></p>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
