@@ -505,8 +505,12 @@
   }
   .task-add:hover { border-color: var(--glow-cyan); color: var(--glow-cyan); }
   .task-stamp {
-    display: block; font-size: 0.6rem; color: var(--text-dim); opacity: 0.6;
+    display: block; font-size: 0.62rem; color: #ef4444; font-weight: 600;
     margin-top: 2px; font-style: italic;
+  }
+  .task-drop-indicator {
+    height: 2px; background: var(--glow-cyan); border-radius: 1px;
+    margin: 2px 0; transition: opacity 0.15s; pointer-events: none;
   }
   .task-audit-log {
     margin-top: 20px; padding: 12px 16px;
@@ -2333,13 +2337,49 @@
     loadTasks();
     renderAuditLog();
 
-    // Drag & Drop
+    // Drag & Drop — positional insertion
+    function getDropTarget(col, y) {
+      var items = col.querySelectorAll('.task-item:not(.dragging)');
+      var closest = null;
+      var closestOffset = Number.NEGATIVE_INFINITY;
+      items.forEach(function(item) {
+        var box = item.getBoundingClientRect();
+        var offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closestOffset) {
+          closestOffset = offset;
+          closest = item;
+        }
+      });
+      return closest || col.querySelector('.task-add');
+    }
+
     columns.forEach(function(col) {
-      col.addEventListener('dragover', function(e) { e.preventDefault(); col.classList.add('drag-over'); });
-      col.addEventListener('dragleave', function() { col.classList.remove('drag-over'); });
+      col.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        col.classList.add('drag-over');
+        // Show drop indicator
+        var target = getDropTarget(col, e.clientY);
+        var indicator = col.querySelector('.task-drop-indicator');
+        if (!indicator) {
+          indicator = document.createElement('div');
+          indicator.className = 'task-drop-indicator';
+          col.appendChild(indicator);
+        }
+        col.insertBefore(indicator, target);
+      });
+      col.addEventListener('dragleave', function(e) {
+        if (!col.contains(e.relatedTarget)) {
+          col.classList.remove('drag-over');
+          var ind = col.querySelector('.task-drop-indicator');
+          if (ind) ind.remove();
+        }
+      });
       col.addEventListener('drop', function(e) {
         e.preventDefault();
         col.classList.remove('drag-over');
+        var ind = col.querySelector('.task-drop-indicator');
+        var insertBefore = ind ? ind.nextSibling : col.querySelector('.task-add');
+        if (ind) ind.remove();
         var id = e.dataTransfer.getData('text/plain');
         var item = document.getElementById(id);
         if (!item) return;
@@ -2347,7 +2387,7 @@
         var fromCol = item.parentElement;
         var fromMember = fromCol.dataset.member;
         var toMember = col.dataset.member;
-        col.insertBefore(item, col.querySelector('.task-add'));
+        col.insertBefore(item, insertBefore);
         // Update stamp
         var existing = item.querySelector('.task-stamp');
         if (existing) existing.remove();
@@ -2357,7 +2397,9 @@
         item.querySelector('span:not(.task-stamp)').after(st);
         saveTasks();
         if (fromMember !== toMember) {
-          logAction('moved "' + taskText + '" from ' + fromMember + ' → ' + toMember);
+          logAction('moved "' + taskText + '" from ' + fromMember + ' \u2192 ' + toMember);
+        } else {
+          logAction('reordered "' + taskText + '" in ' + toMember);
         }
       });
     });
@@ -2367,11 +2409,12 @@
       if (e.target.classList && e.target.classList.contains('task-item')) {
         e.target.id = e.target.id || 'task-' + Date.now() + '-' + Math.random().toString(36).substr(2,5);
         e.dataTransfer.setData('text/plain', e.target.id);
-        e.target.classList.add('dragging');
+        setTimeout(function() { e.target.classList.add('dragging'); }, 0);
       }
     });
     document.addEventListener('dragend', function(e) {
       if (e.target.classList && e.target.classList.contains('task-item')) e.target.classList.remove('dragging');
+      document.querySelectorAll('.task-drop-indicator').forEach(function(ind) { ind.remove(); });
     });
     document.addEventListener('click', function(e) {
       if (e.target.classList.contains('task-delete')) {
