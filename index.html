@@ -50,8 +50,49 @@
   .bg-glow.cyan { background: var(--glow-cyan); top: -200px; right: -100px; }
   .bg-glow.purple { background: var(--glow-purple); bottom: -200px; left: -100px; }
 
+  /* ═══════════════ TOP NAV ═══════════════ */
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px; z-index: 200;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+  }
+  .top-nav .logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem; font-weight: 800;
+    letter-spacing: 1px; color: var(--glow-cyan);
+    white-space: nowrap;
+  }
+  .top-nav .nav-tabs {
+    display: flex; align-items: center; gap: 4px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .tab-btn {
+    background: none; border: none;
+    color: var(--text-dim); font-family: 'Inter', sans-serif;
+    font-size: 0.85rem; font-weight: 500;
+    padding: 16px 16px; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap; transition: color 0.2s, border-color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--glow-cyan); border-bottom-color: var(--glow-cyan); }
+  a.tab-btn { text-decoration: none; }
+
+  /* ═══════════════ TAB CONTENT ═══════════════ */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ═══════════════ PRESENTATION TAB ═══════════════ */
+  #tab-presentation { padding-top: 56px; height: 100vh; }
+
   /* Deck & Slides */
-  .deck { width: 100%; height: 100%; position: relative; }
+  .deck { width: 100%; height: calc(100vh - 56px); position: relative; }
   .slide {
     position: absolute; inset: 0;
     display: none;
@@ -223,7 +264,7 @@
     position: relative;
   }
   .check-list li::before {
-    content: '✓'; position: absolute; left: 0;
+    content: '\2713'; position: absolute; left: 0;
     color: var(--glow-cyan); font-weight: 700;
   }
 
@@ -369,19 +410,6 @@
     width: 10px; height: 10px;
   }
 
-  /* Responsive */
-  @media (max-width: 700px) {
-    .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4, .card-grid.cols-6 { grid-template-columns: 1fr; }
-    .vs-box { grid-template-columns: 1fr; }
-    .week-grid { grid-template-columns: 1fr; }
-    .numbers-grid { grid-template-columns: 1fr; }
-    .flow { flex-direction: column; }
-    .flow-arrow { transform: rotate(90deg); }
-    .slide { padding: 40px 16px 80px; }
-    .scorecard { font-size: 0.65rem; }
-    .scorecard th, .scorecard td { padding: 4px 4px; }
-  }
-
   /* Footnote */
   .footnote {
     font-size: 0.72rem; color: var(--text-dim);
@@ -407,6 +435,67 @@
     border-radius: 20px; padding: 6px 16px;
     font-size: 0.78rem; color: var(--text-dim);
   }
+
+  /* ═══════════════ LAUNCH GUIDE TAB ═══════════════ */
+  #tab-launch-guide {
+    padding-top: 56px;
+    min-height: 100vh;
+  }
+  .guide-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .guide-section-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 40px; padding: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .guide-section-nav a {
+    color: var(--glow-cyan); text-decoration: none;
+    font-size: 0.82rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .guide-section-nav a:hover {
+    background: var(--card); border-color: var(--glow-cyan);
+  }
+  .guide-section {
+    margin-bottom: 60px;
+    scroll-margin-top: 72px;
+  }
+  .guide-section > h2 {
+    font-size: 1.6rem; text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--glow-cyan);
+    margin-bottom: 20px;
+  }
+  .guide-section > h3 {
+    margin-top: 24px; margin-bottom: 12px;
+  }
+  .guide-section p {
+    font-size: 0.9rem; color: var(--text-dim);
+    line-height: 1.65; margin-bottom: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4, .card-grid.cols-6 { grid-template-columns: 1fr; }
+    .vs-box { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: 1fr; }
+    .numbers-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+    .slide { padding: 40px 16px 80px; }
+    .scorecard { font-size: 0.65rem; }
+    .scorecard th, .scorecard td { padding: 4px 4px; }
+    .top-nav { padding: 0 12px; }
+    .top-nav .logo { font-size: 0.9rem; }
+    .tab-btn { font-size: 0.78rem; padding: 16px 10px; }
+    .guide-container { padding: 24px 12px 80px; }
+  }
 </style>
 </head>
 <body>
@@ -414,6 +503,21 @@
 <div class="bg-grid"></div>
 <div class="bg-glow cyan"></div>
 <div class="bg-glow purple"></div>
+
+<!-- ═══════════════ TOP NAVIGATION ═══════════════ -->
+<nav class="top-nav">
+  <span class="logo">IC CANDLE CO.</span>
+  <div class="nav-tabs">
+    <button class="tab-btn active" data-tab="presentation" onclick="switchTab('presentation')">Presentation</button>
+    <button class="tab-btn" data-tab="launch-guide" onclick="switchTab('launch-guide')">Launch Guide</button>
+    <a class="tab-btn" href="business-plan-1sheet.html" target="_blank">Business Plan</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════ PRESENTATION TAB ═══════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-presentation">
 
 <div class="deck" id="deck">
 
@@ -453,7 +557,7 @@
       <div class="card">
         <div class="glow-bar purple"></div>
         <h3>The Model</h3>
-        <p>Customers order personalized candles from our Shopify storefront. Orders auto-route to our POD supplier who hand-pours and ships directly under our brand. AI handles all marketing, copy, SEO, and email — replacing $11K–19K/mo in agency costs.</p>
+        <p>Two revenue streams powered by Printify's multi-vendor platform. <strong>Stream 1:</strong> Our curated IC Candle Co. branded line across multiple vendors. <strong>Stream 2:</strong> Custom candle service — customers submit imagery, we AI-style it (caricatures, comic book, cartoon, superhero, niche themes) into unique labels. All orders auto-route through Printify. AI handles all marketing — replacing $11K–19K/mo in agency costs.</p>
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
@@ -477,31 +581,31 @@
     <div class="card-grid cols-4" style="margin-top:24px;">
       <div class="card">
         <div class="glow-bar cyan"></div>
-        <span class="icon">⚡</span>
+        <span class="icon">&#9889;</span>
         <h3>Ricardo</h3>
         <p style="color:var(--glow-cyan);font-weight:600;font-size:0.75rem;margin-bottom:6px;">Creative Director / Tech Lead</p>
         <p>Website design, AI prompt engineering, SEO content, brand identity, product mockup templates. Produces all creative assets with Claude.</p>
       </div>
       <div class="card">
         <div class="glow-bar purple"></div>
-        <span class="icon">📦</span>
+        <span class="icon">&#128230;</span>
         <h3>Robert</h3>
-        <p style="color:var(--glow-purple);font-weight:600;font-size:0.75rem;margin-bottom:6px;">COO / Operations & Supply Chain</p>
+        <p style="color:var(--glow-purple);font-weight:600;font-size:0.75rem;margin-bottom:6px;">COO / Operations &amp; Supply Chain</p>
         <p>Supplier sourcing, quality control, fulfillment, shipping, returns, customer service. Former REI head manager — retail ops expert.</p>
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
-        <span class="icon">🚀</span>
+        <span class="icon">&#128640;</span>
         <h3>Jose</h3>
-        <p style="color:var(--glow-green);font-weight:600;font-size:0.75rem;margin-bottom:6px;">Store Manager & Paid Marketing</p>
+        <p style="color:var(--glow-green);font-weight:600;font-size:0.75rem;margin-bottom:6px;">Store Manager &amp; Paid Marketing</p>
         <p>Shopify setup, product listings, Meta/TikTok ads, email platform (Klaviyo), analytics. Has Shopify experience — hits the ground running.</p>
       </div>
       <div class="card">
         <div class="glow-bar orange"></div>
-        <span class="icon">📊</span>
+        <span class="icon">&#128202;</span>
         <h3>Mark</h3>
-        <p style="color:var(--glow-orange);font-weight:600;font-size:0.75rem;margin-bottom:6px;">CFO & Business Strategy</p>
-        <p>LLC formation, bookkeeping, P&L reporting, ad budget allocation, tax planning, capital fund management. Finance professional.</p>
+        <p style="color:var(--glow-orange);font-weight:600;font-size:0.75rem;margin-bottom:6px;">CFO &amp; Business Strategy</p>
+        <p>LLC formation, bookkeeping, P&amp;L reporting, ad budget allocation, tax planning, capital fund management. Finance professional.</p>
       </div>
     </div>
   </div>
@@ -516,27 +620,27 @@
       <div class="flow-node">
         <span class="step-num">01</span>
         <span class="step-title">Customer Orders</span>
-        <span class="step-desc">Buyer places order on your Shopify or Etsy store</span>
+        <span class="step-desc">Buyer orders a branded candle OR submits custom imagery for a personalized candle</span>
       </div>
-      <span class="flow-arrow">→</span>
+      <span class="flow-arrow">&rarr;</span>
       <div class="flow-node">
         <span class="step-num">02</span>
         <span class="step-title">Auto-Routed</span>
-        <span class="step-desc">Order routes automatically to POD supplier via app integration</span>
+        <span class="step-desc">Order routes automatically to Printify, which dispatches to the best vendor</span>
       </div>
-      <span class="flow-arrow">→</span>
+      <span class="flow-arrow">&rarr;</span>
       <div class="flow-node">
         <span class="step-num">03</span>
         <span class="step-title">Produced</span>
-        <span class="step-desc">Supplier hand-pours candle with your label applied</span>
+        <span class="step-desc">Vendor hand-pours candle with branded or custom AI-styled label applied</span>
       </div>
-      <span class="flow-arrow">→</span>
+      <span class="flow-arrow">&rarr;</span>
       <div class="flow-node">
         <span class="step-num">04</span>
         <span class="step-title">Shipped</span>
         <span class="step-desc">Ships directly to customer — fully under your brand</span>
       </div>
-      <span class="flow-arrow">→</span>
+      <span class="flow-arrow">&rarr;</span>
       <div class="flow-node">
         <span class="step-num">05</span>
         <span class="step-title">You Profit</span>
@@ -546,7 +650,7 @@
     <div class="card" style="max-width:700px;margin-top:24px;">
       <div class="glow-bar cyan"></div>
       <h3 class="accent">Key Insight</h3>
-      <p>You only pay the supplier <strong>after</strong> the customer pays you. The difference between your retail price and supplier cost is your margin. Zero inventory risk, zero upfront product cost.</p>
+      <p>All orders — branded and custom — flow through Printify. The custom candle service adds a design fee on top of the standard margin, enabling premium pricing of $35–65+ per candle.</p>
     </div>
   </div>
 
@@ -555,7 +659,7 @@
     <span class="slide-number">05 / 17</span>
     <span class="tag tag-purple">Advantage</span>
     <h2>Our Unfair Advantage</h2>
-    <p class="subtitle">AI replaces services that would cost $11.5–19K/mo if hired — for the price of one subscription.</p>
+    <p class="subtitle">AI replaces services that would cost $14.5–24K/mo if hired — for the price of one subscription. Plus: AI image styling turns customer photos into premium custom candle labels.</p>
     <table class="data-table" style="max-width:700px;">
       <thead>
         <tr>
@@ -572,9 +676,10 @@
         <tr><td>Social Media Manager</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
         <tr><td>Brand Strategist</td><td>$2,000–3,000/mo</td><td class="highlight">$0</td></tr>
         <tr><td>Market Researcher</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>AI Image Stylist</td><td>$3,000–5,000/mo</td><td class="highlight">$0</td></tr>
         <tr style="border-top:2px solid var(--glow-cyan);">
           <td><strong>Total Replaced</strong></td>
-          <td><strong>$11,500–19,000/mo</strong></td>
+          <td><strong>$14,500–24,000/mo</strong></td>
           <td class="highlight" style="font-size:1.1rem;"><strong>$0</strong></td>
         </tr>
       </tbody>
@@ -595,7 +700,7 @@
       <div class="card">
         <div class="glow-bar purple"></div>
         <h3>Target Market</h3>
-        <p>Individuals aged 25–40, primarily homeowners or apartment dwellers who prioritize interior décor and self-care routines. Eco-conscious professionals seeking premium, personalized products.</p>
+        <p>Individuals aged 25–40, primarily homeowners or apartment dwellers who prioritize interior d&eacute;cor and self-care routines. Eco-conscious professionals seeking premium, personalized products.</p>
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
@@ -614,22 +719,23 @@
   <div class="slide" data-slide="6">
     <span class="slide-number">07 / 17</span>
     <span class="tag tag-purple">Strategy</span>
-    <h2>Niche & Positioning</h2>
+    <h2>Niche &amp; Positioning</h2>
     <p class="subtitle">The scent itself is not the niche — the <strong class="accent">story</strong> around it is.</p>
-    <table class="data-table" style="max-width:850px;">
+    <table class="data-table" style="max-width:950px;">
       <thead>
         <tr>
           <th>Niche</th>
-          <th>Candle Bliss Scents</th>
+          <th>Recommended Scents</th>
           <th>Target Buyer</th>
+          <th>Custom Candle Opportunity</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Memorial / Sympathy</td><td>Lavender, Vanilla Bean, Cashmere Vanilla, Fresh Linen, Serenity</td><td>Grieving families, funeral directors, hospice</td></tr>
-        <tr><td>Profession-Specific Gifting</td><td>Sandalwood & Cedar, Oakmoss, Fresh Linen, Coastal Cottage, Cinnamon Chai</td><td>Corporate buyers, HR, admin assistants</td></tr>
-        <tr><td>Outdoors / Adventure</td><td>Fraser Fir, Woodland Forest, Evergreen & Apple, Oakmoss, Coastal Cottage</td><td>Hikers, campers, national park fans</td></tr>
-        <tr><td>Cultural Celebrations</td><td>Cinnamon Chai, Mango & Coconut Milk, Fiesta Pineapple Margarita, Yuzu Blossom</td><td>Multicultural consumers, event planners</td></tr>
-        <tr><td>Manifestation / Intention</td><td>Bohemian Rose, Lavender, Sandalwood & Cedar, Serenity, Island</td><td>Spiritual practitioners, yoga community</td></tr>
+        <tr><td>Memorial / Sympathy</td><td>Lavender, Vanilla Bean, Cashmere Vanilla, Fresh Linen, Serenity</td><td>Grieving families, funeral directors, hospice</td><td>Memorial portraits, angel renderings, pet rainbow bridge illustrations</td></tr>
+        <tr><td>Profession-Specific Gifting</td><td>Sandalwood &amp; Cedar, Oakmoss, Fresh Linen, Coastal Cottage, Cinnamon Chai</td><td>Corporate buyers, HR, admin assistants</td><td>Company logos stylized, team caricatures, branded corporate gifts</td></tr>
+        <tr><td>Outdoors / Adventure</td><td>Fraser Fir, Woodland Forest, Evergreen &amp; Apple, Oakmoss, Coastal Cottage</td><td>Hikers, campers, national park fans</td><td>Trail photos as illustrated landscapes, pet adventure portraits</td></tr>
+        <tr><td>Cultural Celebrations</td><td>Cinnamon Chai, Mango &amp; Coconut Milk, Fiesta Pineapple Margarita, Yuzu Blossom</td><td>Multicultural consumers, event planners</td><td>Family portraits in cultural art styles, event-specific designs</td></tr>
+        <tr><td>Manifestation / Intention</td><td>Bohemian Rose, Lavender, Sandalwood &amp; Cedar, Serenity, Island</td><td>Spiritual practitioners, yoga community</td><td>Vision board imagery, zodiac illustrations, spiritual symbol art</td></tr>
       </tbody>
     </table>
     <p class="footnote">Etsy buyers search "sympathy candle gift personalized" — not "lavender candle." Label design, listing copy, and photography do the niche targeting.</p>
@@ -644,37 +750,37 @@
     <div class="card-grid cols-3" style="margin-top:24px;">
       <div class="card">
         <div class="glow-bar cyan"></div>
-        <span class="icon">🛒</span>
+        <span class="icon">&#128722;</span>
         <h3>Shopify</h3>
         <p>Home base. Full brand experience + custom orders. High-converting checkout with built-in inventory management.</p>
       </div>
       <div class="card">
         <div class="glow-bar purple"></div>
-        <span class="icon">🎨</span>
+        <span class="icon">&#127912;</span>
         <h3>Etsy</h3>
         <p>Built-in audience. #1 for personalized gifts. Organic discovery from day one.</p>
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
-        <span class="icon">📱</span>
+        <span class="icon">&#128241;</span>
         <h3>TikTok Shop</h3>
         <p>Sell directly inside viral videos. Massive organic reach for visual products.</p>
       </div>
       <div class="card">
         <div class="glow-bar pink"></div>
-        <span class="icon">📸</span>
+        <span class="icon">&#128247;</span>
         <h3>Instagram Shop</h3>
         <p>Tag products in posts and reels. Lifestyle imagery drives impulse purchases.</p>
       </div>
       <div class="card">
         <div class="glow-bar orange"></div>
-        <span class="icon">📦</span>
+        <span class="icon">&#128230;</span>
         <h3>Amazon</h3>
         <p>Massive trust + gift traffic. Access the world's largest marketplace audience.</p>
       </div>
       <div class="card">
         <div class="glow-bar cyan"></div>
-        <span class="icon">🌐</span>
+        <span class="icon">&#127760;</span>
         <h3>SEO Blog</h3>
         <p>AI-generated blog content drives free Google traffic to Shopify storefront long-term.</p>
       </div>
@@ -709,14 +815,36 @@
         <div class="vs-margin">~55%</div>
       </div>
     </div>
-    <p class="footnote">Platform fees: Etsy ~10%, Shopify ~3% · Shipping passed to customer or absorbed into price · Returns buffer: allow 2–3% of revenue</p>
+    <div class="card" style="max-width:700px;margin-top:16px;">
+      <div class="glow-bar pink"></div>
+      <h3 class="accent">Custom Candle Service — Premium Tier</h3>
+      <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
+        <div>
+          <p style="font-size:0.8rem;color:var(--text-dim);">Candle + Design Fee</p>
+          <p style="font-size:1.8rem;font-weight:800;color:var(--glow-pink);">$45–65</p>
+        </div>
+        <div>
+          <p style="font-size:0.8rem;color:var(--text-dim);">POD Cost</p>
+          <p style="font-size:1.2rem;font-weight:600;color:var(--text);">~$12–16</p>
+        </div>
+        <div>
+          <p style="font-size:0.8rem;color:var(--text-dim);">Design Cost (AI)</p>
+          <p style="font-size:1.2rem;font-weight:600;color:var(--text);">~$0</p>
+        </div>
+        <div>
+          <p style="font-size:0.8rem;color:var(--text-dim);">Net Margin</p>
+          <p style="font-size:1.8rem;font-weight:800;color:var(--glow-green);">$29–49 (65–75%)</p>
+        </div>
+      </div>
+    </div>
+    <p class="footnote">Platform fees: Etsy ~10%, Shopify ~3% &middot; Shipping passed to customer or absorbed into price &middot; Returns buffer: allow 2–3% of revenue</p>
     <div style="margin-top:16px;text-align:center;">
       <p class="section-label">Shipping Strategy</p>
       <div class="pill-row">
         <span class="pill">Pass to customer (standard)</span>
         <span class="pill">Build into price ("free shipping")</span>
         <span class="pill">Free ship threshold (2+ candles)</span>
-        <span class="pill">Candle Bliss: Free at $99+</span>
+        <span class="pill">Printify: Volume discounts available</span>
       </div>
     </div>
   </div>
@@ -726,36 +854,35 @@
     <span class="slide-number">10 / 17</span>
     <span class="tag tag-cyan">Suppliers</span>
     <h2>Supplier Scorecard</h2>
-    <p class="section-label">Product, Fulfillment & Integration</p>
+    <p class="section-label">Product, Fulfillment &amp; Integration</p>
     <table class="data-table scorecard">
       <thead>
         <tr>
-          <th style="min-width:140px;">Criteria</th>
-          <th>Candle Bliss</th>
-          <th>Candle Bldrs</th>
+          <th style="min-width:160px;">Criteria</th>
           <th>Printify</th>
-          <th>Printed Mint</th>
-          <th>Printful</th>
+          <th>Gooten</th>
+          <th>Candle Bliss</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Product</td></tr>
-        <tr><td>True POD / No Inventory</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>White Label Only</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>Scent Variety</td><td>✅ 20+</td><td>✅ 8+</td><td>✅ 10+</td><td>⚠ 4</td><td>⚠ 9</td></tr>
-        <tr><td>Vessel Variety</td><td>✅ Tins+3</td><td>⚠ 3 glass</td><td>⚠ Glass</td><td>✅ Multi</td><td>❌ 1 jar</td></tr>
-        <tr><td>Wax Type</td><td>Coco/Apricot</td><td>Soy only</td><td>Soy</td><td>Coco/Apricot</td><td>Soy only</td></tr>
-        <tr><td>Gift Packaging</td><td>✅</td><td>✅ WL</td><td>❌</td><td>✅ Full</td><td>❌</td></tr>
-        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Fulfillment</td></tr>
-        <tr><td>Fulfillment Speed</td><td>✅ 1–3d</td><td>✅ 1–2d</td><td>⚠ Varies</td><td>⚠ 4–7d</td><td>✅ Fast</td></tr>
-        <tr><td>US-Based Fulfillment</td><td>✅ AZ</td><td>✅ NH</td><td>✅ Most</td><td>✅</td><td>✅</td></tr>
-        <tr><td>No MOQ</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td colspan="6" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Integration</td></tr>
-        <tr><td>Shopify Integration</td><td>✅ Native</td><td>✅ Native</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>Etsy Integration</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>Amazon / Other</td><td>❌</td><td>❌</td><td>✅ Multi</td><td>✅ OD</td><td>✅ 23+</td></tr>
-        <tr><td>Personalization</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
-        <tr><td>Startup Cost</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td><td>✅ Free</td></tr>
+        <tr><td colspan="4" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Product</td></tr>
+        <tr><td>True POD / No Inventory</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>White Label / Custom Labels</td><td>&#10003; Full</td><td>&#10003; Full</td><td>&#10003;</td></tr>
+        <tr><td>Scent Variety</td><td>&#10003; Multi-vendor</td><td>&#10003; 10+</td><td>&#10003; 20+</td></tr>
+        <tr><td>Vessel Variety</td><td>&#9888; Glass (via vendors)</td><td>&#10003; Tin, Frosted, Amber, Clear</td><td>&#10003; Tins + 3 glass</td></tr>
+        <tr><td>Wax Type</td><td>Varies by vendor</td><td>Coconut Soy</td><td>Coconut/Apricot</td></tr>
+        <tr><td>Wood Wick Option</td><td>&#9888; Vendor-dependent</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td colspan="4" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Fulfillment</td></tr>
+        <tr><td>Fulfillment Speed</td><td>&#10003; 2–5 days</td><td>&#10003; 2+ days</td><td>&#10003; 1–3 days</td></tr>
+        <tr><td>US-Based Fulfillment</td><td>&#10003; Multiple locations</td><td>&#10003;</td><td>&#10003; Phoenix, AZ</td></tr>
+        <tr><td>No MOQ</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td colspan="4" style="color:var(--glow-cyan);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Integration</td></tr>
+        <tr><td>Shopify Integration</td><td>&#10003; Native</td><td>&#10003; Native</td><td>&#10003; Native</td></tr>
+        <tr><td>Etsy Integration</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Amazon + Other</td><td>&#10003; Multi-channel</td><td>&#10003;</td><td>&#10008;</td></tr>
+        <tr><td>Label Customization</td><td>&#10003; Full design upload</td><td>&#10003; Full-wrap labels</td><td>&#10003; Design upload</td></tr>
+        <tr><td>Multi-Vendor Umbrella</td><td>&#10003; Platform</td><td>&#10003; Platform</td><td>&#10008; Single supplier</td></tr>
+        <tr><td>Startup Cost</td><td>&#10003; Free</td><td>&#10003; Free</td><td>&#10003; Free</td></tr>
       </tbody>
     </table>
   </div>
@@ -765,33 +892,32 @@
     <span class="slide-number">11 / 17</span>
     <span class="tag tag-cyan">Suppliers</span>
     <h2>Supplier Scorecard</h2>
-    <p class="section-label">Sustainability & Risk Mitigation</p>
+    <p class="section-label">Sustainability &amp; Risk Mitigation</p>
     <table class="data-table scorecard">
       <thead>
         <tr>
-          <th style="min-width:160px;">Criteria</th>
-          <th>Candle Bliss</th>
-          <th>Candle Bldrs</th>
+          <th style="min-width:180px;">Criteria</th>
           <th>Printify</th>
-          <th>Printed Mint</th>
-          <th>Printful</th>
+          <th>Gooten</th>
+          <th>Candle Bliss</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td colspan="6" style="color:var(--glow-green);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Sustainability</td></tr>
-        <tr><td>Plant-Based / Renewable Wax</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>No Paraffin</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>Vegan / Cruelty-Free</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⚠ N/S</td></tr>
-        <tr><td>Phthalate-Free Fragrance</td><td>✅ Prop65</td><td>✅</td><td>⚠ Varies</td><td>✅</td><td>⚠ N/S</td></tr>
-        <tr><td>Clean Wick (No Lead/Zinc)</td><td>⚠ N/S</td><td>✅ Cotton</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
-        <tr><td>No Synthetic Dyes</td><td>✅</td><td>⚠ N/S</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
-        <tr><td>Recyclable Vessel</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>USA-Sourced Materials</td><td>✅ Wax+Fr</td><td>✅ Wax+Fr</td><td>⚠ Varies</td><td>⚠ N/S</td><td>⚠ N/S</td></tr>
-        <tr><td colspan="6" style="color:var(--glow-orange);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Risk Mitigation</td></tr>
-        <tr><td>Record Keeping / Tracking</td><td>✅ Auto</td><td>✅ Auto</td><td>✅ Dashboard</td><td>⚠ Manual</td><td>✅ Full</td></tr>
+        <tr><td colspan="4" style="color:var(--glow-green);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Sustainability</td></tr>
+        <tr><td>Plant-Based / Renewable Wax</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>No Paraffin</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Vegan / Cruelty-Free</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Phthalate-Free Fragrance</td><td>&#9888; Varies by vendor</td><td>&#10003;</td><td>&#10003; Prop 65</td></tr>
+        <tr><td>Clean Wick (No Lead/Zinc)</td><td>&#9888; Varies by vendor</td><td>&#10003; Cotton</td><td>&#10003; Cotton + Wood</td></tr>
+        <tr><td>No Synthetic Dyes</td><td>&#9888; Varies by vendor</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Recyclable Vessel</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>USA-Sourced Materials</td><td>&#9888; Varies by vendor</td><td>&#10003;</td><td>&#10003; Wax + Fragrance</td></tr>
+        <tr><td colspan="4" style="color:var(--glow-orange);font-weight:600;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;padding-top:10px;">Risk Mitigation</td></tr>
+        <tr><td>Order Tracking / Dashboard</td><td>&#10003; Full dashboard</td><td>&#10003; Dashboard</td><td>&#10003; Auto</td></tr>
+        <tr><td>Dispute Documentation</td><td>&#10003; Built-in</td><td>&#10003; Built-in</td><td>&#10003; Auto</td></tr>
       </tbody>
     </table>
-    <p class="footnote">N/S = Not stated publicly. Recommend direct supplier outreach to verify before making sustainability claims in marketing.</p>
+    <p class="footnote">For Printify, sustainability details vary by the specific vendor fulfilling each order. Verify claims with individual print providers before making marketing commitments.</p>
   </div>
 
   <!-- ═══════════════ SLIDE 12: RECOMMENDED SUPPLIERS ═══════════════ -->
@@ -803,32 +929,32 @@
       <div class="card supplier-card">
         <div class="glow-bar cyan"></div>
         <span class="rank">#1</span>
-        <h3>Candle Bliss</h3>
-        <span class="url">candlebliss.com</span>
-        <p>Best scent library (20+), strong packaging, free Shopify/Etsy apps, Phoenix AZ fulfillment, 1–3 day turnaround.</p>
-        <p class="best-for">Best for: Gifting niche, scent-forward brand, mid-range pricing</p>
-        <p class="gap">Gap: Coconut/apricot wax only. No beeswax.</p>
+        <h3>Printify</h3>
+        <span class="url">printify.com</span>
+        <p>Multi-vendor umbrella platform. All orders flow through one system. Full label customization enables our branded line AND custom candle service. Shopify/Etsy/Amazon integration.</p>
+        <p class="best-for">Best for: Platform backbone, custom labels, multi-channel scaling, dual revenue model</p>
+        <p class="gap">Gap: Vessel variety depends on vendors. Verify sustainability per vendor.</p>
       </div>
       <div class="card supplier-card">
         <div class="glow-bar purple"></div>
         <span class="rank">#2</span>
-        <h3>Printed Mint</h3>
-        <span class="url">printedmint.com</span>
-        <p>Best gift packaging (ribbons, crinkle paper, inserts). Broad marketplace reach via Order Desk. Strong gifting appeal.</p>
-        <p class="best-for">Best for: Gift-focused niche, premium unboxing experience</p>
-        <p class="gap">Gap: Only 4 scents. Fulfillment 4–7 days. Manual record keeping.</p>
+        <h3>Gooten</h3>
+        <span class="url">gooten.com</span>
+        <p>Best vessel variety: tin, frosted glass, amber jar, clear jar. 10+ fragrances. Coconut soy wax with wood wick options. Also a multi-vendor platform.</p>
+        <p class="best-for">Best for: Vessel diversity, premium product differentiation, wood wick offerings</p>
+        <p class="gap">Gap: Newer platform, less community track record than Printify.</p>
       </div>
       <div class="card supplier-card">
         <div class="glow-bar green"></div>
         <span class="rank">#3</span>
-        <h3>Candle Builders</h3>
-        <span class="url">candlebuilders.com</span>
-        <p>Fast turnaround (1–2 days), native Shopify/Etsy integrations, 8+ scents, white-label gift packaging. New Hampshire fulfillment.</p>
-        <p class="best-for">Best for: Speed-focused brand, quick fulfillment, soy wax positioning</p>
-        <p class="gap">Gap: Soy only. Limited vessel options (3 glass types).</p>
+        <h3>Candle Bliss</h3>
+        <span class="url">candlebliss.com</span>
+        <p>Premium quality: 20+ scents, coconut apricot wax, phthalate-free, Prop 65 compliant. Best scent library in the POD candle space.</p>
+        <p class="best-for">Best for: Premium scent library, quality-first branding, clean ingredients</p>
+        <p class="gap">Gap: Single supplier (not a platform). No Amazon integration.</p>
       </div>
     </div>
-    <p class="footnote" style="margin-top:20px;"><strong class="accent">Recommendation:</strong> Launch with Candle Bliss on Etsy. Add Printed Mint for gift-focused SKUs once volume justifies a second supplier.</p>
+    <p class="footnote" style="margin-top:20px;"><strong class="accent">Strategy:</strong> Launch with Printify as primary platform. Add Gooten for vessel expansion. Use Candle Bliss for premium scent-forward SKUs.</p>
   </div>
 
   <!-- ═══════════════ SLIDE 13: THE NUMBERS ═══════════════ -->
@@ -876,7 +1002,7 @@
     <p class="subtitle">Legal, brand, supplier research, and infrastructure.</p>
     <div class="week-grid">
       <div class="week-col">
-        <h3 style="border-color:var(--glow-cyan);">⚡ Ricardo — Creative/Tech</h3>
+        <h3 style="border-color:var(--glow-cyan);">&#9889; Ricardo — Creative/Tech</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Research competitor Shopify stores for design inspo</li>
           <li>Select brand color palette and typography</li>
@@ -888,11 +1014,11 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-purple);">📦 Robert — Operations</h3>
+        <h3 style="border-color:var(--glow-purple);">&#128230; Robert — Operations</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Compare top 5 POD candle suppliers</li>
-          <li>Apply to Candle Bliss (free, same-day approval)</li>
-          <li>Apply to Printed Mint account</li>
+          <li>Apply to Printify (free, instant setup)</li>
+          <li>Apply to Gooten account</li>
           <li>Order sample packs from top 2 suppliers</li>
           <li>Document supplier pricing, terms, lead times</li>
           <li>Research liability insurance (Next, Thimble, Hiscox)</li>
@@ -900,11 +1026,11 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-green);">🚀 Jose — Store/Marketing</h3>
+        <h3 style="border-color:var(--glow-green);">&#128640; Jose — Store/Marketing</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Create Shopify account ($39/mo Basic plan)</li>
           <li>Purchase domain name (~$15)</li>
-          <li>Install Candle Bliss + Klaviyo apps</li>
+          <li>Install Printify + Klaviyo apps</li>
           <li>Set up Shopify Payments + PayPal</li>
           <li>Research competitor pricing on Etsy</li>
           <li>Install Google Analytics + Facebook Pixel</li>
@@ -912,7 +1038,7 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-orange);">📊 Mark — Finance</h3>
+        <h3 style="border-color:var(--glow-orange);">&#128202; Mark — Finance</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>File Florida LLC ($125 via Sunbiz.org)</li>
           <li>Apply for EIN (IRS.gov, same day)</li>
@@ -934,7 +1060,7 @@
     <p class="subtitle">Store, products, listings, and financial infrastructure.</p>
     <div class="week-grid">
       <div class="week-col">
-        <h3 style="border-color:var(--glow-cyan);">⚡ Ricardo — Creative/Tech</h3>
+        <h3 style="border-color:var(--glow-cyan);">&#9889; Ricardo — Creative/Tech</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Build full Shopify theme (home, about, FAQ, contact)</li>
           <li>Design product pages with lifestyle imagery</li>
@@ -946,11 +1072,11 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-purple);">📦 Robert — Operations</h3>
+        <h3 style="border-color:var(--glow-purple);">&#128230; Robert — Operations</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Burn-test + evaluate all received samples</li>
           <li>Select primary supplier, finalize agreement</li>
-          <li>Set up automated fulfillment (Candle Bliss app)</li>
+          <li>Set up automated fulfillment (Printify app)</li>
           <li>Configure shipping rate profiles in Shopify</li>
           <li>Draft returns and exchange policy</li>
           <li>Write CS email templates (10 scenarios)</li>
@@ -958,7 +1084,7 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-green);">🚀 Jose — Store/Marketing</h3>
+        <h3 style="border-color:var(--glow-green);">&#128640; Jose — Store/Marketing</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Upload all products with photos + copy</li>
           <li>Configure shipping zones + tax settings</li>
@@ -970,11 +1096,11 @@
         </ul>
       </div>
       <div class="week-col">
-        <h3 style="border-color:var(--glow-orange);">📊 Mark — Finance</h3>
+        <h3 style="border-color:var(--glow-orange);">&#128202; Mark — Finance</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Build pricing model (all costs per channel)</li>
           <li>Calculate unit economics per product</li>
-          <li>Create weekly P&L tracking template</li>
+          <li>Create weekly P&amp;L tracking template</li>
           <li>Enable Shopify sales tax collection</li>
           <li>Set ad budget rules ($500, $20–30/day cap)</li>
           <li>Build 3/6/12-month financial projections</li>
@@ -988,38 +1114,38 @@
   <div class="slide" data-slide="15">
     <span class="slide-number">16 / 17</span>
     <span class="tag tag-purple">Phases 3–5</span>
-    <h2>Launch, Ads & Scale — Weeks 5–8+</h2>
+    <h2>Launch, Ads &amp; Scale — Weeks 5–8+</h2>
     <div class="card-grid cols-3" style="margin-top:16px;">
       <div class="card">
         <div class="glow-bar cyan"></div>
-        <h3 style="font-size:0.9rem;">Soft Launch · Wk 5–6</h3>
+        <h3 style="font-size:0.9rem;">Soft Launch &middot; Wk 5–6</h3>
         <ul class="check-list" style="font-size:0.78rem;">
           <li><strong style="color:var(--glow-cyan);">Ricardo:</strong> QA entire store (links, checkout, mobile). Create launch graphics. Publish 2 SEO blog posts. Begin daily social content. Film product unboxing video.</li>
-          <li><strong style="color:var(--glow-purple);">Robert:</strong> Place test order through full pipeline. Verify tracking + notification emails. Time end-to-end fulfillment. Coordinate 5–10 F&F test orders. Confirm returns process.</li>
+          <li><strong style="color:var(--glow-purple);">Robert:</strong> Place test order through full pipeline. Verify tracking + notification emails. Time end-to-end fulfillment. Coordinate 5–10 F&amp;F test orders. Confirm returns process.</li>
           <li><strong style="color:var(--glow-green);">Jose:</strong> Remove Shopify password — GO LIVE. Submit for Instagram Shopping. Apply for TikTok Shop. Send launch email to networks. Collect first reviews.</li>
-          <li><strong style="color:var(--glow-orange);">Mark:</strong> Record test-order financials. Verify sales tax collection. Reconcile Shopify payouts. Deliver first weekly P&L. Verify insurance is active.</li>
+          <li><strong style="color:var(--glow-orange);">Mark:</strong> Record test-order financials. Verify sales tax collection. Reconcile Shopify payouts. Deliver first weekly P&amp;L. Verify insurance is active.</li>
         </ul>
       </div>
       <div class="card">
         <div class="glow-bar purple"></div>
-        <h3 style="font-size:0.9rem;">Paid Ads · Wk 7–8</h3>
+        <h3 style="font-size:0.9rem;">Paid Ads &middot; Wk 7–8</h3>
         <ul class="check-list" style="font-size:0.78rem;">
           <li><strong style="color:var(--glow-cyan);">Ricardo:</strong> Create 5 ad creative variants. Design retargeting visuals. Publish 2 more blog posts. A/B test product pages. Prep seasonal mockups.</li>
-          <li><strong style="color:var(--glow-purple);">Robert:</strong> Monitor fulfillment quality. Set weekly supplier check-in. Optimize shipping costs. Build FAQ from common questions. Evaluate Printed Mint for gift SKUs.</li>
+          <li><strong style="color:var(--glow-purple);">Robert:</strong> Monitor fulfillment quality. Set weekly supplier check-in. Optimize shipping costs. Build FAQ from common questions. Evaluate Gooten for vessel expansion.</li>
           <li><strong style="color:var(--glow-green);">Jose:</strong> Launch 3 Meta ad campaigns ($20–30/day). Activate abandoned cart email flow. Set up review-request automation. Start TikTok push (3–5 vids/wk). Kill underperformers daily.</li>
-          <li><strong style="color:var(--glow-orange);">Mark:</strong> Track ad spend vs. ROAS daily. Calculate actual CAC per channel. Adjust budget on performance. Monthly P&L review. Begin quarterly tax prep.</li>
+          <li><strong style="color:var(--glow-orange);">Mark:</strong> Track ad spend vs. ROAS daily. Calculate actual CAC per channel. Adjust budget on performance. Monthly P&amp;L review. Begin quarterly tax prep.</li>
         </ul>
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
-        <h3 style="font-size:0.9rem;">Scale · Month 3+</h3>
+        <h3 style="font-size:0.9rem;">Scale &middot; Month 3+</h3>
         <ul class="check-list" style="font-size:0.78rem;">
           <li>Double budget on winning ad campaigns</li>
           <li>Expand to Google Shopping ads</li>
           <li>Launch TikTok paid ads</li>
           <li>Plan first seasonal collection</li>
           <li>Explore Amazon FBA listing</li>
-          <li>Add Printed Mint as second supplier</li>
+          <li>Add Gooten for premium vessel variety</li>
           <li>Reinvest 60% of profits into growth</li>
           <li>Quarterly business plan review</li>
           <li>First member profit distribution</li>
@@ -1036,25 +1162,25 @@
     <div class="card-grid cols-2" style="margin-top:24px;">
       <div class="card">
         <div class="glow-bar orange"></div>
-        <span class="icon">⚠️</span>
+        <span class="icon">&#9888;&#65039;</span>
         <h3>Chargeback Risk</h3>
         <p>You are the seller of record. If a customer disputes a charge, YOU are named first — not the supplier. Document every order with tracking number, fulfillment confirmation, and customer communications. Chargebacks without documentation are almost always lost.</p>
       </div>
       <div class="card">
         <div class="glow-bar cyan"></div>
-        <span class="icon">↩️</span>
+        <span class="icon">&#8617;&#65039;</span>
         <h3>Returns</h3>
         <ul class="check-list">
           <li>Suppliers do NOT accept returns on POD items</li>
-          <li>Damaged/wrong → replace, no return required</li>
-          <li>Customer changed mind → store credit or exchange</li>
-          <li>Personalized items → final sale (state on listing)</li>
+          <li>Damaged/wrong &rarr; replace, no return required</li>
+          <li>Customer changed mind &rarr; store credit or exchange</li>
+          <li>Personalized items &rarr; final sale (state on listing)</li>
           <li>Budget 2–3% of revenue as returns buffer</li>
         </ul>
       </div>
       <div class="card">
         <div class="glow-bar purple"></div>
-        <span class="icon">🛡️</span>
+        <span class="icon">&#128737;&#65039;</span>
         <h3>Insurance</h3>
         <ul class="check-list">
           <li>You carry exposure as the visible brand</li>
@@ -1066,44 +1192,862 @@
       </div>
       <div class="card">
         <div class="glow-bar green"></div>
-        <span class="icon">📋</span>
+        <span class="icon">&#128203;</span>
         <h3>Record Keeping</h3>
         <ul class="check-list">
           <li>Log every order: tracking #, fulfillment date, destination</li>
           <li>Screenshot customer comms if issues arise</li>
-          <li>Use platform dashboards (Printify/Candle Bliss)</li>
-          <li>For Printed Mint — supplement with manual records</li>
+          <li>Use Printify dashboard for all order tracking</li>
           <li>Records are your defense in any payment dispute</li>
         </ul>
       </div>
     </div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
-      <a class="cta-btn" href="IC_Candle_Co_Business_Plan_2026.pdf" target="_blank">Download Business Plan (PDF)</a>
-      <a class="cta-btn" href="business-plan.html" target="_blank" style="background:linear-gradient(135deg, var(--glow-purple), var(--glow-cyan));">View Business Plan (Web)</a>
+      <a class="cta-btn" href="business-plan-1sheet.html" target="_blank">View Business Plan</a>
+      <a class="cta-btn" onclick="switchTab('launch-guide')" style="background:linear-gradient(135deg, var(--glow-purple), var(--glow-cyan));cursor:pointer;">Explore Launch Guide</a>
     </div>
   </div>
 
 </div><!-- /deck -->
 
-<!-- Navigation -->
-<div class="nav">
-  <button class="nav-btn" id="prevBtn" onclick="go(-1)">← Prev</button>
+<!-- Slide Navigation -->
+<div class="nav" id="slide-nav">
+  <button class="nav-btn" id="prevBtn" onclick="go(-1)">&larr; Prev</button>
   <div class="dots" id="dots"></div>
-  <button class="nav-btn" id="nextBtn" onclick="go(1)">Next →</button>
+  <button class="nav-btn" id="nextBtn" onclick="go(1)">Next &rarr;</button>
 </div>
 
+</div><!-- /tab-presentation -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════ LAUNCH GUIDE TAB ═══════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-launch-guide">
+
+<div class="guide-container">
+
+  <h1 style="text-align:center;margin-bottom:8px;font-size:2rem;">IC <span class="accent">CANDLE</span> CO. — Launch Guide</h1>
+  <p style="text-align:center;color:var(--text-dim);margin-bottom:32px;">Complete operational playbook for launching and scaling the business.</p>
+
+  <!-- Section Navigation -->
+  <div class="guide-section-nav">
+    <a href="#guide-dual-revenue">Dual Revenue Model</a>
+    <a href="#guide-custom-playbook">Custom Candle Playbook</a>
+    <a href="#guide-suppliers">Supplier Deep-Dive</a>
+    <a href="#guide-niche">Niche Strategy</a>
+    <a href="#guide-marketing">Marketing Playbook</a>
+    <a href="#guide-timeline">Launch Timeline</a>
+    <a href="#guide-financials">Financial Projections</a>
+    <a href="#guide-risk">Risk &amp; Operations</a>
+  </div>
+
+  <!-- ═══════════════ SECTION 1: DUAL REVENUE MODEL ═══════════════ -->
+  <section class="guide-section" id="guide-dual-revenue">
+    <h2>1. Dual Revenue Model</h2>
+    <div class="card-grid cols-2">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Stream 1 — Branded Line</h3>
+        <ul class="check-list">
+          <li>Curated IC Candle Co. scent/vessel collections</li>
+          <li>Consistent brand labels across all products</li>
+          <li>Multiple Printify vendors supply the line</li>
+          <li>Standard margins: 43–55%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar pink"></div>
+        <h3>Stream 2 — Custom Candle Service</h3>
+        <ul class="check-list">
+          <li>Customer submits personal imagery</li>
+          <li>AI transforms into 5 style options: Caricature, Comic Book, Cartoon, Superhero, Niche-Specific</li>
+          <li>Custom label printed and fulfilled via Printify</li>
+          <li>Premium margins: 65–75% ($45–65 retail)</li>
+          <li>Near-zero design cost (AI tools team already uses)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;text-align:center;">Custom Candle Workflow</h3>
+    <div class="flow" style="margin-top:12px;">
+      <div class="flow-node">
+        <span class="step-num">01</span>
+        <span class="step-title">Customer Submits Image</span>
+        <span class="step-desc">Photo uploaded via Shopify customizer</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-node">
+        <span class="step-num">02</span>
+        <span class="step-title">Selects AI Style</span>
+        <span class="step-desc">Caricature, Comic, Cartoon, Hero, or Niche</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-node">
+        <span class="step-num">03</span>
+        <span class="step-title">AI Transforms Art</span>
+        <span class="step-desc">Image styled in chosen aesthetic</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-node">
+        <span class="step-num">04</span>
+        <span class="step-title">Label Designed</span>
+        <span class="step-desc">Art placed on candle label template</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-node">
+        <span class="step-num">05</span>
+        <span class="step-title">Printify Fulfills</span>
+        <span class="step-desc">Vendor prints label, pours candle, ships</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-node">
+        <span class="step-num">06</span>
+        <span class="step-title">Premium Delivered</span>
+        <span class="step-desc">One-of-a-kind candle arrives at customer door</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 2: CUSTOM CANDLE SERVICE PLAYBOOK ═══════════════ -->
+  <section class="guide-section" id="guide-custom-playbook">
+    <h2>2. Custom Candle Service Playbook</h2>
+
+    <h3>AI Styling Categories</h3>
+    <div class="card-grid cols-3" style="margin-top:12px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Caricatures</h3>
+        <p>Fun, exaggerated cartoon portraits. <strong>Perfect for:</strong> birthday candles, couple gifts, family candles</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>Comic Book</h3>
+        <p>Bold outlines, halftone dots, action panels. <strong>Perfect for:</strong> superhero fans, kids' rooms, pop culture gifts</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3>Cartoon / Animated</h3>
+        <p>Soft, illustrated character style. <strong>Perfect for:</strong> children's nursery candles, baby shower favors, pet portraits</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <h3>Superhero</h3>
+        <p>Dynamic hero poses with custom costumes. <strong>Perfect for:</strong> kids' birthday gifts, fan merchandise, themed parties</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar pink"></div>
+        <h3>Niche-Specific</h3>
+        <p>Memorial portraits, pet rainbow bridge, wedding couple illustrations, sports team art. <strong>Perfect for:</strong> high-emotion occasions where personalization drives premium pricing</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Pricing Strategy</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Base Candle</th>
+          <th>Design Fee</th>
+          <th>Total Retail</th>
+          <th>Margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Standard branded</td><td>$10–18 cost</td><td>$0</td><td>$18–48</td><td>43–55%</td></tr>
+        <tr><td>Custom caricature</td><td>$10–18 cost</td><td>$15–25</td><td>$45–65</td><td>65–75%</td></tr>
+        <tr><td>Custom comic book</td><td>$10–18 cost</td><td>$15–25</td><td>$45–65</td><td>65–75%</td></tr>
+        <tr><td>Premium memorial</td><td>$10–18 cost</td><td>$20–35</td><td>$55–75</td><td>70–80%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════ SECTION 3: SUPPLIER DEEP-DIVE ═══════════════ -->
+  <section class="guide-section" id="guide-suppliers">
+    <h2>3. Supplier Deep-Dive</h2>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar cyan"></div>
+      <h3 class="accent">Printify — Platform Backbone</h3>
+      <p><strong>How it works:</strong> Printify aggregates candle vendors. When you list a product, you choose which vendor fulfills it. All orders route through Printify's system regardless of vendor.</p>
+      <ul class="check-list">
+        <li><strong>Key features:</strong> Custom label upload, Shopify/Etsy/Amazon integrations, order tracking dashboard, zero MOQ</li>
+        <li><strong>Vendors available:</strong> Candle Builders (NH, soy, 1–2 day), others rotate into catalog</li>
+        <li><strong>Pricing:</strong> $7.99–$13 base per candle + shipping. Premium plan ($29/mo) unlocks lower per-unit pricing.</li>
+        <li><strong>Setup:</strong> Sign up free &rarr; Connect Shopify &rarr; Upload designs &rarr; Publish products</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar purple"></div>
+      <h3 style="color:var(--glow-purple);">Gooten — Vessel Variety Specialist</h3>
+      <p><strong>Best for:</strong> Product differentiation through unique vessel types.</p>
+      <ul class="check-list">
+        <li><strong>Vessels:</strong> Tin, frosted glass, amber jar, clear jar</li>
+        <li><strong>Materials:</strong> Coconut soy wax, wood wick options</li>
+        <li>10+ fragrances, full-wrap custom labels (3" x 2" at 300dpi)</li>
+        <li><strong>Pricing:</strong> Variable, competitive with Printify</li>
+        <li><strong>Setup:</strong> Sign up free &rarr; API or dashboard &rarr; Connect store</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar green"></div>
+      <h3 style="color:var(--glow-green);">Candle Bliss — Premium Scent Library</h3>
+      <ul class="check-list">
+        <li>20+ curated scents across 6 categories (Floral, Warm/Gourmand, Fresh/Clean, Earthy/Woodsy, Seasonal, Tropical/Fruity)</li>
+        <li>Coconut Apricot Wax, phthalate-free, Prop 65 compliant</li>
+        <li>Phoenix, AZ fulfillment, 1–3 day turnaround</li>
+        <li>Free Shopify/Etsy apps</li>
+        <li>Best for premium scent-forward branded products</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:28px;">Comparison Matrix</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="min-width:160px;">Criteria</th>
+          <th>Printify</th>
+          <th>Gooten</th>
+          <th>Candle Bliss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>True POD / No Inventory</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Custom Labels</td><td>&#10003; Full</td><td>&#10003; Full</td><td>&#10003;</td></tr>
+        <tr><td>Scent Variety</td><td>Multi-vendor</td><td>10+</td><td>20+</td></tr>
+        <tr><td>Vessel Variety</td><td>Glass (via vendors)</td><td>Tin, Frosted, Amber, Clear</td><td>Tins + 3 glass</td></tr>
+        <tr><td>Wax Type</td><td>Varies by vendor</td><td>Coconut Soy</td><td>Coconut/Apricot</td></tr>
+        <tr><td>Wood Wick</td><td>Vendor-dependent</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Fulfillment Speed</td><td>2–5 days</td><td>2+ days</td><td>1–3 days</td></tr>
+        <tr><td>US-Based</td><td>Multiple locations</td><td>&#10003;</td><td>Phoenix, AZ</td></tr>
+        <tr><td>Shopify Integration</td><td>&#10003; Native</td><td>&#10003; Native</td><td>&#10003; Native</td></tr>
+        <tr><td>Etsy Integration</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Amazon + Other</td><td>&#10003; Multi-channel</td><td>&#10003;</td><td>&#10008;</td></tr>
+        <tr><td>Multi-Vendor Platform</td><td>&#10003;</td><td>&#10003;</td><td>&#10008; Single</td></tr>
+        <tr><td>Startup Cost</td><td>Free</td><td>Free</td><td>Free</td></tr>
+        <tr><td>Phthalate-Free</td><td>Varies</td><td>&#10003;</td><td>&#10003; Prop 65</td></tr>
+        <tr><td>Recyclable Vessel</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════ SECTION 4: NICHE STRATEGY PLAYBOOK ═══════════════ -->
+  <section class="guide-section" id="guide-niche">
+    <h2>4. Niche Strategy Playbook</h2>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar purple"></div>
+      <h3>Memorial / Sympathy</h3>
+      <div class="card-grid cols-2" style="margin-top:12px;gap:12px;">
+        <div>
+          <p><strong style="color:var(--text);">Scents:</strong> Lavender, Vanilla Bean, Cashmere Vanilla, Fresh Linen, Serenity</p>
+          <p><strong style="color:var(--text);">Target:</strong> Grieving families, funeral directors, hospice workers</p>
+          <p><strong style="color:var(--text);">SEO Keywords:</strong> "sympathy candle gift personalized", "memorial candle for loss of loved one", "in memory candle custom photo"</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text);">Custom Opportunity:</strong> Memorial portrait candles, angel renderings, pet rainbow bridge illustrations</p>
+          <p><strong style="color:var(--text);">Label Direction:</strong> Soft pastels, elegant fonts, "In Loving Memory of [Name]"</p>
+          <p><strong style="color:var(--text);">Example Listing Title:</strong> <em>"Personalized Memorial Candle — Custom Photo Portrait — In Loving Memory Gift"</em></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar cyan"></div>
+      <h3>Profession-Specific Gifting</h3>
+      <div class="card-grid cols-2" style="margin-top:12px;gap:12px;">
+        <div>
+          <p><strong style="color:var(--text);">Scents:</strong> Sandalwood &amp; Cedar, Oakmoss, Fresh Linen, Coastal Cottage, Cinnamon Chai</p>
+          <p><strong style="color:var(--text);">Target:</strong> Corporate gift buyers, HR departments, admin assistants</p>
+          <p><strong style="color:var(--text);">SEO Keywords:</strong> "teacher appreciation candle", "realtor closing gift candle", "nurse gift personalized"</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text);">Custom Opportunity:</strong> Company logos stylized, team caricatures, branded corporate gifts</p>
+          <p><strong style="color:var(--text);">Label Direction:</strong> Professional, clean design, company colors, "Thank You [Name]"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar green"></div>
+      <h3>Outdoors / Adventure</h3>
+      <div class="card-grid cols-2" style="margin-top:12px;gap:12px;">
+        <div>
+          <p><strong style="color:var(--text);">Scents:</strong> Fraser Fir, Woodland Forest, Evergreen &amp; Apple, Oakmoss, Coastal Cottage</p>
+          <p><strong style="color:var(--text);">Target:</strong> Hikers, campers, national park fans</p>
+          <p><strong style="color:var(--text);">SEO Keywords:</strong> "campfire candle gift", "mountain cabin candle", "adventure gift for him"</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text);">Custom Opportunity:</strong> Trail photos as illustrated landscapes, pet adventure portraits</p>
+          <p><strong style="color:var(--text);">Label Direction:</strong> Nature imagery, earth tones, mountain/forest silhouettes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar orange"></div>
+      <h3>Cultural Celebrations</h3>
+      <div class="card-grid cols-2" style="margin-top:12px;gap:12px;">
+        <div>
+          <p><strong style="color:var(--text);">Scents:</strong> Cinnamon Chai, Mango &amp; Coconut Milk, Fiesta Pineapple Margarita, Yuzu Blossom, Cranberry Balsam</p>
+          <p><strong style="color:var(--text);">Target:</strong> Multicultural consumers, holiday shoppers, event planners</p>
+          <p><strong style="color:var(--text);">SEO Keywords:</strong> "Diwali candle gift", "Lunar New Year candle", "D&iacute;a de los Muertos candle"</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text);">Custom Opportunity:</strong> Family portraits in cultural art styles, event-specific designs</p>
+          <p><strong style="color:var(--text);">Label Direction:</strong> Vibrant colors, cultural motifs, celebration-specific themes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar pink"></div>
+      <h3>Manifestation / Intention</h3>
+      <div class="card-grid cols-2" style="margin-top:12px;gap:12px;">
+        <div>
+          <p><strong style="color:var(--text);">Scents:</strong> Bohemian Rose, Lavender, Sandalwood &amp; Cedar, Serenity, Island</p>
+          <p><strong style="color:var(--text);">Target:</strong> Spiritual practitioners, yoga community, new-age wellness</p>
+          <p><strong style="color:var(--text);">SEO Keywords:</strong> "manifestation candle", "intention setting candle", "meditation candle gift"</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--text);">Custom Opportunity:</strong> Vision board imagery, zodiac illustrations, spiritual symbol art</p>
+          <p><strong style="color:var(--text);">Label Direction:</strong> Mystical/celestial themes, crystal imagery, moon phases</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 5: MARKETING PLAYBOOK ═══════════════ -->
+  <section class="guide-section" id="guide-marketing">
+    <h2>5. Marketing Playbook</h2>
+
+    <h3>AI-Powered Marketing Stack</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th>Agency Role Replaced</th>
+          <th>Market Rate</th>
+          <th>Our Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Web Designer</td><td>$2,000–4,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>SEO Specialist</td><td>$1,500–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Copywriter</td><td>$2,000–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Email Marketer</td><td>$1,000–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Social Media Manager</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Brand Strategist</td><td>$2,000–3,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>Market Researcher</td><td>$1,500–2,000/mo</td><td class="highlight">$0</td></tr>
+        <tr><td>AI Image Stylist</td><td>$3,000–5,000/mo</td><td class="highlight">$0</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);">
+          <td><strong>Total Replaced</strong></td>
+          <td><strong>$14,500–24,000/mo</strong></td>
+          <td class="highlight" style="font-size:1.1rem;"><strong>$0</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:28px;">Sales Channels</h3>
+    <div class="card-grid cols-3" style="margin-top:12px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Shopify</h3>
+        <p>Home base. Full brand experience, custom orders, high-converting checkout with built-in inventory management and social media integration.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>Etsy</h3>
+        <p>Built-in audience, #1 platform for personalized gifts. Organic discovery from day one. Primary launch channel.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3>TikTok Shop</h3>
+        <p>Sell directly inside viral videos. Massive organic reach for visual products.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar pink"></div>
+        <h3>Instagram Shop</h3>
+        <p>Tag products in posts and reels. Lifestyle imagery drives impulse purchases.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar orange"></div>
+        <h3>Amazon</h3>
+        <p>Massive trust and gift traffic. Access the world's largest marketplace audience.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>SEO Blog</h3>
+        <p>AI-generated blog content drives free Google traffic to Shopify storefront long-term.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Marketing the Custom Candle Service</h3>
+    <div class="card-grid cols-2" style="margin-top:12px;">
+      <div class="card">
+        <div class="glow-bar pink"></div>
+        <h3>Social Proof</h3>
+        <p>Before/after image transformation posts. Show the original photo alongside each AI style option to demonstrate the magic of the service.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>Gift-Occasion Targeting</h3>
+        <p>"Turn your favorite photo into a one-of-a-kind candle." Target birthdays, anniversaries, memorials, holidays with occasion-specific messaging.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar green"></div>
+        <h3>UGC Strategy</h3>
+        <p>Encourage customers to share their custom candles. Repost user content. Create a branded hashtag. Offer 10% off next order for photo reviews.</p>
+      </div>
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Email Marketing</h3>
+        <p>"Design Your Custom Candle" CTA in welcome sequence. Dedicated email flow for custom orders. Post-purchase follow-up showcasing other style options.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 6: LAUNCH TIMELINE ═══════════════ -->
+  <section class="guide-section" id="guide-timeline">
+    <h2>6. Launch Timeline (Detailed)</h2>
+
+    <h3>Timeline Overview</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Timing</th>
+          <th>Gate Criteria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Foundation</strong></td><td>Week 1–2</td><td>LLC filed, bank open, Shopify created, suppliers applied, brand identity done</td></tr>
+        <tr><td><strong>Build</strong></td><td>Week 3–4</td><td>Store designed, 8–10 products listed, Etsy live, fulfillment tested, insurance secured</td></tr>
+        <tr><td><strong>Soft Launch</strong></td><td>Week 5–6</td><td>Shopify live, 5–10 test orders fulfilled, reviews collected, financials reconciled</td></tr>
+        <tr><td><strong>Paid Ads</strong></td><td>Week 7–8</td><td>3 Meta campaigns running, abandoned cart flow active, ROAS tracked daily</td></tr>
+        <tr><td><strong>Scale</strong></td><td>Month 3+</td><td>Winning ads doubled, Google Shopping live, seasonal collection planned</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Phase 1 -->
+    <h3 style="margin-top:32px;color:var(--glow-cyan);">Phase 1: Foundation — Weeks 1–2</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="width:25%;">Ricardo (Creative/Tech)</th>
+          <th style="width:25%;">Robert (Operations)</th>
+          <th style="width:25%;">Jose (Store/Marketing)</th>
+          <th style="width:25%;">Mark (Finance)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Research competitor Shopify stores<br>
+            &bull; Select brand color palette + typography<br>
+            &bull; Design IC Candle Co. logo in Canva<br>
+            &bull; Create homepage wireframe/mockup<br>
+            &bull; Design 3 product label templates<br>
+            &bull; Set up brand Instagram + TikTok<br>
+            &bull; Create brand style guide
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Compare top 5 POD candle suppliers<br>
+            &bull; Apply to Printify (free, instant setup)<br>
+            &bull; Apply to Gooten account<br>
+            &bull; Order sample packs from top 2<br>
+            &bull; Document pricing, terms, lead times<br>
+            &bull; Research insurance (Next, Thimble, Hiscox)<br>
+            &bull; Create supplier evaluation spreadsheet
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Create Shopify account ($39/mo Basic)<br>
+            &bull; Purchase domain name (~$15)<br>
+            &bull; Install Printify + Klaviyo apps<br>
+            &bull; Set up Shopify Payments + PayPal<br>
+            &bull; Research competitor pricing on Etsy<br>
+            &bull; Install Google Analytics + Facebook Pixel<br>
+            &bull; Create placeholder product collections
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; File Florida LLC ($125 via Sunbiz.org)<br>
+            &bull; Apply for EIN (IRS.gov, same day)<br>
+            &bull; Open business bank account (Mercury)<br>
+            &bull; Set up Wave accounting (free)<br>
+            &bull; Draft 4-member operating agreement<br>
+            &bull; Create startup budget tracker<br>
+            &bull; Research FL sales tax requirements
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Phase 2 -->
+    <h3 style="margin-top:32px;color:var(--glow-purple);">Phase 2: Build — Weeks 3–4</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="width:25%;">Ricardo (Creative/Tech)</th>
+          <th style="width:25%;">Robert (Operations)</th>
+          <th style="width:25%;">Jose (Store/Marketing)</th>
+          <th style="width:25%;">Mark (Finance)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Build full Shopify theme (home, about, FAQ)<br>
+            &bull; Design product pages with lifestyle imagery<br>
+            &bull; Build candle customizer (photo upload)<br>
+            &bull; Generate AI product mockup photos<br>
+            &bull; Write SEO descriptions for 8–10 SKUs<br>
+            &bull; Design email signup popup<br>
+            &bull; Create social content templates
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Burn-test + evaluate all samples<br>
+            &bull; Select primary supplier, finalize agreement<br>
+            &bull; Set up automated fulfillment (Printify app)<br>
+            &bull; Configure shipping rates in Shopify<br>
+            &bull; Draft returns and exchange policy<br>
+            &bull; Write CS email templates (10 scenarios)<br>
+            &bull; Secure product liability insurance
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Upload all products with photos + copy<br>
+            &bull; Configure shipping zones + tax settings<br>
+            &bull; Open Etsy seller account<br>
+            &bull; Create 5 Etsy listings (optimized tags)<br>
+            &bull; Set up Klaviyo email capture form<br>
+            &bull; Build welcome email sequence (3 emails)<br>
+            &bull; Set up Meta Business Manager
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Build pricing model (all costs/channel)<br>
+            &bull; Calculate unit economics per product<br>
+            &bull; Create weekly P&amp;L tracking template<br>
+            &bull; Enable Shopify sales tax collection<br>
+            &bull; Set ad budget rules ($500, $20–30/day)<br>
+            &bull; Build 3/6/12-month financial projections<br>
+            &bull; Set up profit-split tracking (60/25/15)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Phase 3 -->
+    <h3 style="margin-top:32px;color:var(--glow-green);">Phase 3: Soft Launch — Weeks 5–6</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="width:25%;">Ricardo (Creative/Tech)</th>
+          <th style="width:25%;">Robert (Operations)</th>
+          <th style="width:25%;">Jose (Store/Marketing)</th>
+          <th style="width:25%;">Mark (Finance)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; QA entire store (links, checkout, mobile)<br>
+            &bull; Create launch graphics for social<br>
+            &bull; Publish first 2 SEO blog posts<br>
+            &bull; Begin daily social content (IG + TikTok)<br>
+            &bull; Film product unboxing video<br>
+            &bull; Design review-request email template
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Place test order through full pipeline<br>
+            &bull; Verify tracking + notification emails<br>
+            &bull; Time end-to-end fulfillment cycle<br>
+            &bull; Coordinate 5–10 F&amp;F test orders<br>
+            &bull; Resolve any fulfillment issues<br>
+            &bull; Confirm returns process works
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Remove Shopify password — GO LIVE<br>
+            &bull; Submit for Instagram Shopping approval<br>
+            &bull; Apply for TikTok Shop seller account<br>
+            &bull; Launch organic posts with product tags<br>
+            &bull; Send launch email to personal networks<br>
+            &bull; Follow up with buyers for reviews
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Record all test-order financials in Wave<br>
+            &bull; Compare actual vs. projected economics<br>
+            &bull; Verify sales tax collection is correct<br>
+            &bull; Reconcile Shopify payouts with bank<br>
+            &bull; Deliver first weekly P&amp;L to team<br>
+            &bull; Verify insurance is active and adequate
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Phase 4 -->
+    <h3 style="margin-top:32px;color:var(--glow-orange);">Phase 4: Paid Ads — Weeks 7–8</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="width:25%;">Ricardo (Creative/Tech)</th>
+          <th style="width:25%;">Robert (Operations)</th>
+          <th style="width:25%;">Jose (Store/Marketing)</th>
+          <th style="width:25%;">Mark (Finance)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Create 5 ad creative variants<br>
+            &bull; Design retargeting ad visuals<br>
+            &bull; Publish 2 more SEO blog posts<br>
+            &bull; A/B test product page layouts<br>
+            &bull; Prep seasonal/holiday mockups
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Monitor fulfillment quality on live orders<br>
+            &bull; Set weekly supplier check-in cadence<br>
+            &bull; Optimize shipping cost structure<br>
+            &bull; Build FAQ from common questions<br>
+            &bull; Evaluate Gooten for vessel expansion
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Launch 3 Meta ad campaigns ($20–30/day)<br>
+            &bull; Activate abandoned cart email flow<br>
+            &bull; Set up post-purchase review automation<br>
+            &bull; Start TikTok push (3–5 videos/week)<br>
+            &bull; Kill underperforming ads daily
+          </td>
+          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
+            &bull; Track ad spend vs. ROAS daily<br>
+            &bull; Calculate actual CAC per channel<br>
+            &bull; Adjust budget based on performance<br>
+            &bull; First monthly P&amp;L review with team<br>
+            &bull; Begin quarterly tax planning
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Phase 5 -->
+    <h3 style="margin-top:32px;color:var(--glow-pink);">Phase 5: Scale — Month 3+</h3>
+    <div class="card" style="margin-top:12px;">
+      <div class="glow-bar pink"></div>
+      <ul class="check-list">
+        <li>Double budget on winning ad campaigns</li>
+        <li>Expand to Google Shopping ads</li>
+        <li>Launch TikTok paid ads</li>
+        <li>Plan and launch first seasonal collection</li>
+        <li>Explore Amazon FBA listing</li>
+        <li>Add Gooten for premium vessel variety</li>
+        <li>Reinvest 60% of profits into growth channels</li>
+        <li>Quarterly business plan review and update</li>
+        <li>First member profit distribution (if profitable)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 7: FINANCIAL PROJECTIONS ═══════════════ -->
+  <section class="guide-section" id="guide-financials">
+    <h2>7. Financial Projections</h2>
+
+    <h3>Startup Costs</h3>
+    <table class="data-table" style="margin-top:12px;max-width:500px;">
+      <thead>
+        <tr><th>Item</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Florida LLC Registration</td><td class="highlight">$125</td></tr>
+        <tr><td>Shopify Plan (first month)</td><td class="highlight">$39</td></tr>
+        <tr><td>Domain Name</td><td class="highlight">$15</td></tr>
+        <tr><td>POD Sample Orders</td><td class="highlight">$150</td></tr>
+        <tr><td>Initial Advertising Budget</td><td class="highlight">$500</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);"><td><strong>Total to Launch</strong></td><td class="highlight"><strong>~$830</strong></td></tr>
+        <tr><td><strong>Per Person (4 members)</strong></td><td class="highlight"><strong>~$208</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:28px;">Monthly Overhead</h3>
+    <table class="data-table" style="margin-top:12px;max-width:500px;">
+      <thead>
+        <tr><th>Expense</th><th>Monthly Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Shopify Plan</td><td class="highlight">$39</td></tr>
+        <tr><td>General Liability Insurance</td><td class="highlight">~$55</td></tr>
+        <tr><td>App Subscriptions (Klaviyo, etc.)</td><td class="highlight">~$20</td></tr>
+        <tr><td>AI Tools</td><td class="highlight">~$20</td></tr>
+        <tr><td>Domain/Hosting</td><td class="highlight">~$5</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);"><td><strong>Total Monthly Overhead</strong></td><td class="highlight"><strong>~$140</strong></td></tr>
+        <tr><td><strong>Per Person</strong></td><td class="highlight"><strong>~$35</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:28px;">Unit Economics</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr><th>Metric</th><th>Conservative</th><th>Strong</th><th>Custom Candle</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Retail Price</td><td class="highlight">$28</td><td class="highlight">$42</td><td class="highlight">$55</td></tr>
+        <tr><td>POD Supplier Cost</td><td>-$13</td><td>-$15</td><td>~$14</td></tr>
+        <tr><td>Platform Fees</td><td>-$2.80</td><td>-$4.20</td><td>~$5.50</td></tr>
+        <tr><td>Design Cost</td><td>$0</td><td>$0</td><td>$0 (AI)</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);"><td><strong>Net Margin per Unit</strong></td><td class="highlight"><strong>~$12</strong></td><td class="highlight"><strong>~$23</strong></td><td class="highlight"><strong>~$35.50</strong></td></tr>
+        <tr><td><strong>Margin %</strong></td><td class="highlight"><strong>~43%</strong></td><td class="highlight"><strong>~55%</strong></td><td class="highlight"><strong>~65%</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:28px;">Break-Even Analysis</h3>
+    <div class="card" style="margin-top:12px;">
+      <div class="glow-bar cyan"></div>
+      <p>With monthly overhead of approximately $140 (excluding ad spend) and an average net margin of $12–$23 per unit:</p>
+      <ul class="check-list" style="margin-top:8px;">
+        <li><strong>Conservative scenario ($12/unit):</strong> Break-even at ~12 candles/month (overhead only) or ~30 candles/month (including ad spend at $200/mo)</li>
+        <li><strong>Strong scenario ($23/unit):</strong> Break-even at ~7 candles/month (overhead only) or ~15 candles/month (including ad spend)</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:28px;">Profit Distribution</h3>
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr><th>Allocation</th><th>Percentage</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Reinvest in Business</strong></td><td class="highlight">60%</td><td>Advertising budget, new product development, supplier expansion, tools/apps</td></tr>
+        <tr><td><strong>Cash Reserve</strong></td><td class="highlight">25%</td><td>Emergency fund, seasonal inventory buffers, insurance deductibles, returns buffer</td></tr>
+        <tr><td><strong>Member Distribution</strong></td><td class="highlight">15%</td><td>Equal quarterly distribution to all four members</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:28px;">Key Metrics to Track</h3>
+    <div class="card" style="margin-top:12px;">
+      <div class="glow-bar green"></div>
+      <ul class="check-list">
+        <li><strong>Average Order Value (AOV)</strong> — target $30+ to monitor pricing effectiveness</li>
+        <li><strong>Customer Acquisition Cost (CAC)</strong> — target below $10 through organic and paid mix</li>
+        <li><strong>Conversion Rate</strong> — Shopify benchmark 2–3%, target 3%+</li>
+        <li><strong>Return Rate</strong> — budget 2–3%, target below 2%</li>
+        <li><strong>Monthly Revenue</strong> — Week 1–4 goal: first 10 orders. Month 2: 30+ orders. Month 3+: scale</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION 8: RISK MANAGEMENT & OPERATIONS ═══════════════ -->
+  <section class="guide-section" id="guide-risk">
+    <h2>8. Risk Management &amp; Operations</h2>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="glow-bar orange"></div>
+      <h3>Chargeback Risk</h3>
+      <p><strong style="color:var(--glow-orange);">Critical:</strong> As seller of record, IC Candle Co. is named first in any customer dispute — not the supplier. Every order must be documented with tracking number, fulfillment confirmation, and customer communications. Chargebacks without documentation are almost always lost.</p>
+    </div>
+
+    <div class="card-grid cols-2" style="margin-top:16px;">
+      <div class="card">
+        <div class="glow-bar cyan"></div>
+        <h3>Returns Policy</h3>
+        <ul class="check-list">
+          <li>POD suppliers do NOT accept returns on custom items</li>
+          <li>Damaged or wrong orders &rarr; replacement shipped, no return required</li>
+          <li>Customer changed mind &rarr; store credit or exchange</li>
+          <li>Personalized items &rarr; final sale (clearly stated on all listings)</li>
+          <li>Budget 2–3% of revenue as returns/replacement buffer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="glow-bar purple"></div>
+        <h3>Insurance Requirements</h3>
+        <ul class="check-list">
+          <li>General Liability + Product Liability Insurance required (~$300–600/year)</li>
+          <li>Recommended providers: Next Insurance, Thimble, Hiscox</li>
+          <li>Coverage must be secured BEFORE first sale</li>
+          <li>Review supplier terms to understand where their liability ends</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <div class="glow-bar green"></div>
+      <h3>Record Keeping</h3>
+      <ul class="check-list">
+        <li>Log every order: tracking #, fulfillment date, destination</li>
+        <li>Screenshot customer communications when issues arise</li>
+        <li>Use Printify dashboard for all order tracking</li>
+        <li>Records are primary defense in any payment dispute</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:28px;">Shipping Strategy</h3>
+    <div class="card" style="margin-top:12px;">
+      <div class="glow-bar cyan"></div>
+      <ul class="check-list">
+        <li><strong>Standard:</strong> Pass shipping cost to customer</li>
+        <li><strong>"Free shipping":</strong> Build shipping into retail price</li>
+        <li><strong>Threshold:</strong> Free shipping on 2+ candle orders</li>
+        <li><strong>Printify:</strong> Volume discounts available on bulk</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <div class="glow-bar pink"></div>
+      <h3>Custom Order Policies</h3>
+      <p><strong style="color:var(--glow-pink);">Important:</strong> Custom/personalized candles are final sale. Clearly state on all listings. Turnaround time: 3–5 business days for design + 2–5 days fulfillment.</p>
+      <ul class="check-list" style="margin-top:8px;">
+        <li>Custom orders are non-refundable — state prominently on product page and checkout</li>
+        <li>Provide design proof to customer for approval before production</li>
+        <li>Allow one round of revisions per order at no additional charge</li>
+        <li>Set clear expectations: "Design: 3–5 business days. Fulfillment: 2–5 business days. Total: 5–10 business days."</li>
+      </ul>
+    </div>
+  </section>
+
+</div><!-- /guide-container -->
+</div><!-- /tab-launch-guide -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════ JAVASCRIPT ═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const dotsBox = document.getElementById('dots');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  let cur = 0;
+  // ═══════════════ TAB SWITCHING ═══════════════
+  function switchTab(tabId) {
+    // Hide all tab content
+    document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    // Deactivate all tab buttons
+    document.querySelectorAll('.top-nav .tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    // Show selected tab
+    var tabEl = document.getElementById('tab-' + tabId);
+    if (tabEl) tabEl.classList.add('active');
+    // Activate button
+    var btnEl = document.querySelector('[data-tab="' + tabId + '"]');
+    if (btnEl) btnEl.classList.add('active');
+
+    if (tabId === 'presentation') {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.getElementById('slide-nav').style.display = 'flex';
+    } else {
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      document.getElementById('slide-nav').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+  }
+
+  // ═══════════════ SLIDE NAVIGATION ═══════════════
+  var slides = document.querySelectorAll('.slide');
+  var dotsBox = document.getElementById('dots');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var cur = 0;
 
   // Build dots
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
+  slides.forEach(function(_, i) {
+    var d = document.createElement('button');
     d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => jump(i);
+    d.onclick = function() { jump(i); };
     dotsBox.appendChild(d);
   });
 
@@ -1120,8 +2064,10 @@
 
   function go(dir) { jump(cur + dir); }
 
-  // Keyboard
-  document.addEventListener('keydown', e => {
+  // Keyboard navigation — only when presentation tab is active
+  document.addEventListener('keydown', function(e) {
+    var presTab = document.getElementById('tab-presentation');
+    if (!presTab.classList.contains('active')) return;
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
   });

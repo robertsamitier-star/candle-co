@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC Candle Co. — Business Plan 2026 (Condensed)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --accent: #0ea5e9;
+    --accent-dark: #0369a1;
+    --purple: #7c3aed;
+    --green: #059669;
+    --orange: #d97706;
+    --text: #1e293b;
+    --text-dim: #64748b;
+    --border: #e2e8f0;
+    --surface: #f8fafc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+    font-size: 10.5pt;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 40px 50px;
+  }
+
+  /* Cover Header */
+  .cover-header {
+    text-align: center;
+    padding: 36px 20px 28px;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 28px;
+  }
+  .cover-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .cover-header h1 span { color: var(--accent); }
+  .cover-header .subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .cover-header .tagline {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+    margin-bottom: 12px;
+  }
+  .cover-header .team-line {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  /* Sections */
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-top: 28px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: -0.5px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 18px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p { margin-bottom: 10px; font-size: 0.92rem; }
+
+  ul, ol {
+    margin: 8px 0 8px 22px;
+    font-size: 0.92rem;
+  }
+  li { margin-bottom: 4px; }
+
+  strong { font-weight: 600; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 0.85rem;
+  }
+  th {
+    background: var(--surface);
+    text-align: left;
+    padding: 7px 10px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+  }
+  .callout.warning {
+    border-left-color: var(--orange);
+    background: #fffbeb;
+  }
+  .callout.success {
+    border-left-color: var(--green);
+    background: #f0fdf4;
+  }
+  .callout ul { margin: 6px 0 2px 18px; }
+  .callout li { margin-bottom: 3px; }
+  .callout p { margin-bottom: 4px; }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0 14px;
+    font-size: 0.88rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .flow strong { color: var(--text); }
+
+  /* Niche list */
+  .niche-list {
+    margin: 8px 0 8px 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.88rem;
+  }
+  .niche-list li {
+    margin-bottom: 5px;
+    padding-left: 8px;
+  }
+  .niche-list li::before {
+    content: none;
+  }
+  .niche-num {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* Two-column grid */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 10px 0;
+  }
+  .two-col > div { min-width: 0; }
+
+  /* Compact table for startup costs */
+  .compact-table td:last-child,
+  .compact-table th:last-child {
+    text-align: right;
+  }
+  .compact-table tr.total-row td {
+    font-weight: 700;
+    border-top: 2px solid var(--accent);
+    border-bottom: none;
+  }
+
+  /* Metric highlight */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .metric-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .metric-box .metric-val {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+  }
+  .metric-box .metric-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 2px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.8;
+  }
+  .doc-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .doc-footer a:hover { text-decoration: underline; }
+
+  /* Back link */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  /* Page breaks */
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+    height: 0;
+    margin: 0;
+    border: none;
+  }
+
+  /* Print */
+  @media print {
+    body { font-size: 9.5pt; }
+    .page { padding: 20mm 25mm; max-width: none; }
+    .cover-header { padding: 24px 10px 20px; margin-bottom: 20px; }
+    .cover-header h1 { font-size: 2.2rem; }
+    h2 { margin-top: 20px; font-size: 1.1rem; }
+    h3 { margin-top: 14px; font-size: 0.95rem; }
+    .callout { break-inside: avoid; }
+    table { break-inside: avoid; }
+    .back-link { display: none; }
+    .page-break { page-break-after: always; break-after: page; }
+    .two-col { break-inside: avoid; }
+    @page { size: A4; margin: 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a class="back-link" href="index.html">&larr; Back to Presentation</a>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 1: EXECUTIVE SUMMARY                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <div class="cover-header">
+    <h1>IC <span>CANDLE</span> CO.</h1>
+    <p class="subtitle">Business Plan 2026</p>
+    <p class="tagline">Custom Candles Powered by AI</p>
+    <p class="team-line">
+      Ricardo &middot; Robert &middot; Jose &middot; Mark<br>
+      Florida, USA &middot; 2026
+    </p>
+  </div>
+
+  <h2>Executive Summary</h2>
+
+  <p>
+    IC Candle Co. is a direct-to-consumer candle brand with two revenue streams: a curated branded
+    candle line and a custom candle service powered by AI image styling. Operating through Printify's
+    multi-vendor platform with Shopify as our primary storefront, we leverage print-on-demand
+    fulfillment that eliminates inventory risk and enables premium margins.
+  </p>
+
+  <p>
+    Our AI-powered approach handles marketing, design, copywriting, and image styling &mdash; services
+    costing $14,500&ndash;24,000/month if outsourced. Our custom candle service transforms customer
+    photos into stylized artwork (caricatures, comic book, cartoon, superhero, and niche-specific
+    styles) printed as unique candle labels, commanding 65&ndash;75% margins.
+  </p>
+
+  <div class="callout success">
+    <p><strong>Key Differentiators</strong></p>
+    <ul>
+      <li>Zero inventory risk through POD fulfillment via Printify</li>
+      <li>AI replaces $14.5&ndash;24K/mo in agency + design costs</li>
+      <li>Dual revenue: branded line (43&ndash;55% margin) + custom service (65&ndash;75% margin)</li>
+      <li>4-person team with zero role overlap</li>
+      <li>Total launch cost ~$830 (~$208 per person)</li>
+      <li>Break-even at ~30 candles/month</li>
+    </ul>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric-box">
+      <div class="metric-val">~$830</div>
+      <div class="metric-label">Total Launch Cost</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">65&ndash;75%</div>
+      <div class="metric-label">Custom Candle Margin</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">~30/mo</div>
+      <div class="metric-label">Break-Even Volume</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 2: TEAM + MODEL + SUPPLIERS               -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <h2>The Founding Team</h2>
+
+  <table>
+    <thead>
+      <tr><th>Member</th><th>Role</th><th>Key Responsibilities</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ricardo</strong></td>
+        <td>Creative Director / Tech Lead</td>
+        <td>Design, AI, SEO, brand identity, product mockups</td>
+      </tr>
+      <tr>
+        <td><strong>Robert</strong></td>
+        <td>COO / Operations &amp; Supply Chain</td>
+        <td>Suppliers, QC, fulfillment, shipping, CS. Former REI head manager</td>
+      </tr>
+      <tr>
+        <td><strong>Jose</strong></td>
+        <td>Store Manager &amp; Paid Marketing</td>
+        <td>Shopify, product listings, Meta/TikTok ads, Klaviyo</td>
+      </tr>
+      <tr>
+        <td><strong>Mark</strong></td>
+        <td>CFO &amp; Business Strategy</td>
+        <td>LLC, bookkeeping, P&amp;L, tax planning, capital management</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>How It Works</h2>
+
+  <h3>Branded Candle Line</h3>
+  <div class="flow">
+    <strong>Customer Orders</strong> &rarr; Auto-Routed to Printify &rarr; <strong>Vendor Produces</strong> (hand-poured with custom label) &rarr; Ships to Customer &rarr; <strong>We Collect the Margin</strong>
+  </div>
+
+  <h3>Custom Candle Service</h3>
+  <div class="flow">
+    <strong>Customer submits image</strong> &rarr; Selects AI style &rarr; <strong>We transform artwork</strong> &rarr; Label designed &rarr; <strong>Printify fulfills</strong> &rarr; Premium delivered
+  </div>
+
+  <h2>Supplier Strategy</h2>
+
+  <table>
+    <thead>
+      <tr><th>Rank</th><th>Supplier</th><th>Role</th><th>Key Strengths</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mono">#1</td>
+        <td><strong>Printify</strong></td>
+        <td>Primary Platform</td>
+        <td>Multi-vendor umbrella, full label customization, Shopify/Etsy/Amazon integration, zero MOQ</td>
+      </tr>
+      <tr>
+        <td class="mono">#2</td>
+        <td><strong>Gooten</strong></td>
+        <td>Secondary Platform</td>
+        <td>Best vessel variety (tin, frosted, amber, clear), coconut soy wax, wood wicks</td>
+      </tr>
+      <tr>
+        <td class="mono">#3</td>
+        <td><strong>Candle Bliss</strong></td>
+        <td>Premium Specialty</td>
+        <td>20+ scents, coconut apricot wax, phthalate-free, Prop 65 compliant</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 3: PRODUCTS + CUSTOM + NICHES             -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <h2>Product Highlights</h2>
+
+  <table>
+    <thead>
+      <tr><th>Product</th><th>Size</th><th>Cost</th><th>Retail</th><th>Margin</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Clear Glass Jar</td><td>9 oz</td><td class="mono">$10.50</td><td class="mono">$28</td><td class="mono">55%</td></tr>
+      <tr><td>Amber Glass Jar</td><td>9 oz</td><td class="mono">$10.50</td><td class="mono">$28</td><td class="mono">55%</td></tr>
+      <tr><td>Mason Jar</td><td>16 oz</td><td class="mono">$12.00</td><td class="mono">$34</td><td class="mono">58%</td></tr>
+      <tr><td>Candle Tin</td><td>8 oz</td><td class="mono">$8.50</td><td class="mono">$24</td><td class="mono">58%</td></tr>
+      <tr><td>Frosted Glass</td><td>11 oz</td><td class="mono">$13.50</td><td class="mono">$36</td><td class="mono">55%</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Custom Candle Service</h2>
+
+  <div class="callout success">
+    <p>
+      Customers submit personal photos. Our AI transforms them into <strong>5 style options</strong> &mdash;
+      Caricatures, Comic Book, Cartoon, Superhero, and Niche-Specific designs (memorial portraits,
+      pet illustrations, wedding art). Custom labels printed via Printify.
+      Retail: <strong class="mono">$45&ndash;65+</strong>.
+      Margins: <strong class="mono">65&ndash;75%</strong>.
+      Design cost: <strong class="mono">~$0</strong> (AI).
+    </p>
+  </div>
+
+  <h2>5 Target Niches</h2>
+
+  <ul class="niche-list">
+    <li>
+      <span class="niche-num">1</span>
+      <strong>Memorial / Sympathy</strong> &mdash; Lavender, Vanilla Bean, Fresh Linen
+      <br><span style="margin-left: 34px; color: var(--text-dim);">Custom: memorial portraits, angel renderings</span>
+    </li>
+    <li>
+      <span class="niche-num">2</span>
+      <strong>Profession-Specific Gifting</strong> &mdash; Sandalwood &amp; Cedar, Oakmoss
+      <br><span style="margin-left: 34px; color: var(--text-dim);">Custom: company logos, team caricatures</span>
+    </li>
+    <li>
+      <span class="niche-num">3</span>
+      <strong>Outdoors / Adventure</strong> &mdash; Fraser Fir, Woodland Forest
+      <br><span style="margin-left: 34px; color: var(--text-dim);">Custom: trail photo illustrations</span>
+    </li>
+    <li>
+      <span class="niche-num">4</span>
+      <strong>Cultural Celebrations</strong> &mdash; Cinnamon Chai, Mango &amp; Coconut Milk
+      <br><span style="margin-left: 34px; color: var(--text-dim);">Custom: cultural art styles</span>
+    </li>
+    <li>
+      <span class="niche-num">5</span>
+      <strong>Manifestation / Intention</strong> &mdash; Bohemian Rose, Lavender
+      <br><span style="margin-left: 34px; color: var(--text-dim);">Custom: zodiac illustrations, spiritual symbols</span>
+    </li>
+  </ul>
+
+  <h2>Startup Costs</h2>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Item</th><th>Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Florida LLC</td><td class="mono">$125</td></tr>
+      <tr><td>Shopify (1st month)</td><td class="mono">$39</td></tr>
+      <tr><td>Domain</td><td class="mono">$15</td></tr>
+      <tr><td>POD Samples</td><td class="mono">$150</td></tr>
+      <tr><td>Initial Ad Budget</td><td class="mono">$500</td></tr>
+      <tr class="total-row"><td><strong>Total</strong></td><td class="mono">~$830 (~$208/person)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 4: FINANCIALS + TIMELINE                  -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <h2>Unit Economics</h2>
+
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>Conservative</th><th>Strong</th><th>Custom Candle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Retail Price</td><td class="mono">$28</td><td class="mono">$42</td><td class="mono">$55</td></tr>
+      <tr><td>POD Cost</td><td class="mono">-$13</td><td class="mono">-$15</td><td class="mono">-$14</td></tr>
+      <tr><td>Platform Fees</td><td class="mono">-$2.80</td><td class="mono">-$4.20</td><td class="mono">-$5.50</td></tr>
+      <tr><td>Design Cost</td><td class="mono">$0</td><td class="mono">$0</td><td class="mono">$0</td></tr>
+      <tr><td><strong>Net Margin</strong></td><td class="mono"><strong>~$12</strong></td><td class="mono"><strong>~$23</strong></td><td class="mono"><strong>~$35.50</strong></td></tr>
+      <tr><td><strong>Margin %</strong></td><td class="mono"><strong>~43%</strong></td><td class="mono"><strong>~55%</strong></td><td class="mono"><strong>~65%</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div class="callout">
+      <p><strong>Break-Even</strong></p>
+      <p>~30 candles/month (conservative) or ~15 candles/month (strong) including $200/mo ad spend.</p>
+    </div>
+    <div class="callout">
+      <p><strong>Monthly Overhead</strong></p>
+      <p>~$140 total (~$35/person) &mdash; Shopify $39, Insurance ~$55, Apps ~$20, AI Tools ~$20, Domain ~$5</p>
+    </div>
+  </div>
+
+  <h2>Launch Timeline</h2>
+
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>Timing</th><th>Key Milestones</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Foundation</strong></td>
+        <td>Week 1&ndash;2</td>
+        <td>LLC filed, bank open, Printify + Gooten applied, brand identity</td>
+      </tr>
+      <tr>
+        <td><strong>Build</strong></td>
+        <td>Week 3&ndash;4</td>
+        <td>Store designed, 8&ndash;10 products listed, Etsy live, fulfillment tested</td>
+      </tr>
+      <tr>
+        <td><strong>Soft Launch</strong></td>
+        <td>Week 5&ndash;6</td>
+        <td>Shopify live, 5&ndash;10 test orders, reviews collected, custom service beta</td>
+      </tr>
+      <tr>
+        <td><strong>Paid Ads</strong></td>
+        <td>Week 7&ndash;8</td>
+        <td>3 Meta campaigns, abandoned cart flow, ROAS tracking</td>
+      </tr>
+      <tr>
+        <td><strong>Scale</strong></td>
+        <td>Month 3+</td>
+        <td>Double winning ads, Google Shopping, Gooten vessel expansion</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 5: CHANNELS + DISTRIBUTION + METRICS      -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <h2>Sales Channels</h2>
+
+  <div class="two-col">
+    <div>
+      <table>
+        <tbody>
+          <tr><td><strong>Shopify</strong></td><td>Home base, full brand experience, custom candle orders</td></tr>
+          <tr><td><strong>Etsy</strong></td><td>#1 for personalized gifts, organic discovery</td></tr>
+          <tr><td><strong>TikTok Shop</strong></td><td>Viral reach for visual products</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <tbody>
+          <tr><td><strong>Instagram Shop</strong></td><td>Lifestyle imagery, impulse purchases</td></tr>
+          <tr><td><strong>Amazon</strong></td><td>Trust + gift traffic</td></tr>
+          <tr><td><strong>SEO Blog</strong></td><td>AI content drives free Google traffic</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Profit Distribution</h2>
+
+  <table>
+    <thead>
+      <tr><th>Allocation</th><th>%</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Reinvest</strong></td><td class="mono">60%</td><td>Ads, product dev, supplier expansion</td></tr>
+      <tr><td><strong>Cash Reserve</strong></td><td class="mono">25%</td><td>Emergency, seasonal buffers, insurance</td></tr>
+      <tr><td><strong>Member Distribution</strong></td><td class="mono">15%</td><td>Equal quarterly split (4 members)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Key Metrics</h2>
+
+  <div class="metric-grid">
+    <div class="metric-box">
+      <div class="metric-val">$30+</div>
+      <div class="metric-label">AOV Standard</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">$50+</div>
+      <div class="metric-label">AOV Custom</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">&lt;$10</div>
+      <div class="metric-label">CAC Target</div>
+    </div>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric-box">
+      <div class="metric-val">3%+</div>
+      <div class="metric-label">Conversion Rate</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">&lt;2%</div>
+      <div class="metric-label">Return Rate</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">30+</div>
+      <div class="metric-label">Orders/Mo by Month 2</div>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <p><strong>Revenue Ramp:</strong> 10 orders/week in weeks 1&ndash;4, 30+ orders/month by month 2, scale aggressively from month 3 onward.</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <p>This is a living document updated quarterly.</p>
+    <p>IC Candle Co. &middot; Florida, USA &middot; 2026</p>
+    <p><a href="index.html">&larr; Return to Presentation</a></p>
+  </div>
+
+</div>
+
+</body>
+</html>

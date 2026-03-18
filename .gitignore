@@ -1,1 +1,4 @@
 ~$*
+*.pdf
+*.pptx
+__pycache__/
