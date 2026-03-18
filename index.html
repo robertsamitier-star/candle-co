@@ -523,10 +523,33 @@
     display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
     padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
   }
+  .task-user-bar .task-user-name {
+    font-size: 0.85rem; font-weight: 700; color: var(--glow-cyan);
+  }
   .task-user-bar label { font-size: 0.78rem; color: var(--text-dim); font-weight: 600; }
-  .task-user-bar select {
-    padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px;
-    font-size: 0.82rem; background: var(--bg); color: var(--text);
+  .task-user-bar .task-switch-btn {
+    font-size: 0.72rem; color: var(--text-dim); background: none; border: 1px solid var(--border);
+    border-radius: 4px; padding: 3px 8px; cursor: pointer;
+  }
+  .task-user-bar .task-switch-btn:hover { color: var(--glow-cyan); border-color: var(--glow-cyan); }
+  .task-user-modal {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+  }
+  .task-user-modal-box {
+    background: var(--bg, #0f172a); border: 1px solid var(--border); border-radius: 14px;
+    padding: 32px; text-align: center; max-width: 360px; width: 90%;
+  }
+  .task-user-modal-box h3 { margin-bottom: 16px; font-size: 1.1rem; color: #fff; }
+  .task-user-modal-box .user-btn {
+    display: block; width: 100%; padding: 10px; margin: 6px 0;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .task-user-modal-box .user-btn:hover {
+    border-color: var(--glow-cyan); background: rgba(14,165,233,0.1);
   }
 
   /* Responsive */
@@ -1758,16 +1781,12 @@
       </tbody>
     </table>
 
-    <!-- Task Board User Selector -->
+    <!-- Task Board User Bar -->
     <div class="task-user-bar" id="task-user-bar">
-      <label>Editing as:</label>
-      <select id="task-user-select">
-        <option value="Ricardo">Ricardo</option>
-        <option value="Robert">Robert</option>
-        <option value="Jose">Jose</option>
-        <option value="Mark">Mark</option>
-      </select>
-      <button onclick="if(confirm('Reset all tasks to defaults? This cannot be undone.')){localStorage.removeItem('ae-candle-tasks');localStorage.removeItem('ae-candle-audit');location.reload();}" style="margin-left:auto;padding:4px 10px;font-size:0.72rem;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;">Reset Tasks</button>
+      <label>Logged in as:</label>
+      <span class="task-user-name" id="task-user-display">—</span>
+      <button class="task-switch-btn" id="task-switch-btn">Switch User</button>
+      <button onclick="if(confirm('Reset all tasks to defaults? This cannot be undone.')){localStorage.removeItem('ae-candle-tasks');localStorage.removeItem('ae-candle-audit');localStorage.removeItem('ae-candle-user');location.reload();}" style="margin-left:auto;padding:4px 10px;font-size:0.72rem;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;">Reset All</button>
     </div>
 
     <!-- Phase 1 -->
@@ -2245,9 +2264,42 @@
     var columns = document.querySelectorAll('.task-column');
     if (!columns.length) return;
 
+    // Auto-identify user
+    var TEAM = ['Ricardo', 'Robert', 'Jose', 'Mark'];
+    var currentUser = localStorage.getItem('ae-candle-user');
+
+    function showUserModal() {
+      var overlay = document.createElement('div');
+      overlay.className = 'task-user-modal';
+      var box = document.createElement('div');
+      box.className = 'task-user-modal-box';
+      box.innerHTML = '<h3>Who are you?</h3>';
+      TEAM.forEach(function(name) {
+        var btn = document.createElement('button');
+        btn.className = 'user-btn';
+        btn.textContent = name;
+        btn.onclick = function() {
+          currentUser = name;
+          localStorage.setItem('ae-candle-user', name);
+          document.getElementById('task-user-display').textContent = name;
+          overlay.remove();
+        };
+        box.appendChild(btn);
+      });
+      overlay.appendChild(box);
+      document.body.appendChild(overlay);
+    }
+
+    if (!currentUser) {
+      showUserModal();
+    } else {
+      document.getElementById('task-user-display').textContent = currentUser;
+    }
+
+    document.getElementById('task-switch-btn').onclick = function() { showUserModal(); };
+
     function getUser() {
-      var sel = document.getElementById('task-user-select');
-      return sel ? sel.value : 'Unknown';
+      return currentUser || 'Unknown';
     }
 
     function stamp() {
@@ -2282,6 +2334,7 @@
       div.draggable = true;
       div.id = 'task-' + Date.now() + '-' + Math.random().toString(36).substr(2,5);
       var span = document.createElement('span');
+      span.className = 'task-text';
       span.textContent = text;
       div.appendChild(span);
       if (stampText) {
@@ -2297,14 +2350,46 @@
       return div;
     }
 
+    // Normalize existing HTML items: wrap raw text nodes in span.task-text
+    function normalizeItem(item) {
+      if (item.querySelector('.task-text')) return;
+      var text = '';
+      var nodesToRemove = [];
+      for (var i = 0; i < item.childNodes.length; i++) {
+        var node = item.childNodes[i];
+        if (node.nodeType === 3) { text += node.textContent; nodesToRemove.push(node); }
+      }
+      text = text.trim();
+      if (text) {
+        nodesToRemove.forEach(function(n) { n.remove(); });
+        var span = document.createElement('span');
+        span.className = 'task-text';
+        span.textContent = text;
+        item.insertBefore(span, item.firstChild);
+      }
+    }
+
+    // Normalize all existing items on page load
+    document.querySelectorAll('.task-item').forEach(normalizeItem);
+
     function getTaskText(item) {
-      var span = item.querySelector('span:not(.task-stamp)');
-      return span ? span.textContent : item.firstChild.textContent;
+      var span = item.querySelector('.task-text');
+      return span ? span.textContent : '';
     }
 
     function getTaskStamp(item) {
       var s = item.querySelector('.task-stamp');
       return s ? s.textContent : '';
+    }
+
+    function setStamp(item) {
+      var existing = item.querySelector('.task-stamp');
+      if (existing) existing.remove();
+      var st = document.createElement('span');
+      st.className = 'task-stamp';
+      st.textContent = stamp();
+      var textSpan = item.querySelector('.task-text');
+      if (textSpan) { textSpan.after(st); } else { item.insertBefore(st, item.querySelector('.task-delete')); }
     }
 
     function saveTasks() {
@@ -2388,13 +2473,7 @@
         var fromMember = fromCol.dataset.member;
         var toMember = col.dataset.member;
         col.insertBefore(item, insertBefore);
-        // Update stamp
-        var existing = item.querySelector('.task-stamp');
-        if (existing) existing.remove();
-        var st = document.createElement('span');
-        st.className = 'task-stamp';
-        st.textContent = stamp();
-        item.querySelector('span:not(.task-stamp)').after(st);
+        setStamp(item);
         saveTasks();
         if (fromMember !== toMember) {
           logAction('moved "' + taskText + '" from ' + fromMember + ' \u2192 ' + toMember);
