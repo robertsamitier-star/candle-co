@@ -480,6 +480,51 @@
     line-height: 1.65; margin-bottom: 12px;
   }
 
+  /* Interactive Task Board */
+  .task-column { vertical-align:top; font-size:0.82rem; line-height:1.7; min-height:100px; }
+  .task-item {
+    padding: 6px 28px 6px 8px; margin: 4px 0; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    cursor: grab; position: relative; transition: opacity 0.2s;
+  }
+  .task-item:hover { border-color: var(--glow-cyan); }
+  .task-item.dragging { opacity: 0.4; }
+  .task-column.drag-over { background: rgba(14,165,233,0.08); border-radius: 8px; }
+  .task-delete {
+    position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--text-dim); cursor: pointer;
+    font-size: 1rem; padding: 2px 6px; opacity: 0; transition: opacity 0.2s;
+  }
+  .task-item:hover .task-delete { opacity: 1; }
+  .task-delete:hover { color: #ef4444; }
+  .task-add {
+    display: block; width: 100%; margin-top: 8px; padding: 6px;
+    background: none; border: 1px dashed var(--border); border-radius: 6px;
+    color: var(--text-dim); cursor: pointer; font-size: 0.78rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .task-add:hover { border-color: var(--glow-cyan); color: var(--glow-cyan); }
+  .task-stamp {
+    display: block; font-size: 0.6rem; color: var(--text-dim); opacity: 0.6;
+    margin-top: 2px; font-style: italic;
+  }
+  .task-audit-log {
+    margin-top: 20px; padding: 12px 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 0.72rem; color: var(--text-dim); max-height: 150px; overflow-y: auto;
+  }
+  .task-audit-log h4 { margin: 0 0 8px; font-size: 0.75rem; color: var(--text); }
+  .task-audit-log p { margin: 2px 0; line-height: 1.5; }
+  .task-user-bar {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  }
+  .task-user-bar label { font-size: 0.78rem; color: var(--text-dim); font-weight: 600; }
+  .task-user-bar select {
+    padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px;
+    font-size: 0.82rem; background: var(--bg); color: var(--text);
+  }
+
   /* Responsive */
   @media (max-width: 700px) {
     .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4, .card-grid.cols-6 { grid-template-columns: 1fr; }
@@ -567,23 +612,14 @@
       <div class="card">
         <div class="glow-bar orange"></div>
         <h3>Key Advantage</h3>
-        <p>4-person team, each with domain expertise. AI replaces an entire marketing department. We launch for ~$885 total (~$221/person) and break even at just 30 candle sales.</p>
+        <p>4-person team, each with domain expertise. AI replaces an entire marketing department. We launch for ~$1,185 total (~$296/person) and break even at just 30 candle sales.</p>
       </div>
     </div>
 
     <div class="callout" style="margin-top:20px;border-left-color:var(--glow-purple);">
-      <p><strong>Brand Name Options</strong> <span style="font-size:0.75rem;color:var(--text-dim);margin-left:6px;">(Finalize before LLC filing)</span></p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;margin-top:8px;font-size:0.85rem;">
-        <span>&#9670; IC Candle Co.</span>
-        <span>&#9670; Ember &amp; Essence</span>
-        <span>&#9670; Wick &amp; Wonder</span>
-        <span>&#9670; Glow &amp; Grain</span>
-        <span>&#9670; Flame &amp; Fable</span>
-        <span>&#9670; Kindle &amp; Co.</span>
-        <span>&#9670; Hearth &amp; Haze</span>
-        <span>&#9670; Spark &amp; Stone</span>
-        <span>&#9670; Wax &amp; Wisp</span>
-      </div>
+      <p><strong>Brand Name</strong></p>
+      <p style="font-size:1.05rem;font-weight:700;color:var(--glow-cyan);margin:6px 0 4px;">&#10003; Amber &amp; Essence Candle Co.</p>
+      <p style="font-size:0.78rem;color:var(--text-dim);margin:0;">Alternates: Cinder &amp; Sage &middot; Cinder &amp; Lore &middot; Cinder &amp; Bloom &middot; Vesper &amp; Vine &middot; Noir &amp; Nectar</p>
     </div>
   </div>
 
@@ -726,7 +762,7 @@
     <div class="card" style="max-width:900px;margin-top:16px;">
       <div class="glow-bar orange"></div>
       <h3>Why POD + AI Wins</h3>
-      <p>Traditional candle startups carry $3K–10K in raw materials inventory, require production space, and spend months iterating. Our POD model launches in weeks with ~$885 total investment. AI handles all brand, marketing, and content creation — letting us move at the speed of a tech startup while selling a physical product.</p>
+      <p>Traditional candle startups carry $3K–10K in raw materials inventory, require production space, and spend months iterating. Our POD model launches in weeks with ~$1,185 total investment. AI handles all brand, marketing, and content creation — letting us move at the speed of a tech startup while selling a physical product.</p>
     </div>
   </div>
 
@@ -989,8 +1025,9 @@
         <div class="numbers-row"><span>POD Samples</span><span class="val">$150</span></div>
         <div class="numbers-row"><span>Initial Ad Budget</span><span class="val">$500</span></div>
         <div class="numbers-row"><span>Insurance (1st month)</span><span class="val">$55</span></div>
-        <div class="numbers-row" style="border-top:2px solid var(--glow-cyan);margin-top:6px;padding-top:8px;"><span><strong>Total to Launch</strong></span><span class="val accent">~$885</span></div>
-        <div class="numbers-row"><span><strong>Per Person</strong></span><span class="val accent">~$221</span></div>
+        <div class="numbers-row"><span>USPTO Trademark (Class 4)</span><span class="val">$250–350</span></div>
+        <div class="numbers-row" style="border-top:2px solid var(--glow-cyan);margin-top:6px;padding-top:8px;"><span><strong>Total to Launch</strong></span><span class="val accent">~$1,135–1,235</span></div>
+        <div class="numbers-row"><span><strong>Per Person</strong></span><span class="val accent">~$284–309</span></div>
       </div>
       <div class="numbers-section">
         <h3>Unit Economics</h3>
@@ -1029,12 +1066,13 @@
       <div class="week-col">
         <h3 style="border-color:var(--glow-cyan);">&#9889; Ricardo — Creative/Tech</h3>
         <ul class="check-list" style="margin-top:0;">
+          <li>Register amberandessencecandleco.com domain</li>
+          <li>Secure @amberandessencecandle on IG, TikTok, FB, Pinterest</li>
           <li>Research competitor Shopify stores for design inspo</li>
           <li>Select brand color palette and typography</li>
-          <li>Design IC Candle Co. logo in Canva</li>
+          <li>Design Amber &amp; Essence Candle Co. logo in Canva</li>
           <li>Create homepage wireframe/mockup</li>
           <li>Design 3 product label templates</li>
-          <li>Set up brand Instagram + TikTok accounts</li>
           <li>Create brand style guide document</li>
         </ul>
       </div>
@@ -1054,7 +1092,7 @@
         <h3 style="border-color:var(--glow-green);">&#128640; Jose — Store/Marketing</h3>
         <ul class="check-list" style="margin-top:0;">
           <li>Create Shopify account ($39/mo Basic plan)</li>
-          <li>Purchase domain name (~$15)</li>
+          <li>Connect domain to Shopify</li>
           <li>Install Printify + Klaviyo apps</li>
           <li>Set up Shopify Payments + PayPal</li>
           <li>Research competitor pricing on Etsy</li>
@@ -1065,9 +1103,10 @@
       <div class="week-col">
         <h3 style="border-color:var(--glow-orange);">&#128202; Mark — Finance</h3>
         <ul class="check-list" style="margin-top:0;">
-          <li>File Florida LLC ($125 via Sunbiz.org)</li>
+          <li>File Florida LLC as "Amber &amp; Essence Candle Co." ($125)</li>
           <li>Apply for EIN (IRS.gov, same day)</li>
           <li>Open business bank account (Mercury/Relay)</li>
+          <li>File USPTO trademark — Class 4 candles (~$250–350)</li>
           <li>Set up Wave accounting (free)</li>
           <li>Draft 4-member operating agreement</li>
           <li>Create startup budget tracker</li>
@@ -1707,13 +1746,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td><strong>Foundation</strong></td><td>Week 1–2</td><td>LLC filed, bank open, Shopify created, suppliers applied, brand identity done</td></tr>
+        <tr><td><strong>Foundation</strong></td><td>Week 1–2</td><td>LLC filed as Amber &amp; Essence Candle Co., domain + socials secured, trademark filed, bank open, Shopify created, suppliers applied, brand identity done</td></tr>
         <tr><td><strong>Build</strong></td><td>Week 3–4</td><td>Store designed, 8–10 products listed, Etsy live, fulfillment tested, insurance secured</td></tr>
         <tr><td><strong>Soft Launch</strong></td><td>Week 5–6</td><td>Shopify live, 5–10 test orders fulfilled, reviews collected, financials reconciled</td></tr>
         <tr><td><strong>Paid Ads</strong></td><td>Week 7–8</td><td>3 Meta campaigns running, abandoned cart flow active, ROAS tracked daily</td></tr>
         <tr><td><strong>Scale</strong></td><td>Month 3+</td><td>Winning ads doubled, Google Shopping live, seasonal collection planned</td></tr>
       </tbody>
     </table>
+
+    <!-- Task Board User Selector -->
+    <div class="task-user-bar" id="task-user-bar">
+      <label>Editing as:</label>
+      <select id="task-user-select">
+        <option value="Ricardo">Ricardo</option>
+        <option value="Robert">Robert</option>
+        <option value="Jose">Jose</option>
+        <option value="Mark">Mark</option>
+      </select>
+      <button onclick="if(confirm('Reset all tasks to defaults? This cannot be undone.')){localStorage.removeItem('ae-candle-tasks');localStorage.removeItem('ae-candle-audit');location.reload();}" style="margin-left:auto;padding:4px 10px;font-size:0.72rem;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;">Reset Tasks</button>
+    </div>
 
     <!-- Phase 1 -->
     <h3 style="margin-top:32px;color:var(--glow-cyan);">Phase 1: Foundation — Weeks 1–2</h3>
@@ -1728,41 +1779,47 @@
       </thead>
       <tbody>
         <tr>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Research competitor Shopify stores<br>
-            &bull; Select brand color palette + typography<br>
-            &bull; Design IC Candle Co. logo in Canva<br>
-            &bull; Create homepage wireframe/mockup<br>
-            &bull; Design 3 product label templates<br>
-            &bull; Set up brand Instagram + TikTok<br>
-            &bull; Create brand style guide
+          <td class="task-column" data-phase="1" data-member="ricardo">
+            <div class="task-item" draggable="true">Register amberandessencecandleco.com domain<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Secure @amberandessencecandle on IG, TikTok, FB, Pinterest<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Research competitor Shopify stores<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Select brand color palette + typography<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design Amber &amp; Essence Candle Co. logo in Canva<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create homepage wireframe/mockup<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design 3 product label templates<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create brand style guide<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Compare top 5 POD candle suppliers<br>
-            &bull; Apply to Printify (free, instant setup)<br>
-            &bull; Apply to Gooten account<br>
-            &bull; Order sample packs from top 2<br>
-            &bull; Document pricing, terms, lead times<br>
-            &bull; Research insurance (Next, Thimble, Hiscox)<br>
-            &bull; Create supplier evaluation spreadsheet
+          <td class="task-column" data-phase="1" data-member="robert">
+            <div class="task-item" draggable="true">Compare top 5 POD candle suppliers<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Apply to Printify (free, instant setup)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Apply to Gooten account<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Order sample packs from top 2<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Document pricing, terms, lead times<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Research insurance (Next, Thimble, Hiscox)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create supplier evaluation spreadsheet<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Create Shopify account ($39/mo Basic)<br>
-            &bull; Purchase domain name (~$15)<br>
-            &bull; Install Printify + Klaviyo apps<br>
-            &bull; Set up Shopify Payments + PayPal<br>
-            &bull; Research competitor pricing on Etsy<br>
-            &bull; Install Google Analytics + Facebook Pixel<br>
-            &bull; Create placeholder product collections
+          <td class="task-column" data-phase="1" data-member="jose">
+            <div class="task-item" draggable="true">Create Shopify account ($39/mo Basic)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Connect domain to Shopify<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Install Printify + Klaviyo apps<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up Shopify Payments + PayPal<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Research competitor pricing on Etsy<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Install Google Analytics + Facebook Pixel<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create placeholder product collections<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; File Florida LLC ($125 via Sunbiz.org)<br>
-            &bull; Apply for EIN (IRS.gov, same day)<br>
-            &bull; Open business bank account (Mercury)<br>
-            &bull; Set up Wave accounting (free)<br>
-            &bull; Draft 4-member operating agreement<br>
-            &bull; Create startup budget tracker<br>
-            &bull; Research FL sales tax requirements
+          <td class="task-column" data-phase="1" data-member="mark">
+            <div class="task-item" draggable="true">File Florida LLC as "Amber &amp; Essence Candle Co." ($125)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Apply for EIN (IRS.gov, same day)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Open business bank account (Mercury)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">File USPTO trademark — Class 4 candles (~$250–350)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up Wave accounting (free)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Draft 4-member operating agreement<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create startup budget tracker<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Research FL sales tax requirements<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
         </tr>
       </tbody>
@@ -1781,41 +1838,45 @@
       </thead>
       <tbody>
         <tr>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Build full Shopify theme (home, about, FAQ)<br>
-            &bull; Design product pages with lifestyle imagery<br>
-            &bull; Build candle customizer (photo upload)<br>
-            &bull; Generate AI product mockup photos<br>
-            &bull; Write SEO descriptions for 8–10 SKUs<br>
-            &bull; Design email signup popup<br>
-            &bull; Create social content templates
+          <td class="task-column" data-phase="2" data-member="ricardo">
+            <div class="task-item" draggable="true">Build full Shopify theme (home, about, FAQ)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design product pages with lifestyle imagery<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Build candle customizer (photo upload)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Generate AI product mockup photos<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Write SEO descriptions for 8–10 SKUs<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design email signup popup<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create social content templates<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Burn-test + evaluate all samples<br>
-            &bull; Select primary supplier, finalize agreement<br>
-            &bull; Set up automated fulfillment (Printify app)<br>
-            &bull; Configure shipping rates in Shopify<br>
-            &bull; Draft returns and exchange policy<br>
-            &bull; Write CS email templates (10 scenarios)<br>
-            &bull; Secure product liability insurance
+          <td class="task-column" data-phase="2" data-member="robert">
+            <div class="task-item" draggable="true">Burn-test + evaluate all samples<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Select primary supplier, finalize agreement<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up automated fulfillment (Printify app)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Configure shipping rates in Shopify<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Draft returns and exchange policy<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Write CS email templates (10 scenarios)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Secure product liability insurance<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Upload all products with photos + copy<br>
-            &bull; Configure shipping zones + tax settings<br>
-            &bull; Open Etsy seller account<br>
-            &bull; Create 5 Etsy listings (optimized tags)<br>
-            &bull; Set up Klaviyo email capture form<br>
-            &bull; Build welcome email sequence (3 emails)<br>
-            &bull; Set up Meta Business Manager
+          <td class="task-column" data-phase="2" data-member="jose">
+            <div class="task-item" draggable="true">Upload all products with photos + copy<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Configure shipping zones + tax settings<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Open Etsy seller account<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create 5 Etsy listings (optimized tags)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up Klaviyo email capture form<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Build welcome email sequence (3 emails)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up Meta Business Manager<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Build pricing model (all costs/channel)<br>
-            &bull; Calculate unit economics per product<br>
-            &bull; Create weekly P&amp;L tracking template<br>
-            &bull; Enable Shopify sales tax collection<br>
-            &bull; Set ad budget rules ($500, $20–30/day)<br>
-            &bull; Build 3/6/12-month financial projections<br>
-            &bull; Set up profit-split tracking (60/25/15)
+          <td class="task-column" data-phase="2" data-member="mark">
+            <div class="task-item" draggable="true">Build pricing model (all costs/channel)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Calculate unit economics per product<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create weekly P&amp;L tracking template<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Enable Shopify sales tax collection<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set ad budget rules ($500, $20–30/day)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Build 3/6/12-month financial projections<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up profit-split tracking (60/25/15)<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
         </tr>
       </tbody>
@@ -1834,37 +1895,41 @@
       </thead>
       <tbody>
         <tr>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; QA entire store (links, checkout, mobile)<br>
-            &bull; Create launch graphics for social<br>
-            &bull; Publish first 2 SEO blog posts<br>
-            &bull; Begin daily social content (IG + TikTok)<br>
-            &bull; Film product unboxing video<br>
-            &bull; Design review-request email template
+          <td class="task-column" data-phase="3" data-member="ricardo">
+            <div class="task-item" draggable="true">QA entire store (links, checkout, mobile)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Create launch graphics for social<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Publish first 2 SEO blog posts<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Begin daily social content (IG + TikTok)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Film product unboxing video<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design review-request email template<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Place test order through full pipeline<br>
-            &bull; Verify tracking + notification emails<br>
-            &bull; Time end-to-end fulfillment cycle<br>
-            &bull; Coordinate 5–10 F&amp;F test orders<br>
-            &bull; Resolve any fulfillment issues<br>
-            &bull; Confirm returns process works
+          <td class="task-column" data-phase="3" data-member="robert">
+            <div class="task-item" draggable="true">Place test order through full pipeline<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Verify tracking + notification emails<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Time end-to-end fulfillment cycle<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Coordinate 5–10 F&amp;F test orders<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Resolve any fulfillment issues<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Confirm returns process works<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Remove Shopify password — GO LIVE<br>
-            &bull; Submit for Instagram Shopping approval<br>
-            &bull; Apply for TikTok Shop seller account<br>
-            &bull; Launch organic posts with product tags<br>
-            &bull; Send launch email to personal networks<br>
-            &bull; Follow up with buyers for reviews
+          <td class="task-column" data-phase="3" data-member="jose">
+            <div class="task-item" draggable="true">Remove Shopify password — GO LIVE<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Submit for Instagram Shopping approval<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Apply for TikTok Shop seller account<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Launch organic posts with product tags<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Send launch email to personal networks<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Follow up with buyers for reviews<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Record all test-order financials in Wave<br>
-            &bull; Compare actual vs. projected economics<br>
-            &bull; Verify sales tax collection is correct<br>
-            &bull; Reconcile Shopify payouts with bank<br>
-            &bull; Deliver first weekly P&amp;L to team<br>
-            &bull; Verify insurance is active and adequate
+          <td class="task-column" data-phase="3" data-member="mark">
+            <div class="task-item" draggable="true">Record all test-order financials in Wave<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Compare actual vs. projected economics<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Verify sales tax collection is correct<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Reconcile Shopify payouts with bank<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Deliver first weekly P&amp;L to team<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Verify insurance is active and adequate<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
         </tr>
       </tbody>
@@ -1883,33 +1948,37 @@
       </thead>
       <tbody>
         <tr>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Create 5 ad creative variants<br>
-            &bull; Design retargeting ad visuals<br>
-            &bull; Publish 2 more SEO blog posts<br>
-            &bull; A/B test product page layouts<br>
-            &bull; Prep seasonal/holiday mockups
+          <td class="task-column" data-phase="4" data-member="ricardo">
+            <div class="task-item" draggable="true">Create 5 ad creative variants<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Design retargeting ad visuals<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Publish 2 more SEO blog posts<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">A/B test product page layouts<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Prep seasonal/holiday mockups<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Monitor fulfillment quality on live orders<br>
-            &bull; Set weekly supplier check-in cadence<br>
-            &bull; Optimize shipping cost structure<br>
-            &bull; Build FAQ from common questions<br>
-            &bull; Evaluate Gooten for vessel expansion
+          <td class="task-column" data-phase="4" data-member="robert">
+            <div class="task-item" draggable="true">Monitor fulfillment quality on live orders<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set weekly supplier check-in cadence<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Optimize shipping cost structure<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Build FAQ from common questions<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Evaluate Gooten for vessel expansion<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Launch 3 Meta ad campaigns ($20–30/day)<br>
-            &bull; Activate abandoned cart email flow<br>
-            &bull; Set up post-purchase review automation<br>
-            &bull; Start TikTok push (3–5 videos/week)<br>
-            &bull; Kill underperforming ads daily
+          <td class="task-column" data-phase="4" data-member="jose">
+            <div class="task-item" draggable="true">Launch 3 Meta ad campaigns ($20–30/day)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Activate abandoned cart email flow<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Set up post-purchase review automation<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Start TikTok push (3–5 videos/week)<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Kill underperforming ads daily<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
-          <td style="vertical-align:top;font-size:0.82rem;line-height:1.7;">
-            &bull; Track ad spend vs. ROAS daily<br>
-            &bull; Calculate actual CAC per channel<br>
-            &bull; Adjust budget based on performance<br>
-            &bull; First monthly P&amp;L review with team<br>
-            &bull; Begin quarterly tax planning
+          <td class="task-column" data-phase="4" data-member="mark">
+            <div class="task-item" draggable="true">Track ad spend vs. ROAS daily<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Calculate actual CAC per channel<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Adjust budget based on performance<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">First monthly P&amp;L review with team<button class="task-delete">&times;</button></div>
+            <div class="task-item" draggable="true">Begin quarterly tax planning<button class="task-delete">&times;</button></div>
+            <button class="task-add">+ Add Task</button>
           </td>
         </tr>
       </tbody>
@@ -1931,6 +2000,11 @@
         <li>First member profit distribution (if profitable)</li>
       </ul>
     </div>
+    <!-- Audit Log -->
+    <div class="task-audit-log" id="task-audit-log">
+      <h4>Change Log</h4>
+      <p style="color:var(--text-dim);font-style:italic;">No changes yet.</p>
+    </div>
   </section>
 
   <!-- ═══════════════ SECTION 7: FINANCIAL PROJECTIONS ═══════════════ -->
@@ -1949,8 +2023,9 @@
         <tr><td>POD Sample Orders</td><td class="highlight">$150</td></tr>
         <tr><td>Initial Advertising Budget</td><td class="highlight">$500</td></tr>
         <tr><td>Insurance (1st month)</td><td class="highlight">$55</td></tr>
-        <tr style="border-top:2px solid var(--glow-cyan);"><td><strong>Total to Launch</strong></td><td class="highlight"><strong>~$885</strong></td></tr>
-        <tr><td><strong>Per Person (4 members)</strong></td><td class="highlight"><strong>~$221</strong></td></tr>
+        <tr><td>USPTO Trademark (Class 4)</td><td class="highlight">$250–350</td></tr>
+        <tr style="border-top:2px solid var(--glow-cyan);"><td><strong>Total to Launch</strong></td><td class="highlight"><strong>~$1,135–1,235</strong></td></tr>
+        <tr><td><strong>Per Person (4 members)</strong></td><td class="highlight"><strong>~$284–309</strong></td></tr>
       </tbody>
     </table>
 
@@ -2160,6 +2235,163 @@
 
   // Initial state
   prevBtn.disabled = true;
+
+  // ═══════════════ INTERACTIVE TASK BOARD ═══════════════
+  (function() {
+    var columns = document.querySelectorAll('.task-column');
+    if (!columns.length) return;
+
+    function getUser() {
+      var sel = document.getElementById('task-user-select');
+      return sel ? sel.value : 'Unknown';
+    }
+
+    function stamp() {
+      return getUser() + ' · ' + new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+    }
+
+    function logAction(action) {
+      var logs = JSON.parse(localStorage.getItem('ae-candle-audit') || '[]');
+      logs.unshift({action: action, user: getUser(), time: new Date().toISOString()});
+      if (logs.length > 50) logs.length = 50;
+      localStorage.setItem('ae-candle-audit', JSON.stringify(logs));
+      renderAuditLog();
+    }
+
+    function renderAuditLog() {
+      var el = document.getElementById('task-audit-log');
+      if (!el) return;
+      var logs = JSON.parse(localStorage.getItem('ae-candle-audit') || '[]');
+      if (!logs.length) { el.innerHTML = '<h4>Change Log</h4><p style="font-style:italic;">No changes yet.</p>'; return; }
+      var html = '<h4>Change Log</h4>';
+      logs.forEach(function(l) {
+        var d = new Date(l.time);
+        var ts = d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        html += '<p><strong>' + l.user + '</strong> ' + l.action + ' <span style="opacity:0.5;">(' + ts + ')</span></p>';
+      });
+      el.innerHTML = html;
+    }
+
+    function createTaskItem(text, stampText) {
+      var div = document.createElement('div');
+      div.className = 'task-item';
+      div.draggable = true;
+      div.id = 'task-' + Date.now() + '-' + Math.random().toString(36).substr(2,5);
+      var span = document.createElement('span');
+      span.textContent = text;
+      div.appendChild(span);
+      if (stampText) {
+        var st = document.createElement('span');
+        st.className = 'task-stamp';
+        st.textContent = stampText;
+        div.appendChild(st);
+      }
+      var btn = document.createElement('button');
+      btn.className = 'task-delete';
+      btn.innerHTML = '&times;';
+      div.appendChild(btn);
+      return div;
+    }
+
+    function getTaskText(item) {
+      var span = item.querySelector('span:not(.task-stamp)');
+      return span ? span.textContent : item.firstChild.textContent;
+    }
+
+    function getTaskStamp(item) {
+      var s = item.querySelector('.task-stamp');
+      return s ? s.textContent : '';
+    }
+
+    function saveTasks() {
+      var data = {};
+      document.querySelectorAll('.task-column').forEach(function(col) {
+        var key = col.dataset.phase + '-' + col.dataset.member;
+        data[key] = [];
+        col.querySelectorAll('.task-item').forEach(function(item) {
+          data[key].push({text: getTaskText(item), stamp: getTaskStamp(item)});
+        });
+      });
+      localStorage.setItem('ae-candle-tasks', JSON.stringify(data));
+    }
+
+    function loadTasks() {
+      var saved = localStorage.getItem('ae-candle-tasks');
+      if (!saved) return;
+      var data = JSON.parse(saved);
+      document.querySelectorAll('.task-column').forEach(function(col) {
+        var key = col.dataset.phase + '-' + col.dataset.member;
+        if (!data[key]) return;
+        col.querySelectorAll('.task-item').forEach(function(item) { item.remove(); });
+        var addBtn = col.querySelector('.task-add');
+        data[key].forEach(function(t) {
+          col.insertBefore(createTaskItem(t.text, t.stamp), addBtn);
+        });
+      });
+    }
+
+    loadTasks();
+    renderAuditLog();
+
+    // Drag & Drop
+    columns.forEach(function(col) {
+      col.addEventListener('dragover', function(e) { e.preventDefault(); col.classList.add('drag-over'); });
+      col.addEventListener('dragleave', function() { col.classList.remove('drag-over'); });
+      col.addEventListener('drop', function(e) {
+        e.preventDefault();
+        col.classList.remove('drag-over');
+        var id = e.dataTransfer.getData('text/plain');
+        var item = document.getElementById(id);
+        if (!item) return;
+        var taskText = getTaskText(item);
+        var fromCol = item.parentElement;
+        var fromMember = fromCol.dataset.member;
+        var toMember = col.dataset.member;
+        col.insertBefore(item, col.querySelector('.task-add'));
+        // Update stamp
+        var existing = item.querySelector('.task-stamp');
+        if (existing) existing.remove();
+        var st = document.createElement('span');
+        st.className = 'task-stamp';
+        st.textContent = stamp();
+        item.querySelector('span:not(.task-stamp)').after(st);
+        saveTasks();
+        if (fromMember !== toMember) {
+          logAction('moved "' + taskText + '" from ' + fromMember + ' → ' + toMember);
+        }
+      });
+    });
+
+    // Delegated events
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.classList && e.target.classList.contains('task-item')) {
+        e.target.id = e.target.id || 'task-' + Date.now() + '-' + Math.random().toString(36).substr(2,5);
+        e.dataTransfer.setData('text/plain', e.target.id);
+        e.target.classList.add('dragging');
+      }
+    });
+    document.addEventListener('dragend', function(e) {
+      if (e.target.classList && e.target.classList.contains('task-item')) e.target.classList.remove('dragging');
+    });
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('task-delete')) {
+        var item = e.target.parentElement;
+        var taskText = getTaskText(item);
+        item.remove();
+        saveTasks();
+        logAction('deleted "' + taskText + '"');
+      }
+      if (e.target.classList.contains('task-add')) {
+        var text = prompt('New task:');
+        if (text && text.trim()) {
+          var item = createTaskItem(text.trim(), stamp());
+          e.target.parentElement.insertBefore(item, e.target);
+          saveTasks();
+          logAction('added "' + text.trim() + '"');
+        }
+      }
+    });
+  })();
 </script>
 
 </body>
