@@ -2,3 +2,5 @@
 *.pdf
 *.pptx
 __pycache__/
+
+.vercel
