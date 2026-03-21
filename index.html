@@ -5283,6 +5283,20 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
         openNoteDialog(item);
       });
       dd.appendChild(noteRow);
+      // Edit Task option
+      var editRow = document.createElement('div');
+      editRow.className = 'task-status-option task-edit-option';
+      var editIcon = document.createElement('span');
+      editIcon.className = 'task-note-icon';
+      editIcon.textContent = '\u270F';
+      editRow.appendChild(editIcon);
+      editRow.appendChild(document.createTextNode('Edit Task'));
+      editRow.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeStatusDropdown();
+        openEditTaskDialog(item);
+      });
+      dd.appendChild(editRow);
       // Position relative to anchor
       anchor.style.position = 'relative';
       anchor.appendChild(dd);
@@ -5797,7 +5811,9 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
       activeNoteItem = null;
     }
     function saveNote(item, noteText) {
-      item.dataset.note = noteText;
+      var stamp = '\n-- ' + getUser() + ', ' + new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+      var cleaned = noteText.replace(/\n-- [^\n]+$/m, '');
+      item.dataset.note = cleaned.trim() + stamp;
       updateNoteBadge(item);
       saveTasks();
       logAction('added note to "' + getTaskText(item) + '"');
@@ -5828,7 +5844,67 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && document.getElementById('task-note-overlay')) closeNoteDialog();
+      if (e.key === 'Escape' && document.getElementById('task-edit-overlay')) closeEditTaskDialog();
     });
+
+    // ── Edit Task Dialog ──
+    function openEditTaskDialog(item) {
+      var oldText = getTaskText(item);
+      var overlay = document.createElement('div');
+      overlay.className = 'task-note-overlay';
+      overlay.id = 'task-edit-overlay';
+      var dialog = document.createElement('div');
+      dialog.className = 'task-note-dialog';
+      var title = document.createElement('h3');
+      title.textContent = 'Edit Task';
+      dialog.appendChild(title);
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'task-note-input';
+      input.style.minHeight = 'auto';
+      input.value = oldText;
+      input.id = 'task-edit-input';
+      dialog.appendChild(input);
+      var actions = document.createElement('div');
+      actions.className = 'task-note-actions';
+      var cancelBtn = document.createElement('button');
+      cancelBtn.className = 'task-note-cancel';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.addEventListener('click', closeEditTaskDialog);
+      actions.appendChild(cancelBtn);
+      var saveBtn = document.createElement('button');
+      saveBtn.className = 'task-note-save';
+      saveBtn.textContent = 'Save';
+      saveBtn.addEventListener('click', function() {
+        var newText = input.value.trim();
+        if (newText && newText !== oldText) {
+          var textEl = item.querySelector('.task-text');
+          if (textEl) textEl.textContent = newText;
+          item.querySelector('.task-stamp') && item.querySelector('.task-stamp').remove();
+          var st = document.createElement('span');
+          st.className = 'task-stamp';
+          st.textContent = stampStr();
+          var before = item.querySelector('.task-note-badge') || item.querySelector('.task-due') || item.querySelector('.task-delete');
+          if (before) item.insertBefore(st, before);
+          else item.appendChild(st);
+          saveTasks();
+          logAction('edited "' + oldText + '" to "' + newText + '"');
+        }
+        closeEditTaskDialog();
+      });
+      actions.appendChild(saveBtn);
+      dialog.appendChild(actions);
+      overlay.appendChild(dialog);
+      document.body.appendChild(overlay);
+      input.focus();
+      input.select();
+      input.addEventListener('keydown', function(e) { if (e.key === 'Enter') saveBtn.click(); });
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) closeEditTaskDialog(); });
+    }
+    function closeEditTaskDialog() {
+      var overlay = document.getElementById('task-edit-overlay');
+      if (overlay) overlay.remove();
+    }
 
     // ── Reset All (2-step confirm) ──
     var resetBtn = document.getElementById('task-reset-btn');
