@@ -1,0 +1,7 @@
+{
+  "name": "candle-co",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  }
+}

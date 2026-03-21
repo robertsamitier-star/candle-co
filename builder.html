@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candle Builder | Amber &amp; Essence Candle Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS CUSTOM PROPERTIES ===== */
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --card: #1a1a2e;
+      --border: #2a2a3e;
+      --text: #e8e8f0;
+      --text-dim: #8888a0;
+      --glow-cyan: #00e5ff;
+      --glow-purple: #a855f7;
+      --glow-green: #22c55e;
+      --glow-orange: #f59e0b;
+      --nav-height: 56px;
+      --subnav-height: 44px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-height) + var(--subnav-height) + 16px);
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .top-nav__logo {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--glow-cyan), var(--glow-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .top-nav__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .top-nav__back {
+      color: var(--glow-cyan);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .top-nav__back:hover {
+      opacity: 0.8;
+    }
+
+    /* ===== SUB-NAV ===== */
+    .sub-nav {
+      position: sticky;
+      top: var(--nav-height);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: var(--subnav-height);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 24px;
+      z-index: 90;
+      overflow-x: auto;
+    }
+
+    .sub-nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .sub-nav a:hover {
+      color: var(--text);
+      background: var(--card);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 55% 45%;
+      gap: 24px;
+      padding: calc(var(--nav-height) + var(--subnav-height) + 24px) 24px 60px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      .preview-panel {
+        order: -1;
+      }
+    }
+
+    /* ===== FORM PANEL ===== */
+    .form-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ===== PREVIEW PANEL ===== */
+    .preview-panel {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--subnav-height) + 24px);
+      align-self: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      max-height: calc(100vh - var(--nav-height) - var(--subnav-height) - 48px);
+      overflow-y: auto;
+    }
+
+    .preview-panel__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .preview-panel__vessel {
+      font-size: 15px;
+      color: var(--glow-cyan);
+      margin-bottom: 12px;
+    }
+
+    .preview-panel__canvas-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    .preview-panel__canvas-wrap canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      cursor: grab;
+    }
+
+    .preview-panel__canvas-wrap canvas:active {
+      cursor: grabbing;
+    }
+
+    .preview-panel__placeholder {
+      color: var(--text-dim);
+      font-size: 13px;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .preview-panel__dims {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .preview-panel__summary {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .preview-panel__summary span {
+      color: var(--text);
+    }
+
+    /* ===== SECTION ===== */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .section__heading {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .section__subheading {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    /* ===== VESSEL GRID ===== */
+    .vessel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .vessel-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .vessel-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .vessel-card:hover {
+      border-color: var(--glow-purple);
+    }
+
+    .vessel-card.selected {
+      border-color: var(--glow-purple);
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
+    }
+
+    .vessel-card__name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .vessel-card__bp {
+      font-size: 11px;
+      color: var(--glow-cyan);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .vessel-card__desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ===== LABEL DESIGN ===== */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: var(--glow-purple);
+      background: rgba(168, 85, 247, 0.05);
+    }
+
+    .upload-zone__text {
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    .upload-zone__text strong {
+      color: var(--glow-purple);
+    }
+
+    .upload-zone__hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    .upload-zone__filename {
+      font-size: 12px;
+      color: var(--glow-green);
+      margin-top: 8px;
+    }
+
+    .label-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .label-controls label {
+      font-size: 13px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .label-controls input[type="range"] {
+      width: 160px;
+      accent-color: var(--glow-purple);
+    }
+
+    .label-controls input[type="color"] {
+      width: 36px;
+      height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .scale-value {
+      font-size: 12px;
+      color: var(--glow-cyan);
+      min-width: 32px;
+    }
+
+    /* ===== VARIANTS ===== */
+    .variant-toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .variant-toolbar__group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .variant-toolbar label {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .filter-select {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-family: var(--font);
+    }
+
+    .default-price-input {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-family: var(--font);
+      width: 90px;
+    }
+
+    .variant-table-wrap {
+      overflow-x: auto;
+    }
+
+    .variant-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .variant-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .variant-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(42, 42, 62, 0.5);
+      vertical-align: middle;
+    }
+
+    .variant-table tr.disabled td {
+      opacity: 0.4;
+    }
+
+    .variant-table .price-input {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 12px;
+      font-family: var(--font);
+      width: 80px;
+    }
+
+    /* Toggle switch */
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .toggle__slider {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle__slider::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: var(--text);
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle input:checked + .toggle__slider {
+      background: var(--glow-green);
+    }
+
+    .toggle input:checked + .toggle__slider::before {
+      transform: translateX(16px);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 14px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--glow-purple);
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, var(--glow-purple), #7c3aed);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 24px;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      transition: box-shadow 0.3s, opacity 0.2s;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn--primary:hover {
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+    }
+
+    .btn--primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn--secondary {
+      background: var(--card);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      width: 100%;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    /* ===== FORM INPUTS ===== */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: var(--font);
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--glow-purple);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* ===== TAGS ===== */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .tag-pill__remove {
+      cursor: pointer;
+      color: var(--text-dim);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .tag-pill__remove:hover {
+      color: #ef4444;
+    }
+
+    /* ===== REVIEW SECTION ===== */
+    .review-summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .review-summary__item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .review-summary__label {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .review-summary__value {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .payload-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      user-select: none;
+    }
+
+    .payload-toggle__arrow {
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+
+    .payload-toggle__arrow.open {
+      transform: rotate(90deg);
+    }
+
+    .payload-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      display: none;
+    }
+
+    .payload-preview.open {
+      display: block;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* ===== STATUS ===== */
+    .status-area {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .status-area.visible {
+      display: block;
+    }
+
+    .status-area.uploading,
+    .status-area.creating {
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      color: var(--glow-cyan);
+    }
+
+    .status-area.success {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: var(--glow-green);
+    }
+
+    .status-area.error {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #ef4444;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-dim);
+    }
+
+    /* ===== NO VARIANTS MESSAGE ===== */
+    .no-vessel-msg {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      padding: 24px 0;
+    }
+
+    .etsy-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav__back">&lt; Back to Dashboard</a>
+    <span class="top-nav__logo">AMBER &amp; ESSENCE</span>
+    <span class="top-nav__title">Candle Builder</span>
+  </nav>
+
+  <!-- ===== SUB-NAV ===== -->
+  <div class="sub-nav">
+    <a href="#section-vessel">Vessel</a>
+    <a href="#section-label">Label Design</a>
+    <a href="#section-variants">Variants &amp; Pricing</a>
+    <a href="#section-details">Product Details</a>
+    <a href="#section-review">Review &amp; Create</a>
+  </div>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="main-layout">
+
+    <!-- LEFT: FORM PANEL -->
+    <div class="form-panel">
+
+      <!-- Section 1: Vessel -->
+      <section class="section" id="section-vessel">
+        <h2 class="section__heading">Choose Your Vessel</h2>
+        <p class="section__subheading">Select the candle base product from the Printify catalog.</p>
+        <div class="vessel-grid">
+          <div class="vessel-card" data-bp="1048">
+            <div class="vessel-card__name">Standard 9oz</div>
+            <div class="vessel-card__bp">BP 1048</div>
+            <div class="vessel-card__desc">Classic clear glass, 9oz, 50-60hr burn</div>
+          </div>
+          <div class="vessel-card" data-bp="1468">
+            <div class="vessel-card__name">Amber Jar</div>
+            <div class="vessel-card__bp">BP 1468</div>
+            <div class="vessel-card__desc">Warm amber glass, 4oz or 9oz options</div>
+          </div>
+          <div class="vessel-card" data-bp="1695">
+            <div class="vessel-card__name">Glass 11oz</div>
+            <div class="vessel-card__bp">BP 1695</div>
+            <div class="vessel-card__desc">Elegant glass, clear or frosted, 55-70hr burn</div>
+          </div>
+          <div class="vessel-card" data-bp="2664">
+            <div class="vessel-card__name">Engraved 14oz</div>
+            <div class="vessel-card__bp">BP 2664</div>
+            <div class="vessel-card__desc">Premium painted glass, 5 colors, 70-90hr burn</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Label Design -->
+      <section class="section" id="section-label">
+        <h2 class="section__heading">Label Design</h2>
+        <p class="section__subheading">Upload your label artwork. Accepts PNG, JPG, or WebP.</p>
+
+        <div class="upload-zone" id="upload-zone">
+          <div class="upload-zone__text">
+            <strong>Drop your label image here</strong> or click to browse
+          </div>
+          <div class="upload-zone__hint">PNG, JPG, or WebP</div>
+          <div class="upload-zone__filename" id="upload-filename"></div>
+          <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp" hidden>
+        </div>
+
+        <div class="label-controls">
+          <label>
+            Scale
+            <input type="range" id="scale-slider" min="0.1" max="3.0" step="0.05" value="1.0">
+            <span class="scale-value" id="scale-value">1.00</span>
+          </label>
+          <label>
+            Background
+            <input type="color" id="bg-color" value="#ffffff">
+          </label>
+        </div>
+      </section>
+
+      <!-- Section 3: Variants & Pricing -->
+      <section class="section" id="section-variants">
+        <h2 class="section__heading">Variants &amp; Pricing</h2>
+        <p class="section__subheading">Enable the variants you want to sell and set prices.</p>
+
+        <div class="variant-toolbar">
+          <div class="variant-toolbar__group">
+            <label>Default price: $</label>
+            <input type="number" class="default-price-input" id="default-price" value="29.99" min="0" step="0.01">
+          </div>
+          <button class="btn" id="btn-enable-all">Enable All</button>
+          <button class="btn" id="btn-disable-all">Disable All</button>
+          <button class="btn" id="btn-set-all-prices">Set All Prices</button>
+          <div class="variant-toolbar__group" id="filter-group" style="display:none;">
+            <label id="filter-label">Filter:</label>
+            <select class="filter-select" id="variant-filter">
+              <option value="all">All</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="variant-table-wrap">
+          <div id="variant-table-container">
+            <p class="no-vessel-msg">Select a vessel above to see available variants.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Product Details -->
+      <section class="section" id="section-details">
+        <h2 class="section__heading">Product Details</h2>
+        <p class="section__subheading">Give your candle product a title, description, and tags.</p>
+
+        <div class="form-group">
+          <label for="product-title">Title (required)</label>
+          <input type="text" class="form-input" id="product-title" placeholder="e.g. Amber Glow Soy Candle">
+        </div>
+
+        <div class="form-group">
+          <label for="product-description">Description</label>
+          <textarea class="form-input" id="product-description" placeholder="Describe your candle product..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="tags-input">Tags (press Enter or comma to add)</label>
+          <input type="text" class="form-input" id="tags-input" placeholder="soy candle, handmade, aromatherapy">
+          <div class="tags-container" id="tags-container"></div>
+        </div>
+      </section>
+
+      <!-- Section 5: Review & Create -->
+      <section class="section" id="section-review">
+        <h2 class="section__heading">Review &amp; Create</h2>
+        <p class="section__subheading">Confirm everything looks correct before pushing to Printify.</p>
+
+        <div class="review-summary" id="review-summary">
+          <div class="review-summary__item">
+            <span class="review-summary__label">Vessel</span>
+            <span class="review-summary__value" id="review-vessel">--</span>
+          </div>
+          <div class="review-summary__item">
+            <span class="review-summary__label">Label</span>
+            <span class="review-summary__value" id="review-label">No image uploaded</span>
+          </div>
+          <div class="review-summary__item">
+            <span class="review-summary__label">Enabled Variants</span>
+            <span class="review-summary__value" id="review-variants">0</span>
+          </div>
+          <div class="review-summary__item">
+            <span class="review-summary__label">Price Range</span>
+            <span class="review-summary__value" id="review-price">--</span>
+          </div>
+          <div class="review-summary__item" style="grid-column: span 2;">
+            <span class="review-summary__label">Title</span>
+            <span class="review-summary__value" id="review-title">--</span>
+          </div>
+        </div>
+
+        <div class="payload-toggle" id="payload-toggle">
+          <span class="payload-toggle__arrow" id="payload-arrow">&#9654;</span>
+          View API Payload
+        </div>
+        <pre class="payload-preview" id="payload-preview"></pre>
+
+        <div class="action-buttons">
+          <button class="btn--primary" id="btn-create" disabled>Create on Printify</button>
+          <button class="btn--secondary" id="btn-publish" disabled>Publish to Etsy</button>
+          <p class="etsy-note" id="etsy-note">Connect Etsy shop first</p>
+        </div>
+
+        <div class="status-area" id="status-area"></div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT: PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-panel__title">Live Preview</div>
+      <div class="preview-panel__vessel" id="preview-vessel-name">No vessel selected</div>
+      <div class="preview-panel__canvas-wrap" id="canvas-wrap">
+        <p class="preview-panel__placeholder" id="canvas-placeholder">
+          Select a vessel and upload a label image to see a preview.
+        </p>
+        <canvas id="label-canvas" style="display:none;"></canvas>
+      </div>
+      <div class="preview-panel__dims" id="preview-dims"></div>
+      <div class="preview-panel__summary" id="preview-summary" style="display:none;">
+        <div>Title: <span id="preview-title">--</span></div>
+        <div>Enabled: <span id="preview-enabled">0</span> variants</div>
+        <div>Price: <span id="preview-price">--</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /* =============================================================
+       CANDLE BUILDER - Amber & Essence Candle Co.
+       Standalone IIFE, no external dependencies.
+       ============================================================= */
+    (function () {
+      'use strict';
+
+      /* ===== CATALOG DATA ===== */
+      var CATALOG = {"1048":{"name":"Scented Soy Candle, 9oz","scents":["Apple Harvest","Christmas Warmth","Cinnamon Vanilla","Clean Cotton","Coconut Cream + Cardamom","Peppered Passionfruit","Sea Salt + Orchid","Unscented","White Sage and Lavender"],"sizes":["9oz"],"colors":[],"variants":[{"id":80301,"title":"Clean Cotton / 9oz","options":{"scent":"Clean Cotton","size":"9oz"}},{"id":80302,"title":"Sea Salt + Orchid / 9oz","options":{"scent":"Sea Salt + Orchid","size":"9oz"}},{"id":80303,"title":"White Sage and Lavender / 9oz","options":{"scent":"White Sage and Lavender","size":"9oz"}},{"id":93541,"title":"Apple Harvest / 9oz","options":{"scent":"Apple Harvest","size":"9oz"}},{"id":93542,"title":"Cinnamon Vanilla / 9oz","options":{"scent":"Cinnamon Vanilla","size":"9oz"}},{"id":104680,"title":"Christmas Warmth / 9oz","options":{"scent":"Christmas Warmth","size":"9oz"}},{"id":104681,"title":"Coconut Cream + Cardamom / 9oz","options":{"scent":"Coconut Cream + Cardamom","size":"9oz"}},{"id":104682,"title":"Peppered Passionfruit / 9oz","options":{"scent":"Peppered Passionfruit","size":"9oz"}},{"id":104683,"title":"Unscented / 9oz","options":{"scent":"Unscented","size":"9oz"}}]},"1468":{"name":"Scented Soy Candle (Multi-Size, Amber Jar)","scents":["Christmas Warmth","Cinnamon Vanilla","Clean Cotton","Coconut Cream + Cardamom","Ocean Water","Peppered Passionfruit","Sea Salt + Orchid","Unscented","White Sage and Lavender"],"sizes":["4oz","9oz"],"colors":["Amber"],"variants":[{"id":105837,"title":"4oz / Amber / Christmas Warmth","options":{"size":"4oz","color":"Amber","scent":"Christmas Warmth"}},{"id":105841,"title":"4oz / Amber / Peppered Passionfruit","options":{"size":"4oz","color":"Amber","scent":"Peppered Passionfruit"}},{"id":105843,"title":"4oz / Amber / Unscented","options":{"size":"4oz","color":"Amber","scent":"Unscented"}},{"id":105844,"title":"4oz / Amber / White Sage and Lavender","options":{"size":"4oz","color":"Amber","scent":"White Sage and Lavender"}},{"id":105857,"title":"9oz / Amber / Christmas Warmth","options":{"size":"9oz","color":"Amber","scent":"Christmas Warmth"}},{"id":105858,"title":"9oz / Amber / Cinnamon Vanilla","options":{"size":"9oz","color":"Amber","scent":"Cinnamon Vanilla"}},{"id":105859,"title":"9oz / Amber / Coconut Cream + Cardamom","options":{"size":"9oz","color":"Amber","scent":"Coconut Cream + Cardamom"}},{"id":105860,"title":"9oz / Amber / Clean Cotton","options":{"size":"9oz","color":"Amber","scent":"Clean Cotton"}},{"id":105862,"title":"9oz / Amber / Sea Salt + Orchid","options":{"size":"9oz","color":"Amber","scent":"Sea Salt + Orchid"}},{"id":105863,"title":"9oz / Amber / Unscented","options":{"size":"9oz","color":"Amber","scent":"Unscented"}},{"id":105864,"title":"9oz / Amber / White Sage and Lavender","options":{"size":"9oz","color":"Amber","scent":"White Sage and Lavender"}},{"id":244686,"title":"9oz / Amber / Ocean Water","options":{"size":"9oz","color":"Amber","scent":"Ocean Water"}}]},"1695":{"name":"Glass Candle, 11oz","scents":["Beach Rose","Cinnamon Vanilla","Fizz and Glitz","Ocean Water","Unscented","White Sage and Lavender"],"sizes":["11oz"],"colors":["Clear","Frosted"],"variants":[{"id":119914,"title":"Clear / Cinnamon Vanilla / 11oz","options":{"color":"Clear","scent":"Cinnamon Vanilla","size":"11oz"}},{"id":119915,"title":"Clear / Fizz and Glitz / 11oz","options":{"color":"Clear","scent":"Fizz and Glitz","size":"11oz"}},{"id":119916,"title":"Clear / Ocean Water / 11oz","options":{"color":"Clear","scent":"Ocean Water","size":"11oz"}},{"id":119917,"title":"Clear / Unscented / 11oz","options":{"color":"Clear","scent":"Unscented","size":"11oz"}},{"id":119918,"title":"Clear / White Sage and Lavender / 11oz","options":{"color":"Clear","scent":"White Sage and Lavender","size":"11oz"}},{"id":119919,"title":"Clear / Beach Rose / 11oz","options":{"color":"Clear","scent":"Beach Rose","size":"11oz"}},{"id":119920,"title":"Frosted / Beach Rose / 11oz","options":{"color":"Frosted","scent":"Beach Rose","size":"11oz"}},{"id":119921,"title":"Frosted / Cinnamon Vanilla / 11oz","options":{"color":"Frosted","scent":"Cinnamon Vanilla","size":"11oz"}},{"id":119922,"title":"Frosted / Fizz and Glitz / 11oz","options":{"color":"Frosted","scent":"Fizz and Glitz","size":"11oz"}},{"id":119923,"title":"Frosted / Ocean Water / 11oz","options":{"color":"Frosted","scent":"Ocean Water","size":"11oz"}},{"id":119924,"title":"Frosted / Unscented / 11oz","options":{"color":"Frosted","scent":"Unscented","size":"11oz"}},{"id":119925,"title":"Frosted / White Sage and Lavender / 11oz","options":{"color":"Frosted","scent":"White Sage and Lavender","size":"11oz"}}]},"2664":{"name":"Scented Soy Candle, 14oz (Engraving)","scents":["Beach Rose","Christmas Warmth","Ocean Water","Sea Salt + Orchid","Unscented","White Sage and Lavender"],"sizes":["14oz"],"colors":["Cranberry Glow","Deep Pacific","Opal Iris","Peachy Nude","True Noir (Matte)"],"variants":[{"id":147773,"title":"Deep Pacific / White Sage and Lavender / 14oz","options":{"color":"Deep Pacific","scent":"White Sage and Lavender","size":"14oz"}},{"id":147805,"title":"Cranberry Glow / Beach Rose / 14oz","options":{"color":"Cranberry Glow","scent":"Beach Rose","size":"14oz"}},{"id":147806,"title":"Deep Pacific / Beach Rose / 14oz","options":{"color":"Deep Pacific","scent":"Beach Rose","size":"14oz"}},{"id":147807,"title":"Opal Iris / Beach Rose / 14oz","options":{"color":"Opal Iris","scent":"Beach Rose","size":"14oz"}},{"id":147808,"title":"Peachy Nude / Beach Rose / 14oz","options":{"color":"Peachy Nude","scent":"Beach Rose","size":"14oz"}},{"id":147809,"title":"True Noir (Matte) / Beach Rose / 14oz","options":{"color":"True Noir (Matte)","scent":"Beach Rose","size":"14oz"}},{"id":147812,"title":"Cranberry Glow / Christmas Warmth / 14oz","options":{"color":"Cranberry Glow","scent":"Christmas Warmth","size":"14oz"}},{"id":147813,"title":"Deep Pacific / Christmas Warmth / 14oz","options":{"color":"Deep Pacific","scent":"Christmas Warmth","size":"14oz"}},{"id":147814,"title":"Opal Iris / Christmas Warmth / 14oz","options":{"color":"Opal Iris","scent":"Christmas Warmth","size":"14oz"}},{"id":147815,"title":"Peachy Nude / Christmas Warmth / 14oz","options":{"color":"Peachy Nude","scent":"Christmas Warmth","size":"14oz"}},{"id":147816,"title":"True Noir (Matte) / Christmas Warmth / 14oz","options":{"color":"True Noir (Matte)","scent":"Christmas Warmth","size":"14oz"}},{"id":147819,"title":"Cranberry Glow / Ocean Water / 14oz","options":{"color":"Cranberry Glow","scent":"Ocean Water","size":"14oz"}},{"id":147820,"title":"Deep Pacific / Ocean Water / 14oz","options":{"color":"Deep Pacific","scent":"Ocean Water","size":"14oz"}},{"id":147821,"title":"Opal Iris / Ocean Water / 14oz","options":{"color":"Opal Iris","scent":"Ocean Water","size":"14oz"}},{"id":147822,"title":"Peachy Nude / Ocean Water / 14oz","options":{"color":"Peachy Nude","scent":"Ocean Water","size":"14oz"}},{"id":147823,"title":"True Noir (Matte) / Ocean Water / 14oz","options":{"color":"True Noir (Matte)","scent":"Ocean Water","size":"14oz"}},{"id":147826,"title":"Cranberry Glow / Sea Salt + Orchid / 14oz","options":{"color":"Cranberry Glow","scent":"Sea Salt + Orchid","size":"14oz"}},{"id":147827,"title":"Deep Pacific / Sea Salt + Orchid / 14oz","options":{"color":"Deep Pacific","scent":"Sea Salt + Orchid","size":"14oz"}},{"id":147828,"title":"Opal Iris / Sea Salt + Orchid / 14oz","options":{"color":"Opal Iris","scent":"Sea Salt + Orchid","size":"14oz"}},{"id":147829,"title":"Peachy Nude / Sea Salt + Orchid / 14oz","options":{"color":"Peachy Nude","scent":"Sea Salt + Orchid","size":"14oz"}},{"id":147830,"title":"True Noir (Matte) / Sea Salt + Orchid / 14oz","options":{"color":"True Noir (Matte)","scent":"Sea Salt + Orchid","size":"14oz"}},{"id":147833,"title":"Cranberry Glow / Unscented / 14oz","options":{"color":"Cranberry Glow","scent":"Unscented","size":"14oz"}},{"id":147834,"title":"Deep Pacific / Unscented / 14oz","options":{"color":"Deep Pacific","scent":"Unscented","size":"14oz"}},{"id":147835,"title":"Opal Iris / Unscented / 14oz","options":{"color":"Opal Iris","scent":"Unscented","size":"14oz"}},{"id":147836,"title":"Peachy Nude / Unscented / 14oz","options":{"color":"Peachy Nude","scent":"Unscented","size":"14oz"}},{"id":147837,"title":"True Noir (Matte) / Unscented / 14oz","options":{"color":"True Noir (Matte)","scent":"Unscented","size":"14oz"}},{"id":147840,"title":"Cranberry Glow / White Sage and Lavender / 14oz","options":{"color":"Cranberry Glow","scent":"White Sage and Lavender","size":"14oz"}},{"id":147841,"title":"Opal Iris / White Sage and Lavender / 14oz","options":{"color":"Opal Iris","scent":"White Sage and Lavender","size":"14oz"}},{"id":147842,"title":"Peachy Nude / White Sage and Lavender / 14oz","options":{"color":"Peachy Nude","scent":"White Sage and Lavender","size":"14oz"}},{"id":147843,"title":"True Noir (Matte) / White Sage and Lavender / 14oz","options":{"color":"True Noir (Matte)","scent":"White Sage and Lavender","size":"14oz"}}]}};
+
+      /* ===== LABEL SPECS ===== */
+      var LABEL_SPECS = {
+        '1048': { width: 900, height: 600 },
+        '1468_4oz': { width: 612, height: 531 },
+        '1468_9oz': { width: 900, height: 600 },
+        '1695': { width: 825, height: 675 },
+        '2664': { width: 900, height: 900 }
+      };
+
+      /* ===== STATE ===== */
+      var state = {
+        selectedBlueprint: null,
+        labelImage: null,
+        labelPosition: { x: 0, y: 0 },
+        labelScale: 1.0,
+        bgColor: '#ffffff',
+        variants: [],
+        title: '',
+        description: '',
+        tags: [],
+        defaultPrice: 2999,
+        status: 'idle',
+        statusMessage: '',
+        printifyProductId: null
+      };
+
+      /* ===== IMMUTABLE STATE HELPERS ===== */
+      function setState(updates) {
+        var prev = state;
+        state = Object.assign({}, prev, updates);
+        return state;
+      }
+
+      function setVariants(newVariants) {
+        setState({ variants: newVariants });
+      }
+
+      /* ===== DOM REFS ===== */
+      var $vesselCards = document.querySelectorAll('.vessel-card');
+      var $uploadZone = document.getElementById('upload-zone');
+      var $fileInput = document.getElementById('file-input');
+      var $uploadFilename = document.getElementById('upload-filename');
+      var $scaleSlider = document.getElementById('scale-slider');
+      var $scaleValue = document.getElementById('scale-value');
+      var $bgColor = document.getElementById('bg-color');
+      var $canvas = document.getElementById('label-canvas');
+      var $canvasPlaceholder = document.getElementById('canvas-placeholder');
+      var $canvasWrap = document.getElementById('canvas-wrap');
+      var $previewVesselName = document.getElementById('preview-vessel-name');
+      var $previewDims = document.getElementById('preview-dims');
+      var $previewSummary = document.getElementById('preview-summary');
+      var $previewTitle = document.getElementById('preview-title');
+      var $previewEnabled = document.getElementById('preview-enabled');
+      var $previewPrice = document.getElementById('preview-price');
+      var $defaultPrice = document.getElementById('default-price');
+      var $btnEnableAll = document.getElementById('btn-enable-all');
+      var $btnDisableAll = document.getElementById('btn-disable-all');
+      var $btnSetAllPrices = document.getElementById('btn-set-all-prices');
+      var $variantTableContainer = document.getElementById('variant-table-container');
+      var $filterGroup = document.getElementById('filter-group');
+      var $filterLabel = document.getElementById('filter-label');
+      var $variantFilter = document.getElementById('variant-filter');
+      var $productTitle = document.getElementById('product-title');
+      var $productDescription = document.getElementById('product-description');
+      var $tagsInput = document.getElementById('tags-input');
+      var $tagsContainer = document.getElementById('tags-container');
+      var $reviewVessel = document.getElementById('review-vessel');
+      var $reviewLabel = document.getElementById('review-label');
+      var $reviewVariants = document.getElementById('review-variants');
+      var $reviewPrice = document.getElementById('review-price');
+      var $reviewTitle = document.getElementById('review-title');
+      var $payloadToggle = document.getElementById('payload-toggle');
+      var $payloadArrow = document.getElementById('payload-arrow');
+      var $payloadPreview = document.getElementById('payload-preview');
+      var $btnCreate = document.getElementById('btn-create');
+      var $btnPublish = document.getElementById('btn-publish');
+      var $statusArea = document.getElementById('status-area');
+      var ctx = $canvas.getContext('2d');
+
+      /* ===== VESSEL SELECTION ===== */
+      $vesselCards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var bp = card.getAttribute('data-bp');
+          selectVessel(bp);
+        });
+      });
+
+      function selectVessel(bp) {
+        setState({ selectedBlueprint: bp, labelPosition: { x: 0, y: 0 } });
+
+        // Update UI
+        $vesselCards.forEach(function (c) {
+          c.classList.toggle('selected', c.getAttribute('data-bp') === bp);
+        });
+
+        var catalogEntry = CATALOG[bp];
+        $previewVesselName.textContent = catalogEntry.name;
+
+        // Build variants
+        var price = state.defaultPrice;
+        var newVariants = catalogEntry.variants.map(function (v) {
+          return {
+            id: v.id,
+            title: v.title,
+            scent: v.options.scent || '',
+            size: v.options.size || '',
+            color: v.options.color || '',
+            enabled: true,
+            price: price
+          };
+        });
+        setVariants(newVariants);
+
+        // Set up filter
+        setupFilter(bp, catalogEntry);
+
+        // Render variant table
+        renderVariantTable();
+
+        // Render canvas
+        renderCanvas();
+
+        // Update review
+        updateReview();
+      }
+
+      /* ===== FILTER SETUP ===== */
+      function setupFilter(bp, catalogEntry) {
+        if (bp === '1468') {
+          $filterGroup.style.display = 'flex';
+          $filterLabel.textContent = 'Size:';
+          $variantFilter.innerHTML = '<option value="all">All</option>';
+          catalogEntry.sizes.forEach(function (s) {
+            var opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            $variantFilter.appendChild(opt);
+          });
+        } else if (bp === '2664') {
+          $filterGroup.style.display = 'flex';
+          $filterLabel.textContent = 'Color:';
+          $variantFilter.innerHTML = '<option value="all">All</option>';
+          catalogEntry.colors.forEach(function (c) {
+            var opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            $variantFilter.appendChild(opt);
+          });
+        } else if (bp === '1695') {
+          $filterGroup.style.display = 'flex';
+          $filterLabel.textContent = 'Glass:';
+          $variantFilter.innerHTML = '<option value="all">All</option>';
+          catalogEntry.colors.forEach(function (c) {
+            var opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            $variantFilter.appendChild(opt);
+          });
+        } else {
+          $filterGroup.style.display = 'none';
+        }
+      }
+
+      $variantFilter.addEventListener('change', function () {
+        renderVariantTable();
+      });
+
+      /* ===== VARIANT TABLE ===== */
+      function renderVariantTable() {
+        if (!state.selectedBlueprint) {
+          $variantTableContainer.innerHTML = '<p class="no-vessel-msg">Select a vessel above to see available variants.</p>';
+          return;
+        }
+
+        var filterVal = $variantFilter.value;
+        var bp = state.selectedBlueprint;
+        var hasColor = CATALOG[bp].colors.length > 0;
+        var hasMultipleSizes = CATALOG[bp].sizes.length > 1;
+
+        var html = '<table class="variant-table"><thead><tr>';
+        html += '<th>On</th><th>Scent</th>';
+        if (hasMultipleSizes) html += '<th>Size</th>';
+        if (hasColor) html += '<th>Color</th>';
+        html += '<th>Price ($)</th>';
+        html += '</tr></thead><tbody>';
+
+        state.variants.forEach(function (v, idx) {
+          // Apply filter
+          var show = true;
+          if (filterVal !== 'all') {
+            if (bp === '1468') {
+              show = v.size === filterVal;
+            } else if (bp === '2664' || bp === '1695') {
+              show = v.color === filterVal;
+            }
+          }
+          if (!show) return;
+
+          var rowClass = v.enabled ? '' : ' class="disabled"';
+          html += '<tr' + rowClass + ' data-idx="' + idx + '">';
+          html += '<td><label class="toggle"><input type="checkbox" data-toggle="' + idx + '"' + (v.enabled ? ' checked' : '') + '><span class="toggle__slider"></span></label></td>';
+          html += '<td>' + escapeHtml(v.scent) + '</td>';
+          if (hasMultipleSizes) html += '<td>' + escapeHtml(v.size) + '</td>';
+          if (hasColor) html += '<td>' + escapeHtml(v.color) + '</td>';
+          html += '<td><input type="number" class="price-input" data-price="' + idx + '" value="' + (v.price / 100).toFixed(2) + '" min="0" step="0.01"></td>';
+          html += '</tr>';
+        });
+
+        html += '</tbody></table>';
+        $variantTableContainer.innerHTML = html;
+
+        // Bind toggle events
+        $variantTableContainer.querySelectorAll('[data-toggle]').forEach(function (cb) {
+          cb.addEventListener('change', function () {
+            var i = parseInt(cb.getAttribute('data-toggle'), 10);
+            var updated = state.variants.map(function (v, idx) {
+              if (idx === i) {
+                return Object.assign({}, v, { enabled: cb.checked });
+              }
+              return v;
+            });
+            setVariants(updated);
+            renderVariantTable();
+            updateReview();
+          });
+        });
+
+        // Bind price events
+        $variantTableContainer.querySelectorAll('[data-price]').forEach(function (inp) {
+          inp.addEventListener('change', function () {
+            var i = parseInt(inp.getAttribute('data-price'), 10);
+            var cents = Math.round(parseFloat(inp.value) * 100) || 0;
+            var updated = state.variants.map(function (v, idx) {
+              if (idx === i) {
+                return Object.assign({}, v, { price: cents });
+              }
+              return v;
+            });
+            setVariants(updated);
+            updateReview();
+          });
+        });
+      }
+
+      /* ===== BULK ACTIONS ===== */
+      $btnEnableAll.addEventListener('click', function () {
+        var updated = state.variants.map(function (v) {
+          return Object.assign({}, v, { enabled: true });
+        });
+        setVariants(updated);
+        renderVariantTable();
+        updateReview();
+      });
+
+      $btnDisableAll.addEventListener('click', function () {
+        var updated = state.variants.map(function (v) {
+          return Object.assign({}, v, { enabled: false });
+        });
+        setVariants(updated);
+        renderVariantTable();
+        updateReview();
+      });
+
+      $btnSetAllPrices.addEventListener('click', function () {
+        var price = state.defaultPrice;
+        var updated = state.variants.map(function (v) {
+          return Object.assign({}, v, { price: price });
+        });
+        setVariants(updated);
+        renderVariantTable();
+        updateReview();
+      });
+
+      $defaultPrice.addEventListener('change', function () {
+        var cents = Math.round(parseFloat($defaultPrice.value) * 100) || 2999;
+        setState({ defaultPrice: cents });
+      });
+
+      /* ===== IMAGE UPLOAD ===== */
+      $uploadZone.addEventListener('click', function () {
+        $fileInput.click();
+      });
+
+      $uploadZone.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        $uploadZone.classList.add('dragover');
+      });
+
+      $uploadZone.addEventListener('dragleave', function () {
+        $uploadZone.classList.remove('dragover');
+      });
+
+      $uploadZone.addEventListener('drop', function (e) {
+        e.preventDefault();
+        $uploadZone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      $fileInput.addEventListener('change', function () {
+        if ($fileInput.files && $fileInput.files.length > 0) {
+          handleFile($fileInput.files[0]);
+        }
+      });
+
+      function handleFile(file) {
+        var validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+        if (validTypes.indexOf(file.type) === -1) {
+          showStatus('error', 'Invalid file type. Please upload PNG, JPG, or WebP.');
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var img = new Image();
+          img.onload = function () {
+            setState({
+              labelImage: {
+                dataUrl: e.target.result,
+                naturalWidth: img.naturalWidth,
+                naturalHeight: img.naturalHeight,
+                element: img
+              },
+              labelPosition: { x: 0, y: 0 }
+            });
+            $uploadFilename.textContent = file.name;
+            renderCanvas();
+            updateReview();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      /* ===== CANVAS RENDERING ===== */
+      function getLabelSpec() {
+        var bp = state.selectedBlueprint;
+        if (!bp) return null;
+        if (bp === '1468') {
+          // Determine based on whether user has filtered to a specific size
+          var filterVal = $variantFilter.value;
+          if (filterVal === '4oz') return LABEL_SPECS['1468_4oz'];
+          return LABEL_SPECS['1468_9oz'];
+        }
+        return LABEL_SPECS[bp] || null;
+      }
+
+      function renderCanvas() {
+        var spec = getLabelSpec();
+        if (!spec) {
+          $canvas.style.display = 'none';
+          $canvasPlaceholder.style.display = 'block';
+          $previewDims.textContent = '';
+          return;
+        }
+
+        $canvas.width = spec.width;
+        $canvas.height = spec.height;
+        $canvas.style.display = 'block';
+        $canvasPlaceholder.style.display = 'none';
+        $previewDims.textContent = spec.width + ' x ' + spec.height + ' px';
+
+        // Fill background
+        ctx.fillStyle = state.bgColor;
+        ctx.fillRect(0, 0, spec.width, spec.height);
+
+        // Draw image if available
+        if (state.labelImage && state.labelImage.element) {
+          var img = state.labelImage.element;
+          var scale = state.labelScale;
+          var drawW = img.naturalWidth * scale;
+          var drawH = img.naturalHeight * scale;
+          var cx = (spec.width - drawW) / 2 + state.labelPosition.x;
+          var cy = (spec.height - drawH) / 2 + state.labelPosition.y;
+          ctx.drawImage(img, cx, cy, drawW, drawH);
+        }
+      }
+
+      /* ===== CANVAS DRAG ===== */
+      var isDragging = false;
+      var dragStart = { x: 0, y: 0 };
+      var posStart = { x: 0, y: 0 };
+
+      $canvas.addEventListener('mousedown', function (e) {
+        if (!state.labelImage) return;
+        isDragging = true;
+        var rect = $canvas.getBoundingClientRect();
+        dragStart = { x: e.clientX, y: e.clientY };
+        posStart = { x: state.labelPosition.x, y: state.labelPosition.y };
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        var scaleX = $canvas.width / $canvas.getBoundingClientRect().width;
+        var scaleY = $canvas.height / $canvas.getBoundingClientRect().height;
+        var dx = (e.clientX - dragStart.x) * scaleX;
+        var dy = (e.clientY - dragStart.y) * scaleY;
+        setState({
+          labelPosition: { x: posStart.x + dx, y: posStart.y + dy }
+        });
+        renderCanvas();
+      });
+
+      window.addEventListener('mouseup', function () {
+        isDragging = false;
+      });
+
+      /* Touch support for mobile */
+      $canvas.addEventListener('touchstart', function (e) {
+        if (!state.labelImage) return;
+        isDragging = true;
+        var touch = e.touches[0];
+        dragStart = { x: touch.clientX, y: touch.clientY };
+        posStart = { x: state.labelPosition.x, y: state.labelPosition.y };
+        e.preventDefault();
+      }, { passive: false });
+
+      window.addEventListener('touchmove', function (e) {
+        if (!isDragging) return;
+        var touch = e.touches[0];
+        var scaleX = $canvas.width / $canvas.getBoundingClientRect().width;
+        var scaleY = $canvas.height / $canvas.getBoundingClientRect().height;
+        var dx = (touch.clientX - dragStart.x) * scaleX;
+        var dy = (touch.clientY - dragStart.y) * scaleY;
+        setState({
+          labelPosition: { x: posStart.x + dx, y: posStart.y + dy }
+        });
+        renderCanvas();
+      }, { passive: false });
+
+      window.addEventListener('touchend', function () {
+        isDragging = false;
+      });
+
+      /* ===== SCALE SLIDER ===== */
+      $scaleSlider.addEventListener('input', function () {
+        var val = parseFloat($scaleSlider.value);
+        setState({ labelScale: val });
+        $scaleValue.textContent = val.toFixed(2);
+        renderCanvas();
+      });
+
+      /* ===== BACKGROUND COLOR ===== */
+      $bgColor.addEventListener('input', function () {
+        setState({ bgColor: $bgColor.value });
+        renderCanvas();
+      });
+
+      /* ===== PRODUCT DETAILS ===== */
+      $productTitle.addEventListener('input', function () {
+        setState({ title: $productTitle.value });
+        updateReview();
+      });
+
+      $productDescription.addEventListener('input', function () {
+        setState({ description: $productDescription.value });
+      });
+
+      /* ===== TAGS ===== */
+      $tagsInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          addTagFromInput();
+        }
+      });
+
+      $tagsInput.addEventListener('blur', function () {
+        addTagFromInput();
+      });
+
+      function addTagFromInput() {
+        var raw = $tagsInput.value.replace(/,/g, '').trim();
+        if (raw && state.tags.indexOf(raw) === -1) {
+          setState({ tags: state.tags.concat([raw]) });
+          renderTags();
+        }
+        $tagsInput.value = '';
+      }
+
+      function removeTag(tag) {
+        setState({ tags: state.tags.filter(function (t) { return t !== tag; }) });
+        renderTags();
+      }
+
+      function renderTags() {
+        $tagsContainer.innerHTML = '';
+        state.tags.forEach(function (tag) {
+          var pill = document.createElement('span');
+          pill.className = 'tag-pill';
+          pill.innerHTML = escapeHtml(tag) + ' <span class="tag-pill__remove" data-tag="' + escapeHtml(tag) + '">x</span>';
+          $tagsContainer.appendChild(pill);
+        });
+
+        $tagsContainer.querySelectorAll('.tag-pill__remove').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            removeTag(btn.getAttribute('data-tag'));
+          });
+        });
+      }
+
+      /* ===== REVIEW UPDATE ===== */
+      function updateReview() {
+        // Vessel
+        if (state.selectedBlueprint) {
+          $reviewVessel.textContent = CATALOG[state.selectedBlueprint].name;
+        } else {
+          $reviewVessel.textContent = '--';
+        }
+
+        // Label
+        $reviewLabel.textContent = state.labelImage ? 'Image uploaded' : 'No image uploaded';
+
+        // Variants
+        var enabled = state.variants.filter(function (v) { return v.enabled; });
+        $reviewVariants.textContent = enabled.length + ' of ' + state.variants.length;
+
+        // Price range
+        if (enabled.length > 0) {
+          var prices = enabled.map(function (v) { return v.price; });
+          var minP = Math.min.apply(null, prices);
+          var maxP = Math.max.apply(null, prices);
+          if (minP === maxP) {
+            $reviewPrice.textContent = '$' + (minP / 100).toFixed(2);
+          } else {
+            $reviewPrice.textContent = '$' + (minP / 100).toFixed(2) + ' - $' + (maxP / 100).toFixed(2);
+          }
+        } else {
+          $reviewPrice.textContent = '--';
+        }
+
+        // Title
+        $reviewTitle.textContent = state.title || '--';
+
+        // Preview panel summary
+        $previewSummary.style.display = state.selectedBlueprint ? 'flex' : 'none';
+        $previewTitle.textContent = state.title || '--';
+        $previewEnabled.textContent = enabled.length.toString();
+        $previewPrice.textContent = $reviewPrice.textContent;
+
+        // Enable/disable create button
+        var canCreate = state.selectedBlueprint && state.title.trim().length > 0 && enabled.length > 0 && state.labelImage;
+        $btnCreate.disabled = !canCreate;
+
+        // Update payload preview
+        updatePayload();
+      }
+
+      /* ===== PAYLOAD PREVIEW ===== */
+      $payloadToggle.addEventListener('click', function () {
+        var isOpen = $payloadPreview.classList.toggle('open');
+        $payloadArrow.classList.toggle('open', isOpen);
+      });
+
+      function buildPayload(imageId) {
+        var enabled = state.variants.filter(function (v) { return v.enabled; });
+        var spec = getLabelSpec();
+
+        return {
+          title: state.title,
+          description: state.description,
+          tags: state.tags,
+          blueprint_id: parseInt(state.selectedBlueprint, 10),
+          variants: enabled.map(function (v) {
+            return {
+              id: v.id,
+              price: v.price,
+              is_enabled: true
+            };
+          }),
+          print_areas: [{
+            variant_ids: enabled.map(function (v) { return v.id; }),
+            placeholders: [{
+              position: 'front',
+              images: [{
+                id: imageId || 'PENDING_UPLOAD',
+                x: 0,
+                y: 0,
+                scale: 1,
+                angle: 0
+              }]
+            }]
+          }]
+        };
+      }
+
+      function updatePayload() {
+        var payload = buildPayload(null);
+        $payloadPreview.textContent = JSON.stringify(payload, null, 2);
+      }
+
+      /* ===== STATUS ===== */
+      function showStatus(type, message) {
+        setState({ status: type, statusMessage: message });
+        $statusArea.className = 'status-area visible ' + type;
+        $statusArea.textContent = message;
+      }
+
+      function hideStatus() {
+        setState({ status: 'idle', statusMessage: '' });
+        $statusArea.className = 'status-area';
+      }
+
+      /* ===== API CALLS ===== */
+      function exportCanvasBase64() {
+        var dataUrl = $canvas.toDataURL('image/png');
+        return dataUrl.replace(/^data:image\/png;base64,/, '');
+      }
+
+      $btnCreate.addEventListener('click', function () {
+        if ($btnCreate.disabled) return;
+        createProduct();
+      });
+
+      async function createProduct() {
+        $btnCreate.disabled = true;
+
+        try {
+          // Step 1: Upload image
+          showStatus('uploading', 'Uploading label image to Printify...');
+          var base64 = exportCanvasBase64();
+          var fileName = state.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() + '_label.png';
+
+          var uploadRes = await fetch('/api/printify/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              file_name: fileName,
+              contents: base64
+            })
+          });
+
+          if (!uploadRes.ok) {
+            var errText = await uploadRes.text();
+            throw new Error('Image upload failed: ' + errText);
+          }
+
+          var uploadData = await uploadRes.json();
+          var imageId = uploadData.id;
+
+          // Step 2: Create product
+          showStatus('creating', 'Creating product on Printify...');
+          var payload = buildPayload(imageId);
+
+          var createRes = await fetch('/api/printify/create-product', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!createRes.ok) {
+            var errText2 = await createRes.text();
+            throw new Error('Product creation failed: ' + errText2);
+          }
+
+          var productData = await createRes.json();
+          setState({ printifyProductId: productData.id });
+
+          showStatus('success', 'Product created successfully! ID: ' + productData.id);
+          $btnCreate.disabled = false;
+
+        } catch (err) {
+          showStatus('error', err.message || 'An unexpected error occurred.');
+          $btnCreate.disabled = false;
+        }
+      }
+
+      $btnPublish.addEventListener('click', function () {
+        // Disabled by design - show message
+      });
+
+      /* ===== HELPERS ===== */
+      function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+      }
+
+      /* ===== INIT ===== */
+      updateReview();
+
+    })();
+  </script>
+</body>
+</html>
