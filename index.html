@@ -1134,6 +1134,66 @@
     font-style: normal; line-height: 1.4;
   }
   .task-blocked-label:hover .blocked-tooltip { display: block; }
+  /* Note Badge */
+  .task-note-badge {
+    font-size: 0.62rem; font-weight: 600;
+    color: var(--glow-purple); background: rgba(168,85,247,0.15);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 1px 6px; border-radius: 4px;
+    margin-left: 6px; cursor: pointer;
+    vertical-align: middle; position: relative;
+  }
+  .task-note-badge:hover { background: rgba(168,85,247,0.25); }
+  .task-note-tooltip {
+    display: none; position: absolute;
+    bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--card); border: 1px solid var(--glow-purple);
+    border-radius: 8px; padding: 8px 12px;
+    font-size: 0.72rem; color: var(--text); white-space: pre-wrap;
+    max-width: 260px; min-width: 120px; z-index: 300;
+    pointer-events: none; font-weight: 400;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .task-note-badge:hover .task-note-tooltip { display: block; }
+  /* Status Dropdown Divider */
+  .task-status-divider { height: 1px; background: var(--border); margin: 4px 0; }
+  .task-note-icon { font-size: 0.72rem; margin-right: 4px; }
+  /* Note Dialog */
+  .task-note-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 500; display: flex; align-items: center; justify-content: center;
+  }
+  .task-note-dialog {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; width: 420px; max-width: 90vw;
+  }
+  .task-note-dialog h3 { margin: 0 0 8px; font-size: 1rem; color: var(--text); }
+  .task-note-dialog-text {
+    font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px;
+    font-style: italic; line-height: 1.4;
+  }
+  .task-note-input {
+    width: 100%; box-sizing: border-box;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px; color: var(--text);
+    font-size: 0.85rem; resize: vertical; font-family: inherit;
+    min-height: 80px;
+  }
+  .task-note-input:focus { border-color: var(--glow-purple); outline: none; }
+  .task-note-actions { display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end; }
+  .task-note-save {
+    padding: 6px 18px; background: var(--glow-purple); border: none;
+    border-radius: 6px; color: #fff; font-weight: 600; cursor: pointer; font-size: 0.82rem;
+  }
+  .task-note-save:hover { filter: brightness(1.15); }
+  .task-note-cancel {
+    padding: 6px 16px; background: none; border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text-dim); cursor: pointer; font-size: 0.82rem;
+  }
+  .task-note-remove {
+    padding: 6px 16px; background: none; border: 1px solid #ef4444;
+    border-radius: 6px; color: #ef4444; cursor: pointer; font-size: 0.82rem; margin-right: auto;
+  }
   /* Progress Bar */
   .task-progress-bar {
     display: flex; align-items: center; gap: 12px;
@@ -5205,6 +5265,24 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
         });
         dd.appendChild(row);
       });
+      // Divider + Note option
+      var divider = document.createElement('div');
+      divider.className = 'task-status-divider';
+      dd.appendChild(divider);
+      var noteRow = document.createElement('div');
+      noteRow.className = 'task-status-option task-note-option';
+      var noteIcon = document.createElement('span');
+      noteIcon.className = 'task-note-icon';
+      noteIcon.textContent = '\u270E';
+      noteRow.appendChild(noteIcon);
+      var hasNote = item.dataset.note && item.dataset.note.trim().length > 0;
+      noteRow.appendChild(document.createTextNode(hasNote ? 'Edit Note' : 'Add Note'));
+      noteRow.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeStatusDropdown();
+        openNoteDialog(item);
+      });
+      dd.appendChild(noteRow);
       // Position relative to anchor
       anchor.style.position = 'relative';
       anchor.appendChild(dd);
@@ -5479,7 +5557,8 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
             dueDate: item.dataset.dueDate || '',
             taskId: item.dataset.taskId || '',
             blockedBy: item.dataset.blockedBy || '',
-            originalIndex: item.dataset.originalIndex || ''
+            originalIndex: item.dataset.originalIndex || '',
+            note: item.dataset.note || ''
           });
         });
       });
@@ -5510,6 +5589,17 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
       span.className = 'task-text';
       span.textContent = t.text;
       div.appendChild(span);
+      if (t.note) {
+        div.dataset.note = t.note;
+        var badge = document.createElement('span');
+        badge.className = 'task-note-badge';
+        badge.textContent = 'Note';
+        var tip = document.createElement('span');
+        tip.className = 'task-note-tooltip';
+        tip.textContent = t.note.length > 200 ? t.note.substring(0, 200) + '...' : t.note;
+        badge.appendChild(tip);
+        div.appendChild(badge);
+      }
       if (t.stamp) { var st = document.createElement('span'); st.className = 'task-stamp'; st.textContent = t.stamp; div.appendChild(st); }
       var due = document.createElement('span');
       due.className = 'task-due'; due.title = 'Set due date';
@@ -5613,6 +5703,12 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
         if (item) showStatusDropdown(item, e.target);
         return;
       }
+      if (e.target.classList.contains('task-note-badge')) {
+        e.stopPropagation();
+        var itemN = e.target.closest('.task-item');
+        if (itemN) openNoteDialog(itemN);
+        return;
+      }
       if (e.target.classList.contains('task-flag')) {
         var item2 = e.target.closest('.task-item');
         if (item2) toggleFlag(item2);
@@ -5639,6 +5735,99 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
           logAction('added "' + text.trim() + '"');
         }
       }
+    });
+
+    // ── Note Dialog ──
+    var activeNoteItem = null;
+    function openNoteDialog(item) {
+      activeNoteItem = item;
+      var existingNote = item.dataset.note || '';
+      var taskText = getTaskText(item);
+      var overlay = document.createElement('div');
+      overlay.className = 'task-note-overlay';
+      overlay.id = 'task-note-overlay';
+      var dialog = document.createElement('div');
+      dialog.className = 'task-note-dialog';
+      var title = document.createElement('h3');
+      title.textContent = existingNote ? 'Edit Note' : 'Add Note';
+      dialog.appendChild(title);
+      var taskLabel = document.createElement('p');
+      taskLabel.className = 'task-note-dialog-text';
+      taskLabel.textContent = taskText;
+      dialog.appendChild(taskLabel);
+      var textarea = document.createElement('textarea');
+      textarea.className = 'task-note-input';
+      textarea.id = 'task-note-textarea';
+      textarea.rows = 5;
+      textarea.placeholder = 'Add a note...';
+      textarea.value = existingNote;
+      dialog.appendChild(textarea);
+      var actions = document.createElement('div');
+      actions.className = 'task-note-actions';
+      if (existingNote) {
+        var removeBtn = document.createElement('button');
+        removeBtn.className = 'task-note-remove';
+        removeBtn.textContent = 'Remove Note';
+        removeBtn.addEventListener('click', function() { removeNote(item); closeNoteDialog(); });
+        actions.appendChild(removeBtn);
+      }
+      var cancelBtn = document.createElement('button');
+      cancelBtn.className = 'task-note-cancel';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.addEventListener('click', closeNoteDialog);
+      actions.appendChild(cancelBtn);
+      var saveBtn = document.createElement('button');
+      saveBtn.className = 'task-note-save';
+      saveBtn.textContent = 'Save';
+      saveBtn.addEventListener('click', function() {
+        var val = textarea.value.trim();
+        if (val) { saveNote(item, val); } else { removeNote(item); }
+        closeNoteDialog();
+      });
+      actions.appendChild(saveBtn);
+      dialog.appendChild(actions);
+      overlay.appendChild(dialog);
+      document.body.appendChild(overlay);
+      textarea.focus();
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) closeNoteDialog(); });
+    }
+    function closeNoteDialog() {
+      var overlay = document.getElementById('task-note-overlay');
+      if (overlay) overlay.remove();
+      activeNoteItem = null;
+    }
+    function saveNote(item, noteText) {
+      item.dataset.note = noteText;
+      updateNoteBadge(item);
+      saveTasks();
+      logAction('added note to "' + getTaskText(item) + '"');
+    }
+    function removeNote(item) {
+      delete item.dataset.note;
+      item.dataset.note = '';
+      updateNoteBadge(item);
+      saveTasks();
+      logAction('removed note from "' + getTaskText(item) + '"');
+    }
+    function updateNoteBadge(item) {
+      var existing = item.querySelector('.task-note-badge');
+      if (existing) existing.remove();
+      var note = item.dataset.note;
+      if (note && note.trim()) {
+        var badge = document.createElement('span');
+        badge.className = 'task-note-badge';
+        badge.textContent = 'Note';
+        var tip = document.createElement('span');
+        tip.className = 'task-note-tooltip';
+        tip.textContent = note.length > 200 ? note.substring(0, 200) + '...' : note;
+        badge.appendChild(tip);
+        var textEl = item.querySelector('.task-text');
+        if (textEl && textEl.nextSibling) { item.insertBefore(badge, textEl.nextSibling); }
+        else if (textEl) { textEl.after(badge); }
+      }
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('task-note-overlay')) closeNoteDialog();
     });
 
     // ── Reset All (2-step confirm) ──
