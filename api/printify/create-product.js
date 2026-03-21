@@ -41,25 +41,27 @@ export default async function handler(req, res) {
     } else if (print_areas.front) {
       // Simplified format — transform to Printify format
       const enabledIds = variants.filter(v => v.is_enabled).map(v => v.id);
-      printifyPrintAreas = [
-        {
-          variant_ids: enabledIds,
-          placeholders: [
-            {
-              position: 'front',
-              images: [
-                {
-                  id: print_areas.front.image_id,
-                  x: print_areas.front.x ?? 0.5,
-                  y: print_areas.front.y ?? 0.5,
-                  scale: print_areas.front.scale ?? 1,
-                  angle: print_areas.front.angle ?? 0,
-                },
-              ],
-            },
-          ],
-        },
-      ];
+      const area = {
+        variant_ids: enabledIds,
+        placeholders: [
+          {
+            position: 'front',
+            images: [
+              {
+                id: print_areas.front.image_id,
+                x: print_areas.front.x ?? 0.5,
+                y: print_areas.front.y ?? 0.5,
+                scale: print_areas.front.scale ?? 1,
+                angle: print_areas.front.angle ?? 0,
+              },
+            ],
+          },
+        ],
+      };
+      if (print_areas.background) {
+        area.background = print_areas.background;
+      }
+      printifyPrintAreas = [area];
     } else {
       return res.status(400).json({ error: 'print_areas must be an array or have a "front" key' });
     }
