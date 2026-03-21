@@ -5100,7 +5100,7 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
 
     function getUser() { return currentUser || 'Unknown'; }
     function stampStr() {
-      return getUser() + ' \u00b7 ' + new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+      var d = new Date(); return getUser() + ' \u00b7 ' + (d.getMonth()+1) + '/' + d.getDate() + '/' + String(d.getFullYear()).slice(-2);
     }
 
     // ── Audit Log ──
@@ -5811,7 +5811,7 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
       activeNoteItem = null;
     }
     function saveNote(item, noteText) {
-      var stamp = '\n-- ' + getUser() + ', ' + new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+      var d = new Date(); var stamp = '\n-- ' + getUser() + ', ' + (d.getMonth()+1) + '/' + d.getDate() + '/' + String(d.getFullYear()).slice(-2);
       var cleaned = noteText.replace(/\n-- [^\n]+$/m, '');
       item.dataset.note = cleaned.trim() + stamp;
       updateNoteBadge(item);
