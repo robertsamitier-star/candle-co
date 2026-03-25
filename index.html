@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>IC Candle Co. — Business Plan 2026</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -921,6 +922,66 @@
     margin-bottom: 8px; display: block;
   }
 
+  /* ═══════════════ OVERHEAD TAB ═══════════════ */
+  #tab-overhead {
+    padding-top: 56px;
+    min-height: 100vh;
+  }
+  .overhead-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .overhead-phase {
+    margin-bottom: 60px;
+    scroll-margin-top: 72px;
+  }
+  .overhead-phase > h2 {
+    font-size: 1.6rem; text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--glow-orange);
+    margin-bottom: 20px;
+  }
+  .overhead-phase > h3 {
+    margin-top: 24px; margin-bottom: 12px;
+    font-size: 1.1rem;
+  }
+  .overhead-phase p, .overhead-phase li {
+    font-size: 0.9rem; color: var(--text-dim);
+    line-height: 1.65; margin-bottom: 12px;
+  }
+  .overhead-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 40px; padding: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .overhead-nav a {
+    color: var(--glow-orange); text-decoration: none;
+    font-size: 0.82rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .overhead-nav a:hover {
+    background: var(--card); border-color: var(--glow-orange);
+  }
+  .overhead-callout {
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 12px; padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .overhead-callout .callout-label {
+    font-size: 0.72rem; font-weight: 700;
+    color: var(--glow-orange); text-transform: uppercase;
+    margin-bottom: 8px; display: block;
+  }
+  .overhead-total-row td {
+    font-weight: 700;
+    background: rgba(249,115,22,0.06);
+  }
+
   /* ═══════════════ LAUNCH GUIDE TAB ═══════════════ */
   #tab-launch-guide {
     padding-top: 56px;
@@ -1255,6 +1316,7 @@
     .top-nav .logo { font-size: 0.9rem; }
     .tab-btn { font-size: 0.78rem; padding: 16px 10px; }
     .guide-container { padding: 24px 12px 80px; }
+    .overhead-container { padding: 24px 12px 80px; }
   }
 </style>
 </head>
@@ -1276,6 +1338,7 @@
     <button class="tab-btn" data-tab="citations" onclick="switchTab('citations')">Research Citations</button>
     <button class="tab-btn" data-tab="custom-strategy" onclick="switchTab('custom-strategy')">Custom Candle Strategy</button>
     <button class="tab-btn" data-tab="research" onclick="switchTab('research')">Research</button>
+    <button class="tab-btn" data-tab="overhead" onclick="switchTab('overhead')">Overhead</button>
     <a class="tab-btn" href="builder.html">Candle Builder</a>
     <a class="tab-btn" href="business-plan-1sheet.html" target="_blank">Business Plan</a>
   </div>
@@ -5005,19 +5068,20 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
   <a href="#res-logo" style="color:var(--glow-orange);border-color:var(--glow-orange);">Logo Research</a>
   <a href="#res-pricing" style="color:var(--glow-green);border-color:var(--glow-green);">Supplier &amp; Pricing</a>
   <a href="#res-scents" style="color:var(--glow-cyan);border-color:var(--glow-cyan);">Scent Selection</a>
+  <a href="#res-insurance" style="color:var(--glow-orange);border-color:var(--glow-orange);">Insurance</a>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ -->
 <!-- ═══════ TOPIC: LOGO RESEARCH ═══════ -->
 <!-- ═══════════════════════════════════════════════ -->
 <div id="res-logo">
-<h2 style="font-size:1.5rem;border-bottom:2px solid var(--glow-orange);padding-bottom:10px;margin-bottom:24px;">Logo Research <span style="font-size:0.75rem;font-weight:400;color:var(--text-dim);margin-left:8px;">March 2026</span></h2>
+<h2 style="font-size:1.5rem;border-bottom:2px solid var(--glow-orange);padding-bottom:10px;margin-bottom:24px;">Logo Research <span style="font-size:0.75rem;font-weight:400;color:var(--text-dim);margin-left:8px;">Updated March 24, 2026</span></h2>
 
 <!-- Sub-nav for logo research -->
 <nav class="strategy-nav" style="margin-bottom:32px;">
   <a href="#res-logo-fit">Market Fit</a>
-  <a href="#res-logo-colors">Color Psychology</a>
-  <a href="#res-logo-deco">Art Deco</a>
+  <a href="#res-logo-colors">Color Palette</a>
+  <a href="#res-logo-deco">2026 Aesthetic</a>
   <a href="#res-logo-niches">Multi-Niche</a>
   <a href="#res-logo-principles">Design Principles</a>
   <a href="#res-logo-prompts">Nano Banana Prompts</a>
@@ -5027,87 +5091,142 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
 <!-- SECTION 1: MARKET FIT -->
 <div class="strategy-section" id="res-logo-fit">
   <h2>Market Fit Assessment</h2>
-  <p><strong>Direction:</strong> Black/Gold with Red/Amber accents, Art Deco influence, minimalistic with strong contrast.</p>
+  <p><strong>Direction:</strong> "Warm Mineral" palette with "Refined Craft" aesthetic &mdash; warm cream, charcoal, amber, patina teal. Organic character with professional polish.</p>
 
   <div class="strategy-callout">
-    <span class="callout-label">Verdict</span>
-    <p style="margin:0;"><strong style="color:var(--glow-green);">Strong fit</strong> for the premium custom candle market. Black/gold is the proven luxury palette. Art deco is trending in premium packaging. One caveat: humor candles need differentiation through product labels, not the logo.</p>
+    <span class="callout-label">Updated Verdict</span>
+    <p style="margin:0;"><strong style="color:var(--glow-green);">Strong fit</strong> for 2026 premium candle market. Black/gold is oversaturated on Etsy and reads cold for emotional products (memorial, wellness). Warm neutrals with amber accents signal "premium but approachable" &mdash; the sweet spot for gift-buying (64% of candle purchases are gifts). 90% of first impressions are color-based.</p>
   </div>
 
-  <h3>What Premium Brands Do ($30-65+)</h3>
-  <p>Diptyque, Jo Malone, Byredo, Le Labo, Cire Trudon all follow the same pattern:</p>
+  <h3>Brand Models to Follow</h3>
+  <table class="data-table" style="margin-top:16px;">
+    <thead><tr><th>Brand</th><th>Strategy</th><th>Lesson for A&amp;E</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Paddywax</strong></td><td>20+ collections, each with own vessel/color/story, unified by logo &amp; craft ethos</td><td style="color:var(--glow-green);">Collection-based architecture &mdash; our model</td></tr>
+      <tr><td><strong>Otherland</strong></td><td>Restrained gold serif logo, wildly different art per collection</td><td style="color:var(--glow-green);">Logo stays neutral; labels carry personality</td></tr>
+      <tr><td><strong>Malicious Women</strong></td><td>Elegant chandelier logo + snarky labels</td><td style="color:var(--glow-green);">Proves humor doesn't need a funny logo</td></tr>
+      <tr><td><strong>Homesick</strong></td><td>Modern serif wordmark, clean editorial style</td><td style="color:var(--glow-cyan);">Emotional storytelling does the selling</td></tr>
+      <tr><td><strong>P.F. Candle Co.</strong></td><td>Clean sans-serif, amber jars ARE the brand icon</td><td style="color:var(--glow-cyan);">Vessel choice is part of the identity</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Why Not Black/Gold?</h3>
   <ul style="padding-left:20px;">
-    <li><strong>Minimalism dominates</strong> &mdash; 78% of high-income consumers prefer minimalist packaging</li>
-    <li><strong>Neutral bases</strong> (cream, white, black) with metallic accents (gold, silver)</li>
-    <li><strong>Restraint over ornamentation</strong> &mdash; the packaging IS the luxury statement</li>
-    <li><strong>Black/gold is extremely common</strong> &mdash; gold foil = instant luxury signal</li>
+    <li><strong>Oversaturated on Etsy</strong> &mdash; most premium candle sellers default to black/gold. Blends in instead of standing out.</li>
+    <li><strong>Cold for emotional products</strong> &mdash; memorial, wellness, and pet candles need warmth and approachability.</li>
+    <li><strong>2026 trend shift</strong> &mdash; Pantone COTY is Cloud Dancer (warm cream). Quiet luxury favors natural materials and warm neutrals over stark metallics.</li>
+    <li><strong>Photography challenge</strong> &mdash; gold on black is hard to photograph consistently for e-commerce listings.</li>
   </ul>
-
-  <p><strong>Amber/red note:</strong> Not dominant in luxury candle branding. Best used as secondary accents, not primary colors. Pairs naturally with your brand name "Amber &amp; Essence."</p>
 </div>
 
-<!-- SECTION 2: COLOR PSYCHOLOGY -->
+<!-- SECTION 2: COLOR PALETTE -->
 <div class="strategy-section" id="res-logo-colors">
-  <h2>Color Psychology</h2>
+  <h2>Warm Mineral Palette</h2>
 
+  <h3>Core Brand Colors</h3>
   <table class="data-table" style="margin-top:16px;">
     <thead>
-      <tr><th>Color</th><th>Signals</th><th>Fit for Your Niches</th></tr>
+      <tr><th>Role</th><th>Color</th><th>Hex</th><th>Why</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Black</strong></td><td>Sophistication, exclusivity, prestige</td><td style="color:var(--glow-green);">Excellent &mdash; memorial, sympathy, manifestation</td></tr>
-      <tr><td><strong>Gold</strong></td><td>Wealth, success, premium quality</td><td style="color:var(--glow-green);">Excellent &mdash; elevates perceived value across all niches</td></tr>
-      <tr><td><strong>Amber/Red</strong></td><td>Warmth, richness, approachability</td><td style="color:var(--glow-cyan);">Good &mdash; softens luxury feel, connects to brand name</td></tr>
+      <tr>
+        <td><strong>Base</strong></td>
+        <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#F0EEE9;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Cloud Cream</td>
+        <td class="highlight">#F0EEE9</td>
+        <td>Pantone 2026 COTY. Warm, premium, photographs beautifully</td>
+      </tr>
+      <tr>
+        <td><strong>Text / Anchor</strong></td>
+        <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#3A3633;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Charcoal Dusk</td>
+        <td class="highlight">#3A3633</td>
+        <td>Softer than black &mdash; sophisticated without being cold</td>
+      </tr>
+      <tr>
+        <td><strong>Brand Accent</strong></td>
+        <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#C08B5C;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Warm Amber</td>
+        <td class="highlight">#C08B5C</td>
+        <td>On-brand (the name!), pops on Etsy's white background</td>
+      </tr>
+      <tr>
+        <td><strong>Secondary</strong></td>
+        <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#7A9E99;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Soft Patina</td>
+        <td class="highlight">#7A9E99</td>
+        <td>Biophilic trend, balances the warmth</td>
+      </tr>
+      <tr>
+        <td><strong>Neutral</strong></td>
+        <td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#C4B5A5;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Warm Putty</td>
+        <td class="highlight">#C4B5A5</td>
+        <td>Background / packaging texture tone</td>
+      </tr>
     </tbody>
   </table>
 
-  <p style="margin-top:16px;">Dark colors with metallics = premium positioning. North American consumers favor matte black + metallics (aligns with minimalist home interiors). 90% of first impressions are color-based.</p>
+  <h3>Niche-Specific Accent Colors</h3>
+  <p>Core palette stays fixed. Each product niche adds its own accent color on labels and packaging:</p>
+  <table class="data-table" style="margin-top:16px;">
+    <thead><tr><th>Niche</th><th>Accent</th><th>Hex</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Pet Memorial</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#8B7D6B;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Warm Stone</td><td class="highlight">#8B7D6B</td><td>Earthy, grounding, keepsake feel</td></tr>
+      <tr><td>Memorial / Sympathy</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#2C3E50;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Deep Navy</td><td class="highlight">#2C3E50</td><td>Respectful, timeless, not somber</td></tr>
+      <tr><td>Manifestation</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#A67C52;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Rich Gold</td><td class="highlight">#A67C52</td><td>Intention, abundance, spiritual warmth</td></tr>
+      <tr><td>Stress Relief</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#8FAE8B;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Sage</td><td class="highlight">#8FAE8B</td><td>Calm, wellness, natural</td></tr>
+      <tr><td>Humor / Profession</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#D4836A;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Warm Coral</td><td class="highlight">#D4836A</td><td>Playful energy without clashing with premium</td></tr>
+      <tr><td>Outdoors / Cozy</td><td><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#6B8E7B;border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span> Forest</td><td class="highlight">#6B8E7B</td><td>Nature, adventure, pine/moss</td></tr>
+    </tbody>
+  </table>
 </div>
 
-<!-- SECTION 3: ART DECO -->
+<!-- SECTION 3: 2026 BRAND AESTHETIC -->
 <div class="strategy-section" id="res-logo-deco">
-  <h2>Art Deco Direction</h2>
-  <p>Art deco IS making a comeback in 2025-2026 packaging (especially drinks/spirits/premium goods). However, the luxury candle space specifically is dominated by <strong>minimalism</strong>, not ornate deco.</p>
+  <h2>2026 Brand Aesthetic</h2>
+  <p>Five competing visual movements in home goods &amp; DTC brands. Our direction draws from the first two.</p>
+
+  <table class="data-table" style="margin-top:16px;">
+    <thead>
+      <tr><th>Movement</th><th>What It Is</th><th>Fit for A&amp;E</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(0,229,255,0.06);"><td><strong>Quiet Luxury</strong></td><td>Warm neutrals, natural materials, lived-in textures. Pantone Cloud Dancer. Etsy Texture of Year: Washed Linen.</td><td style="color:var(--glow-green);font-weight:600;">Primary direction</td></tr>
+      <tr style="background:rgba(0,229,255,0.06);"><td><strong>Organic Modern</strong></td><td>Nature connection. Etsy 2026 COTY Patina Blue. Biophilic hues, oxidized metals, botanical motifs.</td><td style="color:var(--glow-green);font-weight:600;">Secondary influence</td></tr>
+      <tr><td>Dopamine Design</td><td>Bold, joyful maximalist color. Gen Z counter-trend.</td><td style="color:var(--glow-orange);">Humor labels only</td></tr>
+      <tr><td>Narrative Nostalgia</td><td>Heritage typography, aged patinas, storytelling products.</td><td style="color:var(--glow-cyan);">Useful for memorial line</td></tr>
+      <tr><td>Art Deco Revival</td><td>Geometric luxury, gold foil, Gatsby motifs.</td><td style="color:#ef4444;">Oversaturated in candles</td></tr>
+    </tbody>
+  </table>
 
   <div class="strategy-callout">
-    <span class="callout-label">The Move</span>
-    <p style="margin:0;">Modern geometric aesthetic &mdash; art deco elements <strong>stripped to their essence</strong>. Angular flame shapes, geometric borders, sharp serif letterforms &mdash; but with breathing room and negative space. Not full Gatsby ornamentation.</p>
+    <span class="callout-label">The Move: "Refined Craft"</span>
+    <p style="margin:0;">Polished enough to signal quality, organic enough to signal authenticity. Warm modern serif typography with subtle hand-crafted character. Clean composition with organic texture in details. "Clean enough to work at 16 pixels but detailed enough to tell a story at 16 feet."</p>
   </div>
 
-  <table class="data-table" style="margin-top:16px;">
-    <thead>
-      <tr><th>Approach</th><th>Market Fit</th><th>Etsy Thumbnails</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Full ornate Art Deco</td><td>Trending in drinks/spirits, not candles</td><td style="color:#ef4444;">Illegible at 300px</td></tr>
-      <tr style="background:rgba(0,229,255,0.06);"><td><strong>Minimalist Art Deco influence</strong></td><td>Perfect for premium candles</td><td style="color:var(--glow-green);">Clean at all sizes</td></tr>
-      <tr><td>Pure minimalism (no deco)</td><td>Safe but undifferentiated</td><td style="color:var(--glow-green);">Clean at all sizes</td></tr>
-    </tbody>
-  </table>
+  <h3>Typography Direction</h3>
+  <p><strong>Serif renaissance</strong> is the dominant 2025-2026 trend &mdash; warm, modern serifs with personality (not ornate traditional). Serifs communicate tradition, quality, craft, and trust. Suggested directions: Recoleta, DM Serif Display, Freight Display, or custom lettering.</p>
+  <p><strong>Hand-drawn type</strong> is trending as a counter to AI smoothness &mdash; "softer, dainty strokes, irregular rhythm." For artisanal brands, it creates a signature look that feels crafted and trustworthy.</p>
 </div>
 
 <!-- SECTION 4: MULTI-NICHE -->
 <div class="strategy-section" id="res-logo-niches">
   <h2>Multi-Niche Challenge</h2>
-  <p>Your 6 candles span very different emotional territories. The logo must work across all of them.</p>
+  <p>Your 7 candles span very different emotional territories. The Warm Mineral palette resolves the tension that black/gold created with humor and wellness niches.</p>
 
   <table class="data-table" style="margin-top:16px;">
     <thead>
-      <tr><th>Niche</th><th>Tone</th><th>Black/Gold Fit</th></tr>
+      <tr><th>Niche</th><th>Tone</th><th>Warm Mineral Fit</th></tr>
     </thead>
     <tbody>
-      <tr><td>Pet Memorial</td><td>Emotional, keepsake</td><td style="color:var(--glow-green);font-weight:600;">Excellent</td></tr>
-      <tr><td>Memorial/Sympathy</td><td>Respectful, timeless</td><td style="color:var(--glow-green);font-weight:600;">Excellent</td></tr>
-      <tr><td>Manifestation</td><td>Spiritual, premium</td><td style="color:var(--glow-green);font-weight:600;">Excellent</td></tr>
-      <tr><td>Stress Relief</td><td>Wellness, calm</td><td style="color:var(--glow-cyan);font-weight:600;">Strong</td></tr>
-      <tr><td>Humor/Profession</td><td>Playful, fun</td><td style="color:var(--glow-orange);font-weight:600;">Tension point</td></tr>
-      <tr><td>Outdoors/Cozy</td><td>Warm, approachable</td><td style="color:var(--glow-cyan);font-weight:600;">Good</td></tr>
+      <tr><td>Pet Memorial</td><td>Emotional, keepsake</td><td style="color:var(--glow-green);font-weight:600;">Excellent &mdash; warm, not cold</td></tr>
+      <tr><td>Memorial/Sympathy</td><td>Respectful, timeless</td><td style="color:var(--glow-green);font-weight:600;">Excellent &mdash; dignified with warmth</td></tr>
+      <tr><td>Manifestation</td><td>Spiritual, premium</td><td style="color:var(--glow-green);font-weight:600;">Excellent &mdash; amber = intention</td></tr>
+      <tr><td>Stress Relief</td><td>Wellness, calm</td><td style="color:var(--glow-green);font-weight:600;">Excellent &mdash; natural, organic</td></tr>
+      <tr><td>Humor/Profession</td><td>Playful, fun</td><td style="color:var(--glow-green);font-weight:600;">Strong &mdash; no longer a tension point</td></tr>
+      <tr><td>Outdoors/Cozy</td><td>Warm, approachable</td><td style="color:var(--glow-green);font-weight:600;">Excellent &mdash; natural fit</td></tr>
     </tbody>
   </table>
 
   <div class="strategy-callout">
-    <span class="callout-label">Solution</span>
-    <p style="margin:0;">The logo stays sophisticated black/gold across everything. Humor candles differentiate through <strong>product photography and label design</strong>, not the logo. Think "clever wit" not "party vibes" &mdash; a premium brand that happens to be funny.</p>
+    <span class="callout-label">The Hallmark/Paddywax Model</span>
+    <p style="margin:0;">5 things stay <strong>fixed</strong>: logo, serif font, core palette, label layout, photo style. 4 things <strong>flex</strong> per niche: accent colors, illustration style, vessel choice, copy tone. The logo stays neutral-warm across everything. Humor candles differentiate through <strong>labels and copywriting</strong>, not the logo. Think Malicious Women Candle Co. &mdash; elegant chandelier logo, snarky labels.</p>
   </div>
 </div>
 
@@ -5118,27 +5237,27 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
   <div style="display:grid;gap:12px;margin-top:16px;">
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">1</span>
-      <div><strong>Minimalist over ornate</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Etsy thumbnails are 300x300px. Complex logos become illegible.</span></div>
+      <div><strong>"Refined Craft" over sterile minimalism</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Polished enough for quality, organic enough for authenticity. Subtle hand-crafted character in letterforms and details.</span></div>
     </div>
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">2</span>
-      <div><strong>Flexible 3-version system</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Full wordmark, icon + text stacked, icon only (for shop avatar).</span></div>
+      <div><strong>Flexible 3-version system</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Full wordmark (labels/website), icon + text stacked (packaging/social), icon only (Etsy avatar/favicon).</span></div>
     </div>
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">3</span>
-      <div><strong>Art deco influence, not full art deco</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Sharp geometric lines, angular forms, gold accents. Not sunburst patterns and gatsby borders.</span></div>
+      <div><strong>Warm modern serif typography</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Serif renaissance is the 2026 trend. Communicates tradition, quality, craft. Try Recoleta, DM Serif Display, or custom lettering.</span></div>
     </div>
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">4</span>
-      <div><strong>Must read at 40px</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">The shop icon/favicon needs to work tiny.</span></div>
+      <div><strong>Must read at 40px</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Etsy shop icons render as small as 40px in feeds. Design icon-first at 40px, then scale up.</span></div>
     </div>
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">5</span>
-      <div><strong>No more than 2 fonts</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">On labels or the logo itself. Pair serif (elegance) with a clean secondary.</span></div>
+      <div><strong>No more than 2 fonts</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Pair a warm serif (elegance) with a clean sans-serif secondary. Avoid scripts &mdash; illegible at small sizes.</span></div>
     </div>
     <div class="card" style="padding:16px;display:flex;gap:12px;align-items:start;">
       <span style="color:var(--glow-orange);font-weight:800;font-size:1.2rem;min-width:24px;">6</span>
-      <div><strong>Strong contrast</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Gold on black reads clearly at every size.</span></div>
+      <div><strong>Icon should NOT be a literal candle or flame</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">Too generic on Etsy &mdash; every candle seller uses one. Try: A&amp;E monogram, amber resin drop, botanical essence mark, or abstract warmth glow.</span></div>
     </div>
   </div>
 </div>
@@ -5146,7 +5265,7 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
 <!-- SECTION 6: NANO BANANA PROMPTS -->
 <div class="strategy-section" id="res-logo-prompts">
   <h2>Nano Banana Prompts</h2>
-  <p>Use <strong>Nano Banana 2</strong> at 1K resolution ($0.08/image). Budget ~$2-4 for 20-50 generations. Start with icon prompts (2, 3, 8) then try wordmarks (1, 4).</p>
+  <p>Use <strong>Nano Banana 2</strong> at 1K resolution ($0.08/image). Budget ~$2-4 for 25-50 generations. Run Round 1 icons first, pick the best direction, then run Round 2 wordmarks.</p>
 
   <table class="data-table" style="margin-top:16px;max-width:500px;margin-bottom:24px;">
     <thead><tr><th>Model</th><th>Text Quality</th><th>Cost</th><th>Use For</th></tr></thead>
@@ -5157,56 +5276,61 @@ Customer         Etsy            Our Backend (auto)     Printify        Lumient
     </tbody>
   </table>
 
-  <h3>Prompt 1: Full Wordmark</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Art Deco style wordmark logo for "Amber &amp; Essence" luxury candle company. Bold serif letters with sharp geometric edges, integrated with a stylized angular flame accent. Gold lettering on black background with clean separation. Symmetrical composition, 1920s Gatsby-inspired aesthetic. Vector art style, flat design, clean lines, scalable, minimal detailing, professional. Works at small Etsy thumbnail sizes, readable at 40px.
+  <h3 style="color:var(--glow-orange);margin-top:32px;">Round 1: Icons (generate 5 seeds each)</h3>
 
-Negative: blurry, pixelated, low resolution, photorealistic, cluttered, curved soft flame, illegible text, misspelled lettering, watermark, three dimensional effect, gradient blur.</pre>
+  <h3>Prompt 1: A&amp;E Monogram (Top Priority)</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Luxury monogram logo with interlocked letters "A" and "E" in warm modern serif style. Organic, refined letterforms with subtle hand-crafted imperfections. Warm amber (#C08B5C) monogram on cream (#F0EEE9) background. Soft charcoal (#3A3633) fine-line accents. Elegant and approachable, not cold or corporate. Suitable for small Etsy shop icon. Vector art, flat design, premium artisan aesthetic, high contrast.
 
-  <h3>Prompt 2: A&amp;E Monogram (Most Versatile)</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Luxury monogram logo with interlocked letters "A" and "E" in Art Deco style. Bold geometric serif letters forming a unified symbol, with angular lines and sharp corners. Gold lettering on pure black background, high contrast. Elegant symmetrical composition suitable for Etsy shop icon. Icon design, vector art, minimal style, professional and premium aesthetic.
+Negative: blurry, photorealistic, Art Deco, geometric hard edges, black background, gold metallic, cluttered, three dimensional, gradient, watermark, low contrast.</pre>
 
-Negative: blurry, photorealistic, cluttered, soft edges, watermark, additional text, three dimensional, gradient, loss of contrast, illegible letters.</pre>
+  <h3>Prompt 2: Amber Resin Drop Icon</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Minimalist logo icon of a stylized amber resin droplet, organic rounded shape with a subtle inner glow. Warm amber (#C08B5C) and deep golden tones on soft cream (#F0EEE9) background. One delicate botanical vein or inclusion visible inside the drop. Refined craft aesthetic, hand-drawn quality with professional polish. Simple, distinctive, works at small thumbnail sizes. Vector art, flat design, premium candle brand logo.
 
-  <h3>Prompt 3: Geometric Flame Icon</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Minimalist Art Deco flame icon logo. Geometric, angular flame in gold with sharp edges and clean lines. Pure black background, high contrast. Symmetrical composition. Professional candle brand logo suitable for small Etsy thumbnails and large applications. Vector art style, flat design, scalable, sharp definition.
+Negative: photorealistic, overly detailed, black background, neon colors, three dimensional rendering, glossy, watermark, cluttered, multiple objects, Art Deco patterns.</pre>
 
-Negative: realistic flame, photorealistic, soft focus, blurry, gradient, low contrast, watermark, three dimensional effect, curved edges, overly detailed, cluttered background.</pre>
+  <h3>Prompt 3: Botanical Essence Mark</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Minimalist botanical logo icon — a single stylized leaf or petal with fine organic line work. Soft patina teal (#7A9E99) and warm amber (#C08B5C) on cream (#F0EEE9) background. Refined hand-drawn style with subtle imperfections that feel artisanal. Delicate but clear at small sizes. Modern apothecary aesthetic. Vector art, flat design, premium quality, natural elegance.
 
-  <h3>Prompt 4: Stacked Combination Mark</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Art Deco luxury candle logo with stacked composition: Minimalist geometric flame icon on top in gold, company name "Amber &amp; Essence" below in elegant serif lettering, gold on black. Symmetrical, balanced spacing. 1920s Gatsby aesthetic with clean modern execution. Vector art, flat design, professional, premium feeling, scalable.
+Negative: photorealistic, busy, cluttered, multiple plants, bouquet, wreath, black background, neon, three dimensional, gradient blur, watermark, Art Deco, geometric.</pre>
 
-Negative: blurry, pixelated, misspelled, unclear, watermark, three dimensional, photorealistic, gradient blur, cluttered, soft focus, unreadable at small size.</pre>
+  <h3>Prompt 4: Abstract Warmth Glow</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Abstract logo mark suggesting warmth and light — soft radiating organic lines forming a subtle glow or halo shape. Warm amber (#C08B5C) center fading to cream (#F0EEE9) background. Charcoal (#3A3633) fine accent lines. Not a literal flame or candle — abstract and distinctive. Refined craft style, hand-drawn quality. Works at 40px icon size. Vector art, flat design, simple, elegant, premium.
 
-  <h3>Prompt 5: Gatsby Dramatic (with Red/Amber)</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Luxury candle brand logo in rich 1920s Great Gatsby aesthetic. "Amber &amp; Essence" in bold Art Deco serif font with geometric angular letterforms. Gold and deep burgundy red on black background. Ornate geometric border frame with angular sunburst pattern. Stylized candle flame accent integrated into the design. Professional luxury branding, vector art, sharp definition, high contrast.
+Negative: literal candle, literal flame, photorealistic, black background, neon, three dimensional, metallic, watermark, cluttered, sharp geometric, Art Deco.</pre>
 
-Negative: blurry, low resolution, soft edges, curved delicate lines, watermark, three dimensional, photorealistic texture, illegible text, too ornate, gradient effects, low contrast.</pre>
+  <h3>Prompt 5: Circle Seal Monogram</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Circular seal logo with "A&amp;E" monogram centered inside a thin organic circle border. Warm modern serif letters with subtle hand-crafted character. Charcoal (#3A3633) letters and border on cream (#F0EEE9) background with warm amber (#C08B5C) accent detail. Feels like a wax seal or artisan stamp. Clean, simple, works perfectly as a round Etsy shop icon. Vector art, flat design, premium.
 
-  <h3>Prompt 6: Streamline Moderne (Sleek)</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Streamline Moderne luxury candle logo - Art Deco variant emphasizing sleek, efficient lines. "Amber &amp; Essence" in bold geometric sans-serif with sharp angular forms. Gold lettering with black background, minimal spacing for premium effect. Stylized angular flame with horizontal line elements suggesting motion and flow. Symmetrical, clean, sophisticated. Vector art style, flat design, professional.
+Negative: ornate borders, sunburst, heavy decoration, photorealistic, three dimensional, black background, gold metallic, gradient, watermark, Art Deco patterns, cluttered.</pre>
 
-Negative: blurry, ornate, cluttered, soft curves, watermark, photorealistic, three dimensional, gradient, low contrast, illegible, overly detailed baroque elements.</pre>
+  <h3 style="color:var(--glow-orange);margin-top:32px;">Round 2: Wordmarks (after picking best icon)</h3>
 
-  <h3>Prompt 7: Tropical Deco (Warmth)</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Art Deco logo with tropical-influenced geometric patterns. "Amber &amp; Essence" in elegant serif font with thin angular lines. Gold lettering on black with accent touches of deep amber and warm red. Flame icon with angular tropical leaf or petal-like geometric shapes. Symmetrical, balanced, luxurious yet approachable. Vector art, clean lines, professional.
+  <h3>Prompt 6: Full Wordmark &mdash; Warm Serif</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Wordmark logo for "Amber &amp; Essence" in warm modern serif typeface. Organic, refined letterforms with subtle weight variation and hand-crafted character. Charcoal (#3A3633) text on cream (#F0EEE9) background. The ampersand has a decorative flourish in warm amber (#C08B5C). Elegant but approachable, premium artisan feel. Clean spacing, reads clearly at all sizes. Professional typography, flat design.
 
-Negative: blurry, photorealistic, cluttered, watermark, three dimensional, soft focus, curved organic shapes, illegible, gradient blur, low contrast, too detailed or ornate.</pre>
+Negative: sans-serif, script font, blurry, misspelled, photorealistic, black background, metallic, three dimensional, gradient, watermark, Art Deco, illegible.</pre>
 
-  <h3>Prompt 8: Minimal Circle Monogram (Shop Icon)</h3>
-  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Minimalist luxury monogram logo: interlocked geometric letters "A" and "E" enclosed in a perfect circle border with angular Art Deco elements. Gold monogram and circular frame on pure black background. Simplified, refined, elegant - suitable for Etsy shop icon and all-purpose branding. Vector art, flat design, sharp edges, high contrast, scalable, professional luxury aesthetic.
+  <h3>Prompt 7: Stacked Combination Mark</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Stacked logo for premium candle brand: small distinctive icon on top, "Amber &amp; Essence" in warm modern serif below. Charcoal (#3A3633) text and warm amber (#C08B5C) icon on cream (#F0EEE9) background. Refined craft aesthetic — polished but with organic character. Balanced vertical composition with breathing room. Professional, elegant, approachable. Vector art, flat design, scalable.
 
-Negative: blurry, photorealistic, cluttered, soft edges, watermark, three dimensional, gradient, curved shapes, illegible letters, low contrast, overly detailed, additional elements.</pre>
+Negative: blurry, misspelled, crowded, photorealistic, black background, metallic gold, three dimensional, gradient, watermark, Art Deco borders, cluttered, illegible at small size.</pre>
+
+  <h3>Prompt 8: Horizontal Lockup</h3>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:var(--text-dim);white-space:pre-wrap;margin-bottom:20px;line-height:1.6;overflow-x:auto;">Horizontal logo lockup: small icon on left, "Amber &amp; Essence" wordmark to the right in warm modern serif. Charcoal (#3A3633) text with warm amber (#C08B5C) icon accent on cream (#F0EEE9) background. Clean spacing between icon and text. Refined artisan quality, premium but warm. Works as website header or label. Vector art, flat design, professional.
+
+Negative: blurry, misspelled, vertical layout, photorealistic, black background, metallic, three dimensional, gradient, watermark, Art Deco, illegible, cluttered.</pre>
 </div>
 
 <!-- SECTION 7: ITERATION STRATEGY -->
 <div class="strategy-section" id="res-logo-iterate">
   <h2>Iteration Strategy</h2>
 
-  <h3>Recommended Workflow</h3>
+  <h3>Two-Round Workflow</h3>
   <ol style="padding-left:20px;">
-    <li><strong>Start with icons</strong> (Prompts 2, 3, 8) &mdash; generate 5 seeds each</li>
+    <li><strong>Run Round 1</strong> (Prompts 1-5) &mdash; 5 seeds each = 25 images, ~$2</li>
     <li><strong>Test at 200px</strong> (Etsy thumbnail size) &mdash; eliminate anything illegible</li>
-    <li><strong>Pick best direction</strong>, then try wordmarks (Prompts 1, 4) &mdash; 5-10 seeds</li>
+    <li><strong>Pick best 1-2 icon directions</strong></li>
+    <li><strong>Run Round 2</strong> (Prompts 6-8) incorporating the winning icon style &mdash; 5 seeds each</li>
     <li><strong>Refine top 3</strong> with parameter tweaks</li>
     <li><strong>Final polish</strong> &mdash; add text in Figma/Canva if AI text isn't perfect</li>
   </ol>
@@ -5216,17 +5340,17 @@ Negative: blurry, photorealistic, cluttered, soft edges, watermark, three dimens
     <thead><tr><th>Problem</th><th>Add to Prompt</th></tr></thead>
     <tbody>
       <tr><td>Text unreadable</td><td>"legible typography, clear letterforms, professional text"</td></tr>
-      <tr><td>Too ornate</td><td>"minimalist, negative space, clean lines, less detail"</td></tr>
-      <tr><td>Low contrast</td><td>"high contrast, strong separation, pure black background, bright gold"</td></tr>
-      <tr><td>Doesn't scale down</td><td>"works at small sizes, readable at 40px, simple geometry"</td></tr>
-      <tr><td>Wrong era feel</td><td>Be specific: "1920s Gatsby" vs "Streamline Moderne" vs "Tropical Deco"</td></tr>
-      <tr><td>Colors muddy</td><td>"vibrant, saturated, crisp colors"</td></tr>
+      <tr><td>Too sterile/corporate</td><td>"hand-crafted, organic character, artisanal, subtle imperfections"</td></tr>
+      <tr><td>Too messy/amateurish</td><td>"professional, polished, clean composition, refined"</td></tr>
+      <tr><td>Colors wrong</td><td>Re-specify hex codes: cream #F0EEE9, charcoal #3A3633, amber #C08B5C</td></tr>
+      <tr><td>Doesn't scale down</td><td>"works at small sizes, readable at 40px, simple forms"</td></tr>
+      <tr><td>Looks like a candle</td><td>Add to negative: "literal candle, literal flame, wax, wick"</td></tr>
     </tbody>
   </table>
 
   <div class="strategy-callout" style="margin-top:20px;">
     <span class="callout-label">Pro Tip</span>
-    <p style="margin:0;">Generate the icon first (no text). Once you have a flame or A&amp;E monogram you love, add the text in design software afterward for perfect legibility. AI text rendering is good but not perfect.</p>
+    <p style="margin:0;">Generate the icon first (no text). Once you have an A&amp;E monogram or mark you love, add the wordmark text in Figma/Canva afterward for perfect legibility. AI text rendering is good but not perfect. Also test each icon in both charcoal-on-cream AND cream-on-charcoal inversions.</p>
   </div>
 </div>
 
@@ -5716,11 +5840,341 @@ Negative: blurry, photorealistic, cluttered, soft edges, watermark, three dimens
 
 </div><!-- /res-scents -->
 
-<p class="footnote" style="margin-top:40px;max-width:100%;">Research compiled March 2026. Sources: Printify API (live data), Lumient catalog (57 fragrances), Etsy marketplace analysis, NCA market data, 2026 trend reports, Lumient pricing blog. Production costs and scent availability verified via API on March 21-23, 2026.</p>
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══════ TOPIC: INSURANCE ═══════ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="res-insurance" style="margin-top:60px;">
+<h2 style="font-size:1.5rem;border-bottom:2px solid var(--glow-orange);padding-bottom:10px;margin-bottom:24px;">Insurance <span style="font-size:0.75rem;font-weight:400;color:var(--text-dim);margin-left:8px;">March 2026</span></h2>
+
+<nav class="strategy-nav" style="margin-bottom:32px;">
+  <a href="#res-ins-gap" style="color:var(--glow-orange);border-color:var(--glow-orange);">Printify Liability Gap</a>
+  <a href="#res-ins-types" style="color:var(--glow-orange);border-color:var(--glow-orange);">Insurance Types</a>
+  <a href="#res-ins-providers" style="color:var(--glow-orange);border-color:var(--glow-orange);">Providers</a>
+  <a href="#res-ins-budget" style="color:var(--glow-orange);border-color:var(--glow-orange);">Budget</a>
+  <a href="#res-ins-service" style="color:var(--glow-orange);border-color:var(--glow-orange);">Customer Service &amp; Data</a>
+  <a href="#res-ins-cyber" style="color:var(--glow-orange);border-color:var(--glow-orange);">Cyber Liability</a>
+  <a href="#res-ins-sources" style="color:var(--glow-orange);border-color:var(--glow-orange);">Sources</a>
+</nav>
+
+<!-- ── Printify Liability Gap ── -->
+<div class="strategy-section" id="res-ins-gap" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">The Printify Liability Gap</h3>
+  <div style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.3);border-radius:12px;padding:20px 24px;margin-bottom:16px;">
+    <span style="font-size:0.72rem;font-weight:700;color:var(--glow-orange);text-transform:uppercase;display:block;margin-bottom:8px;">Critical</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">As a POD seller, <strong>you are 100% legally liable</strong> for product safety even though Printify manufactures and ships the candles. Courts hold the seller of record responsible regardless of the supply chain.</p>
+  </div>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;">Printify&rsquo;s Merchant Protection is extremely limited:</p>
+  <ul style="font-size:0.88rem;color:var(--text-dim);line-height:1.8;padding-left:20px;">
+    <li>Only covers reprints and refunds for defective products</li>
+    <li>Will <strong>not</strong> cover legal defense, settlements, or injury claims</li>
+    <li>Will <strong>not</strong> cover property damage caused by a candle defect</li>
+    <li>Their terms explicitly state they are &ldquo;not responsible for any losses you incur&rdquo;</li>
+  </ul>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;margin-top:12px;">Candle-specific risks include burns from hot wax, house fires from container cracks or defective wicks, allergic reactions to fragrance oils, and respiratory issues from strong scent emissions. Industry standard coverage is <strong>$1M per occurrence / $2M aggregate</strong>.</p>
+</div>
+
+<!-- ── Insurance Types ── -->
+<div class="strategy-section" id="res-ins-types" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Insurance Types Needed</h3>
+  <h4 style="font-size:0.95rem;color:var(--glow-orange);margin-bottom:12px;">Must-Have (Before First Sale)</h4>
+  <table class="data-table">
+    <thead><tr><th>Coverage</th><th>What It Protects</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td><strong>General Liability</strong> (includes Product Liability)</td><td>Customer injuries (burns, fires, allergic reactions), property damage, legal defense costs</td><td class="highlight">$34&ndash;64/mo</td></tr>
+    </tbody>
+  </table>
+
+  <h4 style="font-size:0.95rem;color:var(--text-dim);margin-top:24px;margin-bottom:12px;">Not Needed at Launch</h4>
+  <table class="data-table">
+    <thead><tr><th>Coverage</th><th>Why Not Yet</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cyber Liability</strong></td><td>All customer PII and payments handled by Printify, Etsy, and hosted services (Zoho Mail). No sensitive data on our infrastructure. Revisit at Shopify phase.</td></tr>
+      <tr><td><strong>Commercial Property</strong></td><td>No physical inventory&mdash;Printify handles all stock and shipping.</td></tr>
+      <tr><td><strong>BOP</strong></td><td>Overkill for POD-only at launch. Reassess when adding physical inventory or equipment.</td></tr>
+    </tbody>
+  </table>
+
+  <h4 style="font-size:0.95rem;color:var(--text-dim);margin-top:24px;margin-bottom:12px;">Later (When You Scale)</h4>
+  <table class="data-table">
+    <thead><tr><th>Coverage</th><th>When Needed</th><th>Est. Cost</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cyber Liability</strong></td><td>3&ndash;6 months after Shopify launch or when adding third-party app integrations</td><td>$15&ndash;30/mo</td></tr>
+      <tr><td><strong>Workers&rsquo; Compensation</strong></td><td>Legally mandatory once you hire employees</td><td>~$40/mo</td></tr>
+      <tr><td><strong>BOP / Commercial Property</strong></td><td>When holding physical inventory or equipment</td><td>~$81/mo bundled</td></tr>
+      <tr><td><strong>Commercial Auto</strong></td><td>If driving to markets or events</td><td>Varies</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Recommended Providers ── -->
+<div class="strategy-section" id="res-ins-providers" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Recommended Providers</h3>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;margin-bottom:16px;">Get quotes from all three&mdash;they all offer instant online quotes in under 10 minutes.</p>
+  <table class="data-table">
+    <thead><tr><th>Provider</th><th>Best For</th><th>GL Quote</th><th>Key Feature</th></tr></thead>
+    <tbody>
+      <tr><td><strong><a href="https://www.nextinsurance.com/business/candle-store-insurance/" target="_blank" style="color:var(--glow-orange);text-decoration:underline;">NEXT Insurance</a></strong></td><td>Small candle/POD businesses</td><td class="highlight">$34&ndash;55/mo</td><td>Candle-specific coverage, same-day activation</td></tr>
+      <tr><td><strong><a href="https://www.thimble.com/industry/crafters-business-insurance/candlemaker" target="_blank" style="color:var(--glow-orange);text-decoration:underline;">Thimble</a></strong></td><td>Flexible/seasonal sellers</td><td class="highlight">$24&ndash;60/mo</td><td>Monthly billing, no annual commitment</td></tr>
+      <tr><td><strong><a href="https://www.hiscox.com" target="_blank" style="color:var(--glow-orange);text-decoration:underline;">Hiscox</a></strong></td><td>Home-based e-commerce</td><td class="highlight">$45&ndash;64/mo</td><td>A+ AM Best rated, customizable policies</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85rem;color:var(--text-dim);margin-top:16px;">Also worth checking: <strong>The Hartford</strong> (A+ rated, strong for scaling), <strong>Simply Business</strong> (Amazon Insurance Accelerator partner), <strong>Insureon</strong> (fast candle-specific quotes).</p>
+</div>
+
+<!-- ── Budget Summary ── -->
+<div class="strategy-section" id="res-ins-budget" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Budget Summary</h3>
+  <table class="data-table">
+    <thead><tr><th>Package</th><th>Monthly</th><th>Annual</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Launch</strong> (GL + Product Liability only)</td><td class="highlight">$34&ndash;64</td><td>$408&ndash;768</td></tr>
+      <tr><td><strong>Growth</strong> (add Cyber + BOP at Shopify phase)</td><td class="highlight">$95&ndash;110</td><td>$1,140&ndash;1,320</td></tr>
+    </tbody>
+  </table>
+  <div style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.3);border-radius:12px;padding:20px 24px;margin-top:16px;">
+    <span style="font-size:0.72rem;font-weight:700;color:var(--glow-orange);text-transform:uppercase;display:block;margin-bottom:8px;">Planning Number</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">Budget <strong>$55/mo ($660/year)</strong> for GL + Product Liability at launch. This is the midpoint of the NEXT/Thimble/Hiscox range and aligns with the business plan&rsquo;s $300&ndash;600/year estimate.</p>
+  </div>
+</div>
+
+<!-- ── Customer Service & Data ── -->
+<div class="strategy-section" id="res-ins-service" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Customer Service &amp; Data Handling</h3>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;margin-bottom:16px;">Customer service does <strong>not</strong> create cyber risk at launch as long as you use hosted services:</p>
+  <table class="data-table">
+    <thead><tr><th>Channel</th><th>Where Data Lives</th><th>Your Risk</th></tr></thead>
+    <tbody>
+      <tr><td>Etsy messages</td><td>Etsy&rsquo;s servers</td><td>None</td></tr>
+      <tr><td>Business email (Zoho Mail)</td><td>Zoho&rsquo;s servers</td><td>None</td></tr>
+      <tr><td>Social media DMs</td><td>Platform servers</td><td>None</td></tr>
+      <tr><td>Contact form on site</td><td>Sends to Zoho&mdash;no data stored on Vercel</td><td>None</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;margin-top:16px;"><strong>Email setup:</strong> Use a custom domain (e.g., support@amberandessence.com) routed through <strong>Zoho Mail free tier</strong> ($0/mo, 1 user, 5GB). The custom domain is just a label&mdash;Zoho hosts all the data. Professional branding with zero hosting liability.</p>
+  <div style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.3);border-radius:12px;padding:20px 24px;margin-top:16px;">
+    <span style="font-size:0.72rem;font-weight:700;color:var(--glow-orange);text-transform:uppercase;display:block;margin-bottom:8px;">Avoid</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">Do not export customer data to local spreadsheets, build your own CRM database, or self-host email. Keep everything on hosted platforms to avoid data liability.</p>
+  </div>
+</div>
+
+<!-- ── Cyber Liability Inflection Point ── -->
+<div class="strategy-section" id="res-ins-cyber" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Shopify Cyber Liability Inflection Point</h3>
+  <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.65;margin-bottom:16px;">When you move to Shopify (Phase 3), the data exposure profile changes:</p>
+  <ul style="font-size:0.88rem;color:var(--text-dim);line-height:1.8;padding-left:20px;">
+    <li>You become a <strong>data controller</strong> under privacy law</li>
+    <li>Shopify stores customer data (names, addresses, order history) on their servers</li>
+    <li>Shopify handles PCI compliance for payment processing</li>
+    <li>But <strong>your account security is your responsibility</strong>&mdash;if phished or compromised, the breach is on you</li>
+    <li>Customer data becomes exportable (CSV downloads create local exposure)</li>
+  </ul>
+  <div style="background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.3);border-radius:12px;padding:20px 24px;margin-top:16px;">
+    <span style="font-size:0.72rem;font-weight:700;color:var(--glow-orange);text-transform:uppercase;display:block;margin-bottom:8px;">Recommendation</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">Add cyber liability insurance ($15&ndash;30/mo) <strong>3&ndash;6 months after Shopify launch</strong>, or sooner if you integrate third-party apps that sync customer data. Use strong 2FA on all accounts and avoid exporting data locally.</p>
+  </div>
+</div>
+
+<!-- ── Sources ── -->
+<div class="strategy-section" id="res-ins-sources" style="scroll-margin-top:72px;margin-bottom:40px;">
+  <h3 style="font-size:1.2rem;margin-bottom:16px;">Sources &amp; Citations</h3>
+  <ul style="font-size:0.85rem;color:var(--text-dim);line-height:2;padding-left:20px;">
+    <li><a href="https://www.nextinsurance.com/business/candle-store-insurance/" target="_blank" style="color:var(--glow-orange);">NEXT Insurance &mdash; Candle Store Insurance</a></li>
+    <li><a href="https://www.nextinsurance.com/business/candle-store-insurance/cost/" target="_blank" style="color:var(--glow-orange);">NEXT Insurance &mdash; Candle Store Insurance Cost</a></li>
+    <li><a href="https://www.thimble.com/industry/crafters-business-insurance/candlemaker" target="_blank" style="color:var(--glow-orange);">Thimble &mdash; Candlemaker Insurance</a></li>
+    <li><a href="https://www.hiscox.com" target="_blank" style="color:var(--glow-orange);">Hiscox &mdash; Small Business Insurance</a></li>
+    <li><a href="https://printify.com/merchant-protection/" target="_blank" style="color:var(--glow-orange);">Printify &mdash; Merchant Protection Policy</a></li>
+    <li><a href="https://howtostartanllc.com/business-insurance/business-insurance-for-candle-makers" target="_blank" style="color:var(--glow-orange);">TRUiC &mdash; Candle Business Insurance Guide</a></li>
+    <li><a href="https://www.moneygeek.com/insurance/business/retail/candle/" target="_blank" style="color:var(--glow-orange);">MoneyGeek &mdash; Best Cheap Candle Business Insurance (2026)</a></li>
+    <li><a href="https://www.insureon.com/manufacturers-business-insurance/candle-maker" target="_blank" style="color:var(--glow-orange);">Insureon &mdash; Candle Maker Insurance</a></li>
+    <li><a href="https://www.actinsurance.com/candle-maker-insurance" target="_blank" style="color:var(--glow-orange);">ACT Insurance &mdash; Candle Maker Insurance</a></li>
+    <li><a href="https://armatagecandlecompany.com/blog/candle-making-insurance-explained/" target="_blank" style="color:var(--glow-orange);">Armatage Candle Co. &mdash; Candle Making Insurance Explained</a></li>
+    <li><a href="https://barterinsurance.com/candle-business-insurance/" target="_blank" style="color:var(--glow-orange);">Barter Insurance &mdash; Candle Business Insurance</a></li>
+  </ul>
+</div>
+
+</div><!-- /res-insurance -->
+
+<p class="footnote" style="margin-top:40px;max-width:100%;">Research compiled March 2026. Sources: Printify API (live data), Lumient catalog (57 fragrances), Etsy marketplace analysis, NCA market data, 2026 trend reports, Lumient pricing blog, NEXT/Thimble/Hiscox insurance guides, Printify Merchant Protection policy. Production costs and scent availability verified via API on March 21-23, 2026. Insurance research compiled March 25, 2026.</p>
 
 </div><!-- /strategy-container -->
 </div><!-- /tab-research -->
 
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════ OVERHEAD TAB ═════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-overhead">
+<div class="overhead-container">
+
+<h2 style="font-size:1.8rem;margin-bottom:8px;">Overhead Tracker</h2>
+<p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:24px;line-height:1.6;">Complete cost breakdown by business phase. Each phase builds on the previous one&mdash;costs are cumulative.</p>
+
+<nav class="overhead-nav">
+  <a href="#oh-phase1" style="color:var(--glow-orange);border-color:var(--glow-orange);">Phase 1: Pre-Launch</a>
+  <a href="#oh-phase2" style="color:var(--glow-green);border-color:var(--glow-green);">Phase 2: Etsy Launch</a>
+  <a href="#oh-phase3" style="color:var(--glow-cyan);border-color:var(--glow-cyan);">Phase 3: Shopify</a>
+  <a href="#oh-phase4" style="color:var(--glow-purple);border-color:var(--glow-purple);">Phase 4: All Marketplaces</a>
+</nav>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ═══════ PHASE 1: PRE-LAUNCH ═══════ -->
+<!-- ════════════════════════════════════════════ -->
+<div class="overhead-phase" id="oh-phase1">
+  <h2>Phase 1: Pre-Launch</h2>
+  <p>One-time startup costs plus minimal recurring overhead before first sale.</p>
+
+  <h3>One-Time Costs</h3>
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Cost</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Florida LLC Registration</td><td class="highlight">$125</td><td>sunbiz.org</td></tr>
+      <tr><td>Domain Name</td><td class="highlight">$15/yr</td><td>Annual renewal via Cloudflare</td></tr>
+      <tr><td>POD Samples (test orders)</td><td class="highlight">$150</td><td>5&ndash;6 candle samples at cost + shipping</td></tr>
+      <tr><td>USPTO Trademark (Class 4)</td><td class="highlight">$250&ndash;350</td><td>TEAS Plus filing; 8&ndash;12 month process</td></tr>
+      <tr class="overhead-total-row"><td><strong>Subtotal One-Time</strong></td><td><strong>$540&ndash;640</strong></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Monthly Recurring</h3>
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Monthly</th><th>Annual</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Insurance (GL + Product Liability)</td><td class="highlight">$55</td><td>$660</td><td>NEXT/Thimble/Hiscox midpoint; $1M/$2M coverage</td></tr>
+      <tr><td>Zoho Mail (business email)</td><td class="highlight">$0</td><td>$0</td><td>Free tier: 1 user, 5GB, custom domain</td></tr>
+      <tr><td>Vercel Hosting</td><td class="highlight">$0</td><td>$0</td><td>Hobby plan (free)</td></tr>
+      <tr><td>Cloudflare (DNS/CDN)</td><td class="highlight">$0</td><td>$0</td><td>Free plan</td></tr>
+      <tr class="overhead-total-row"><td><strong>Total Recurring</strong></td><td><strong>$55/mo</strong></td><td><strong>$660/yr</strong></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="overhead-callout">
+    <span class="callout-label">Total to Launch</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">~<strong>$540&ndash;640 one-time</strong> + <strong>$55/mo recurring</strong>. The trademark is optional at launch but strongly recommended before scaling. Insurance is non-negotiable&mdash;must be secured before first sale.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ═══════ PHASE 2: ETSY LAUNCH ═══════ -->
+<!-- ════════════════════════════════════════════ -->
+<div class="overhead-phase" id="oh-phase2">
+  <h2 style="border-bottom-color:var(--glow-green);">Phase 2: Etsy Launch + Pinterest + Organic Social</h2>
+  <p>Adds marketplace fees and social media tools on top of Phase 1 recurring costs.</p>
+
+  <h3>New Costs (on top of Phase 1)</h3>
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Monthly</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Etsy Listing Fees</td><td class="highlight">$0.20/listing</td><td>Per listing, renewed every 4 months or on sale</td></tr>
+      <tr><td>Etsy Transaction Fee</td><td class="highlight">6.5%</td><td>Per sale</td></tr>
+      <tr><td>Etsy Payment Processing</td><td class="highlight">3% + $0.25</td><td>Per transaction</td></tr>
+      <tr><td>Etsy Total Fee Rate</td><td class="highlight">~10%</td><td>Combined: listing + transaction + processing</td></tr>
+      <tr><td>Pinterest Business</td><td class="highlight">$0</td><td>Free business account</td></tr>
+      <tr><td>Social Scheduling (Later/Buffer)</td><td class="highlight">$0&ndash;15</td><td>Free tier available; paid at ~$15/mo</td></tr>
+      <tr><td>Canva Pro / AI Tools</td><td class="highlight">~$20</td><td>Design, listing images, social content, copywriting</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 2 Monthly Summary</h3>
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>Monthly</th></tr></thead>
+    <tbody>
+      <tr><td>Phase 1 Recurring</td><td>$55</td></tr>
+      <tr><td>Social Media Tools</td><td>$0&ndash;15</td></tr>
+      <tr><td>Canva/AI Tools</td><td>~$20</td></tr>
+      <tr class="overhead-total-row"><td><strong>Phase 2 Total</strong></td><td><strong>$75&ndash;90/mo</strong></td></tr>
+      <tr><td><em>+ Etsy per-sale fees</em></td><td><em>~10% of gross revenue</em></td></tr>
+    </tbody>
+  </table>
+
+  <div class="overhead-callout" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);">
+    <span class="callout-label" style="color:var(--glow-green);">Etsy Fee Math</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">On a $35 candle, Etsy takes ~$3.50 in fees. Budget 10% of gross Etsy revenue for marketplace fees. The $0.20 listing fee is per-listing (not per-sale) and renews every 4 months or when sold.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ═══════ PHASE 3: SHOPIFY ═══════ -->
+<!-- ════════════════════════════════════════════ -->
+<div class="overhead-phase" id="oh-phase3">
+  <h2 style="border-bottom-color:var(--glow-cyan);">Phase 3: Shopify + Paid Social Marketing</h2>
+  <p>The Shopify pivot adds fixed monthly costs plus significant ad spend. This is the phase where cyber liability insurance becomes relevant.</p>
+
+  <h3>New Costs (on top of Phase 2)</h3>
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Monthly</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Shopify Basic</td><td class="highlight">$39</td><td>shopify.com/pricing</td></tr>
+      <tr><td>Shopify Payment Processing</td><td class="highlight">~3.5%</td><td>2.9% + $0.30 per transaction</td></tr>
+      <tr><td>Klaviyo (email marketing)</td><td class="highlight">$0&ndash;20</td><td>Free up to 250 contacts; ~$20/mo after</td></tr>
+      <tr><td>Meta Ads (Facebook + Instagram)</td><td class="highlight">$500&ndash;1,000</td><td>Start at $20&ndash;30/day; scale with ROAS</td></tr>
+      <tr><td>Pinterest Ads</td><td class="highlight">$100&ndash;300</td><td>Supplement Meta campaigns</td></tr>
+      <tr><td>Cyber Liability Insurance</td><td class="highlight">$15&ndash;30</td><td>Add 3&ndash;6 months after Shopify launch</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 3 Monthly Summary</h3>
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>Low</th><th>High</th></tr></thead>
+    <tbody>
+      <tr><td>Phase 2 Recurring</td><td>$75</td><td>$90</td></tr>
+      <tr><td>Shopify Basic</td><td>$39</td><td>$39</td></tr>
+      <tr><td>Klaviyo</td><td>$0</td><td>$20</td></tr>
+      <tr><td>Meta Ads</td><td>$500</td><td>$1,000</td></tr>
+      <tr><td>Pinterest Ads</td><td>$100</td><td>$300</td></tr>
+      <tr><td>Cyber Liability</td><td>$15</td><td>$30</td></tr>
+      <tr class="overhead-total-row"><td><strong>Phase 3 Total</strong></td><td><strong>$729/mo</strong></td><td><strong>$1,479/mo</strong></td></tr>
+      <tr><td><em>+ Shopify per-sale fees</em></td><td colspan="2"><em>~3.5% of Shopify revenue</em></td></tr>
+      <tr><td><em>+ Etsy per-sale fees (if still listing)</em></td><td colspan="2"><em>~10% of Etsy revenue</em></td></tr>
+    </tbody>
+  </table>
+
+  <div class="overhead-callout" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.3);">
+    <span class="callout-label" style="color:var(--glow-cyan);">Ad Spend Guidance</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">Ad spend is the largest variable cost. Start at the low end ($20/day Meta, $100/mo Pinterest) and scale based on ROAS. If your ROAS is 3x or better, increase spend. If below 2x, optimize creative and targeting before scaling.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ═══════ PHASE 4: ALL MARKETPLACES ═══════ -->
+<!-- ════════════════════════════════════════════ -->
+<div class="overhead-phase" id="oh-phase4">
+  <h2 style="border-bottom-color:var(--glow-purple);">Phase 4: All Major Marketplaces + Full Paid Marketing</h2>
+  <p>Expanding to Amazon and Walmart adds professional seller fees, referral fees, and marketplace-specific advertising.</p>
+
+  <h3>New Costs (on top of Phase 3)</h3>
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Monthly</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Amazon Professional Seller</td><td class="highlight">$39.99</td><td>+ ~15% referral fee per sale</td></tr>
+      <tr><td>Walmart Marketplace</td><td class="highlight">$0</td><td>Free to list + ~15% referral fee per sale</td></tr>
+      <tr><td>Amazon PPC Ads</td><td class="highlight">$300&ndash;500</td><td>Sponsored Products + Sponsored Brands</td></tr>
+      <tr><td>Marketplace Mgmt Tools</td><td class="highlight">$30&ndash;50</td><td>Multi-channel listing sync (Sellbrite, LitCommerce, etc.)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Phase 4 Monthly Summary</h3>
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>Low</th><th>High</th></tr></thead>
+    <tbody>
+      <tr><td>Phase 3 Recurring</td><td>$729</td><td>$1,479</td></tr>
+      <tr><td>Amazon Professional</td><td>$40</td><td>$40</td></tr>
+      <tr><td>Amazon PPC Ads</td><td>$300</td><td>$500</td></tr>
+      <tr><td>Marketplace Mgmt Tools</td><td>$30</td><td>$50</td></tr>
+      <tr class="overhead-total-row"><td><strong>Phase 4 Total</strong></td><td><strong>$1,099/mo</strong></td><td><strong>$2,069/mo</strong></td></tr>
+      <tr><td><em>+ Amazon referral fee</em></td><td colspan="2"><em>~15% of Amazon revenue</em></td></tr>
+      <tr><td><em>+ Walmart referral fee</em></td><td colspan="2"><em>~15% of Walmart revenue</em></td></tr>
+    </tbody>
+  </table>
+
+  <div class="overhead-callout" style="background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.3);">
+    <span class="callout-label" style="color:var(--glow-purple);">Scaling Gate</span>
+    <p style="font-size:0.9rem;line-height:1.65;margin:0;">At this stage the business should be generating <strong>$5,000&ndash;10,000+/mo in revenue</strong> to justify the overhead. If you&rsquo;re not there yet, stay in Phase 3 and optimize before expanding. Amazon and Walmart add complexity&mdash;only expand when Shopify/Etsy channels are profitable and stable.</p>
+  </div>
+</div>
+
+<p class="footnote" style="margin-top:40px;max-width:100%;">Overhead projections compiled March 2026. Insurance estimates based on NEXT/Thimble/Hiscox quotes for candle e-commerce businesses. Platform fees from official pricing pages as of March 2026. Ad spend ranges are recommendations based on industry benchmarks for small e-commerce businesses.</p>
+
+</div><!-- /overhead-container -->
+</div><!-- /tab-overhead -->
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- ═══════════════ JAVASCRIPT ═══════════════════════════════════════ -->
