@@ -6977,6 +6977,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       renderAuditLog();
       // Save to Supabase
       if (_sbReady) {
+        _lastSaveTime = Date.now();
         _sb.from('audit_log').insert({action: entry.action, user_name: entry.user}).then(function() {});
       }
     }
@@ -7564,6 +7565,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       // Sync to Supabase
       if (_sbReady && sbRows.length) {
+        _lastSaveTime = Date.now();
         console.log('[Supabase] Saving', sbRows.length, 'tasks...');
         _sb.from('tasks').delete().neq('id', 0).then(function(delRes) {
           console.log('[Supabase] Delete result:', delRes.error ? delRes.error.message : 'ok');
@@ -7682,10 +7684,12 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
     }
 
     // Subscribe to real-time changes
+    var _lastSaveTime = 0;
     function subscribeToChanges() {
       _sb.channel('board-sync')
         .on('postgres_changes', {event: '*', schema: 'public', table: 'tasks'}, function() {
-          // Reload all tasks from Supabase when any change detected
+          // Skip if this browser just saved (avoid re-render loop)
+          if (Date.now() - _lastSaveTime < 3000) return;
           loadTasksFromSupabase().then(function() {
             updateBlockedStates(); updateProgress();
             columns.forEach(function(col) {
@@ -7694,6 +7698,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
           });
         })
         .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'audit_log'}, function() {
+          if (Date.now() - _lastSaveTime < 3000) return;
           loadAuditFromSupabase();
         })
         .subscribe();
