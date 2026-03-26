@@ -7564,9 +7564,15 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       // Sync to Supabase
       if (_sbReady && sbRows.length) {
-        _sb.from('tasks').delete().neq('id', 0).then(function() {
-          _sb.from('tasks').insert(sbRows).then(function() {});
+        console.log('[Supabase] Saving', sbRows.length, 'tasks...');
+        _sb.from('tasks').delete().neq('id', 0).then(function(delRes) {
+          console.log('[Supabase] Delete result:', delRes.error ? delRes.error.message : 'ok');
+          _sb.from('tasks').insert(sbRows).then(function(insRes) {
+            console.log('[Supabase] Insert result:', insRes.error ? insRes.error.message : 'ok, ' + (insRes.data ? insRes.data.length : 0) + ' rows');
+          });
         });
+      } else {
+        console.log('[Supabase] Skip sync, ready:', _sbReady, 'rows:', sbRows.length);
       }
     }
 
@@ -7705,17 +7711,24 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 
     // Then load fresh from Supabase (async)
     loadTasksFromSupabase().then(function(loaded) {
-      if (loaded) { updateBlockedStates(); updateProgress(); }
+      console.log('[Supabase] loadTasks result:', loaded);
+      if (loaded) {
+        updateBlockedStates(); updateProgress();
+        columns.forEach(function(col) {
+          if (col.querySelector('.task-item.completed')) moveCompletedToBottom(col);
+        });
+      }
       _sbReady = true;
       subscribeToChanges();
       // If Supabase was empty but localStorage has data, seed Supabase
       if (!loaded && localStorage.getItem(STORAGE_KEY)) {
+        console.log('[Supabase] Seeding from localStorage...');
         saveTasks();
       }
-    }).catch(function() {
+    }).catch(function(err) {
       // Supabase unreachable, localStorage-only mode
       _sbReady = false;
-      console.warn('Supabase unreachable, running in offline mode');
+      console.warn('Supabase unreachable, running in offline mode', err);
     });
 
     // Also load audit from Supabase
