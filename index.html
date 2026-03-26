@@ -1404,13 +1404,10 @@
   /* Priority Flag */
   .task-flag {
     pointer-events: none;
-  }
-  .task-flag-legacy {
-    background: none; border: none; cursor: pointer; padding: 0 4px;
+    background: none; border: none; padding: 0 4px;
     font-size: 0.85rem; color: var(--text-dim); opacity: 0.3;
-    transition: opacity 0.2s, color 0.2s; flex-shrink: 0; margin-right: 4px;
+    flex-shrink: 0; margin-right: 4px;
   }
-  .task-flag:hover { opacity: 0.7; }
   .task-flag.flagged { opacity: 1; color: #ef4444; }
   .task-item.flagged { border-left: 3px solid #ef4444; }
   .task-item.unsigned:not(.flagged):not(.in-progress) { border-left: 3px solid #f59e0b; }
@@ -7341,23 +7338,45 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 
     // ── Due Date ──
     function showDuePicker(dueEl, item) {
-      var existing = item.querySelector('.task-due input[type="date"]');
-      if (existing) { existing.remove(); dueEl.style.display = ''; return; }
+      var existing = item.querySelector('.task-due input[type="text"]');
+      if (existing) { existing.remove(); return; }
       var input = document.createElement('input');
-      input.type = 'date';
-      input.style.marginLeft = '4px';
+      input.type = 'text';
+      input.placeholder = 'M/D/YY';
+      input.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:0.72rem;padding:3px 6px;width:70px;font-family:Inter,sans-serif;';
+      // Pre-fill with current date in M/D/YY format
       var currentDue = item.dataset.dueDate || '';
-      if (currentDue) input.value = currentDue;
+      if (currentDue) {
+        var dd = new Date(currentDue + 'T00:00:00');
+        input.value = (dd.getMonth()+1) + '/' + dd.getDate() + '/' + String(dd.getFullYear()).slice(-2);
+      }
       dueEl.textContent = '';
       dueEl.appendChild(input);
       input.focus();
-      input.addEventListener('change', function() {
-        item.dataset.dueDate = input.value;
+      input.select();
+      function commitDate() {
+        var val = input.value.trim();
+        if (!val) { item.dataset.dueDate = ''; renderDueDate(dueEl, item); saveTasks(); return; }
+        var parts = val.split('/');
+        if (parts.length === 3) {
+          var mm = parseInt(parts[0], 10);
+          var dd2 = parseInt(parts[1], 10);
+          var yy = parseInt(parts[2], 10);
+          if (yy < 100) yy += 2000;
+          if (mm >= 1 && mm <= 12 && dd2 >= 1 && dd2 <= 31) {
+            var iso = yy + '-' + String(mm).padStart(2,'0') + '-' + String(dd2).padStart(2,'0');
+            item.dataset.dueDate = iso;
+          }
+        }
         renderDueDate(dueEl, item);
         saveTasks();
+      }
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); commitDate(); }
+        if (e.key === 'Escape') { renderDueDate(dueEl, item); }
       });
       input.addEventListener('blur', function() {
-        setTimeout(function() { renderDueDate(dueEl, item); }, 150);
+        setTimeout(commitDate, 100);
       });
     }
     function renderDueDate(dueEl, item) {
