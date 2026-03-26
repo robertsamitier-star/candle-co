@@ -103,6 +103,7 @@
     border: 1px solid var(--border); border-radius: 0 0 12px 12px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     padding: 6px 0;
+    overflow: visible;
   }
   .more-menu-dropdown button {
     display: block; width: 100%; text-align: left;
@@ -1402,6 +1403,9 @@
   .task-item.in-progress { border-left: 3px solid var(--glow-orange, #f59e0b); }
   /* Priority Flag */
   .task-flag {
+    display: none;
+  }
+  .task-flag-legacy {
     background: none; border: none; cursor: pointer; padding: 0 4px;
     font-size: 0.85rem; color: var(--text-dim); opacity: 0.3;
     transition: opacity 0.2s, color 0.2s; flex-shrink: 0; margin-right: 4px;
@@ -1425,10 +1429,9 @@
   /* Due Date */
   .task-due {
     font-size: 0.62rem; color: var(--text-dim); margin-left: auto;
-    padding: 1px 6px; border-radius: 3px; cursor: pointer;
+    padding: 1px 6px; border-radius: 3px;
     white-space: nowrap; flex-shrink: 0;
   }
-  .task-due:hover { color: var(--glow-cyan); }
   .task-due.overdue { color: #ef4444; font-weight: 600; }
   .task-due.due-soon { color: #f59e0b; }
   .task-due input[type="date"] {
@@ -7106,7 +7109,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       var current = getStatus(item);
       var dd = document.createElement('div');
       dd.className = 'task-status-dropdown';
-      [{key:'todo', icon:'s-todo'}, {key:'wip', icon:'s-wip'}, {key:'done', icon:'s-done'}].forEach(function(opt) {
+      [{key:'todo', icon:'s-todo'}, {key:'done', icon:'s-done'}].forEach(function(opt) {
         var row = document.createElement('div');
         row.className = 'task-status-option' + (opt.key === current ? ' active active-' + opt.key : '');
         var icon = document.createElement('span');
@@ -7121,10 +7124,49 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
         });
         dd.appendChild(row);
       });
-      // Divider + Note option
+      // Divider
       var divider = document.createElement('div');
       divider.className = 'task-status-divider';
       dd.appendChild(divider);
+      // Flag Concern option
+      var flagRow = document.createElement('div');
+      var isFlagged = item.classList.contains('flagged');
+      flagRow.className = 'task-status-option';
+      if (isFlagged) flagRow.style.color = '#ef4444';
+      var flagIcon = document.createElement('span');
+      flagIcon.className = 'task-note-icon';
+      flagIcon.textContent = '\u26A0';
+      if (isFlagged) flagIcon.style.color = '#ef4444';
+      flagRow.appendChild(flagIcon);
+      flagRow.appendChild(document.createTextNode(isFlagged ? 'Remove Concern' : 'Flag Concern'));
+      flagRow.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeStatusDropdown();
+        toggleFlag(item);
+      });
+      dd.appendChild(flagRow);
+      // Sign Off / Due Date option
+      var dueRow = document.createElement('div');
+      var hasDue = item.dataset.dueDate && item.dataset.dueDate.length > 0;
+      dueRow.className = 'task-status-option';
+      if (hasDue) dueRow.style.color = '#22c55e';
+      var dueIcon = document.createElement('span');
+      dueIcon.className = 'task-note-icon';
+      dueIcon.textContent = '\uD83D\uDCC5';
+      dueRow.appendChild(dueIcon);
+      dueRow.appendChild(document.createTextNode(hasDue ? 'Change Due Date' : 'Sign Off / Set Due Date'));
+      dueRow.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeStatusDropdown();
+        var dueEl = item.querySelector('.task-due');
+        if (dueEl) showDuePicker(dueEl, item);
+      });
+      dd.appendChild(dueRow);
+      // Divider
+      var divider2 = document.createElement('div');
+      divider2.className = 'task-status-divider';
+      dd.appendChild(divider2);
+      // Note option
       var noteRow = document.createElement('div');
       noteRow.className = 'task-status-option task-note-option';
       var noteIcon = document.createElement('span');
@@ -7601,11 +7643,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
         if (item2) toggleFlag(item2);
         return;
       }
-      if (e.target.classList.contains('task-due')) {
-        var item3 = e.target.closest('.task-item');
-        if (item3) showDuePicker(e.target, item3);
-        return;
-      }
+      // Due date is now accessed via the status dropdown, not direct click
       if (e.target.classList.contains('task-delete')) {
         var item4 = e.target.closest('.task-item');
         if (item4) { logAction('deleted "' + getTaskText(item4) + '"'); item4.remove(); saveTasks(); updateProgress(); }
