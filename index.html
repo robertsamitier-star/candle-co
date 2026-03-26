@@ -85,6 +85,108 @@
   .tab-btn.active { color: var(--glow-cyan); border-bottom-color: var(--glow-cyan); }
   a.tab-btn { text-decoration: none; }
 
+  /* ═══════════════ SEARCH ═══════════════ */
+  .search-toggle {
+    background: none; border: 1px solid var(--border);
+    color: var(--text-dim); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-left: 8px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .search-toggle:hover {
+    color: var(--glow-cyan); border-color: var(--glow-cyan);
+    background: rgba(0,229,255,0.06);
+  }
+  .search-toggle svg { width: 16px; height: 16px; }
+  .search-toggle .kbd-hint {
+    font-size: 0.6rem; color: var(--text-dim); margin-left: 4px;
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .search-toggle .kbd-hint { display: inline; }
+  }
+  .search-overlay {
+    position: fixed; top: 56px; left: 0; right: 0;
+    z-index: 199; background: rgba(10,10,15,0.96);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    max-height: calc(100vh - 56px); overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .search-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .search-bar svg { width: 18px; height: 18px; color: var(--text-dim); flex-shrink: 0; }
+  .search-input {
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; padding: 4px 0;
+  }
+  .search-input::placeholder { color: var(--text-dim); }
+  .search-close {
+    background: none; border: 1px solid var(--border);
+    color: var(--text-dim); cursor: pointer;
+    font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .search-close:hover { color: var(--text); border-color: var(--text); }
+  .search-results {
+    overflow-y: auto; max-height: calc(100vh - 130px);
+    padding: 8px 0;
+  }
+  .search-result-item {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 10px 24px; cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .search-result-item:hover, .search-result-item.active {
+    background: rgba(255,255,255,0.04);
+    border-left-color: var(--glow-cyan);
+  }
+  .search-result-title {
+    font-size: 0.88rem; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .search-result-tab {
+    font-size: 0.65rem; font-weight: 600;
+    color: var(--glow-cyan); text-transform: uppercase;
+    letter-spacing: 0.5px; background: rgba(0,229,255,0.08);
+    padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+  }
+  .search-result-snippet {
+    font-size: 0.78rem; color: var(--text-dim);
+    line-height: 1.5; margin-top: 2px;
+    overflow: hidden; text-overflow: ellipsis;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .search-result-snippet mark {
+    background: rgba(249,115,22,0.25); color: var(--glow-orange);
+    border-radius: 2px; padding: 0 1px;
+  }
+  .search-no-results {
+    padding: 24px; text-align: center;
+    color: var(--text-dim); font-size: 0.88rem;
+  }
+  .search-hint {
+    padding: 16px 24px; color: var(--text-dim); font-size: 0.8rem;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .search-hint kbd {
+    font-size: 0.7rem; background: var(--surface); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 4px; font-family: 'Inter', sans-serif;
+  }
+  @media (max-width: 700px) {
+    .search-bar { padding: 10px 12px; }
+    .search-result-item { padding: 10px 12px; }
+    .search-hint { display: none; }
+  }
+
   /* ═══════════════ TAB CONTENT ═══════════════ */
   .tab-content { display: none; }
   .tab-content.active { display: block; }
@@ -1342,7 +1444,25 @@
     <a class="tab-btn" href="builder.html">Candle Builder</a>
     <a class="tab-btn" href="business-plan-1sheet.html" target="_blank">Business Plan</a>
   </div>
+  <button class="search-toggle" onclick="toggleSearch()" aria-label="Search" title="Search (Ctrl+K)">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </button>
 </nav>
+
+<div class="search-overlay" id="search-overlay" style="display:none;">
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="search-input" id="search-input" placeholder="Search across all tabs..." autocomplete="off" oninput="onSearchInput(this.value)">
+    <button class="search-close" onclick="closeSearch()">ESC</button>
+  </div>
+  <div class="search-results" id="search-results">
+    <div class="search-hint">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigate</span>
+      <span><kbd>Enter</kbd> Go to</span>
+      <span><kbd>Esc</kbd> Close</span>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- ═══════════════ PRESENTATION TAB ═══════════════════════════════ -->
@@ -6180,6 +6300,212 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 <!-- ═══════════════ JAVASCRIPT ═══════════════════════════════════════ -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <script>
+  // ═══════════════ SEARCH ═══════════════
+  var searchIndex = [];
+  var searchActiveIdx = -1;
+
+  function buildSearchIndex() {
+    searchIndex = [];
+    // Map tab IDs to their button labels
+    var tabLabels = {};
+    document.querySelectorAll('.top-nav .tab-btn[data-tab]').forEach(function(btn) {
+      tabLabels[btn.getAttribute('data-tab')] = btn.textContent.trim();
+    });
+
+    document.querySelectorAll('.tab-content').forEach(function(tab) {
+      var tabId = tab.id;
+      var tabKey = tabId.replace('tab-', '');
+      var tabTitle = tabLabels[tabKey] || tabKey;
+
+      // Skip presentation slides — they use a different nav model
+      if (tabKey === 'presentation') return;
+
+      // Find all elements with IDs that could be sections
+      var sections = tab.querySelectorAll('[id]');
+      sections.forEach(function(sec) {
+        // Must have a heading to be a meaningful section
+        var heading = sec.querySelector('h1, h2, h3, h4');
+        if (!heading) return;
+        // Skip if the heading is empty or very short
+        var title = heading.textContent.trim();
+        if (title.length < 3) return;
+
+        // Get body text (excluding the heading), truncated
+        var bodyText = sec.textContent.replace(title, '').trim();
+        var bodyTrunc = bodyText.substring(0, 800);
+
+        searchIndex.push({
+          tabId: tabId,
+          tabKey: tabKey,
+          tabTitle: tabTitle,
+          sectionId: sec.id,
+          title: title,
+          titleLower: title.toLowerCase(),
+          body: bodyTrunc,
+          bodyLower: bodyTrunc.toLowerCase()
+        });
+      });
+    });
+  }
+
+  function onSearchInput(query) {
+    var resultsEl = document.getElementById('search-results');
+    searchActiveIdx = -1;
+
+    if (!query || query.length < 2) {
+      resultsEl.innerHTML = '<div class="search-hint"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigate</span><span><kbd>Enter</kbd> Go to</span><span><kbd>Esc</kbd> Close</span></div>';
+      return;
+    }
+
+    var q = query.toLowerCase();
+    var matches = [];
+
+    searchIndex.forEach(function(item) {
+      var titleMatch = item.titleLower.indexOf(q) !== -1;
+      var bodyMatch = item.bodyLower.indexOf(q) !== -1;
+      if (titleMatch || bodyMatch) {
+        matches.push({
+          item: item,
+          titleMatch: titleMatch,
+          score: titleMatch ? 2 : 1
+        });
+      }
+    });
+
+    // Sort: title matches first, then alphabetical
+    matches.sort(function(a, b) {
+      if (a.score !== b.score) return b.score - a.score;
+      return a.item.title.localeCompare(b.item.title);
+    });
+
+    // Limit results
+    matches = matches.slice(0, 20);
+
+    if (matches.length === 0) {
+      resultsEl.innerHTML = '<div class="search-no-results">No results for &ldquo;' + escapeHtml(query) + '&rdquo;</div>';
+      return;
+    }
+
+    var html = '';
+    matches.forEach(function(m, i) {
+      var snippet = getSnippet(m.item, q);
+      html += '<div class="search-result-item" data-idx="' + i + '" onclick="goToSearchResult(\'' + m.item.tabKey + '\',\'' + m.item.sectionId + '\')" onmouseenter="searchActiveIdx=' + i + ';highlightSearchResult()">'
+        + '<div class="search-result-title">'
+        + '<span>' + highlightMatch(escapeHtml(m.item.title), query) + '</span>'
+        + '<span class="search-result-tab">' + escapeHtml(m.item.tabTitle) + '</span>'
+        + '</div>'
+        + (snippet ? '<div class="search-result-snippet">' + snippet + '</div>' : '')
+        + '</div>';
+    });
+    resultsEl.innerHTML = html;
+  }
+
+  function getSnippet(item, query) {
+    var q = query.toLowerCase();
+    var idx = item.bodyLower.indexOf(q);
+    if (idx === -1) return '';
+    // Extract context around the match
+    var start = Math.max(0, idx - 40);
+    var end = Math.min(item.body.length, idx + query.length + 80);
+    var snip = (start > 0 ? '&hellip;' : '') + escapeHtml(item.body.substring(start, end)) + (end < item.body.length ? '&hellip;' : '');
+    return highlightMatch(snip, query);
+  }
+
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    var regex = new RegExp('(' + escapeRegex(escapeHtml(query)) + ')', 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function goToSearchResult(tabKey, sectionId) {
+    switchTab(tabKey);
+    requestAnimationFrame(function() {
+      setTimeout(function() {
+        var el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    });
+  }
+
+  function toggleSearch() {
+    var overlay = document.getElementById('search-overlay');
+    if (overlay.style.display === 'none') {
+      overlay.style.display = 'flex';
+      document.getElementById('search-input').focus();
+    } else {
+      closeSearch();
+    }
+  }
+
+  function closeSearch() {
+    var overlay = document.getElementById('search-overlay');
+    overlay.style.display = 'none';
+    document.getElementById('search-input').value = '';
+    document.getElementById('search-results').innerHTML = '<div class="search-hint"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigate</span><span><kbd>Enter</kbd> Go to</span><span><kbd>Esc</kbd> Close</span></div>';
+    searchActiveIdx = -1;
+  }
+
+  function highlightSearchResult() {
+    var items = document.querySelectorAll('.search-result-item');
+    items.forEach(function(el, i) {
+      el.classList.toggle('active', i === searchActiveIdx);
+    });
+  }
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    var overlay = document.getElementById('search-overlay');
+    var isOpen = overlay.style.display !== 'none';
+
+    // Ctrl+K or Cmd+K to toggle search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleSearch();
+      return;
+    }
+
+    if (!isOpen) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeSearch();
+      return;
+    }
+
+    var items = document.querySelectorAll('.search-result-item');
+    if (items.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      searchActiveIdx = Math.min(searchActiveIdx + 1, items.length - 1);
+      highlightSearchResult();
+      if (items[searchActiveIdx]) items[searchActiveIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      searchActiveIdx = Math.max(searchActiveIdx - 1, 0);
+      highlightSearchResult();
+      if (items[searchActiveIdx]) items[searchActiveIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && searchActiveIdx >= 0) {
+      e.preventDefault();
+      items[searchActiveIdx].click();
+    }
+  });
+
+  // Build index on load
+  document.addEventListener('DOMContentLoaded', function() {
+    buildSearchIndex();
+  });
+
   // ═══════════════ TAB SWITCHING ═══════════════
   function switchTab(tabId) {
     // Hide all tab content
