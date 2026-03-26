@@ -3175,14 +3175,12 @@
     <p style="color:var(--text-dim);font-style:italic;">No changes yet.</p>
   </div>
 
-  <!-- Reset All (bottom of page, 2-step confirm) -->
-  <div style="margin-top:40px;padding:16px;border-top:1px solid var(--border);text-align:center;">
-    <p style="font-size:0.72rem;color:var(--text-dim);margin-bottom:8px;">Danger Zone</p>
-    <button id="task-reset-btn" style="padding:6px 16px;font-size:0.75rem;background:none;border:1px solid #ef4444;border-radius:6px;color:#ef4444;cursor:pointer;transition:all 0.2s;">Reset All Tasks</button>
-    <p id="task-reset-warning" style="display:none;margin-top:8px;font-size:0.72rem;color:#ef4444;font-weight:600;">This will erase all changes, statuses, flags, and due dates. This cannot be undone.<br>
-      <button id="task-reset-confirm" style="margin-top:8px;padding:6px 20px;font-size:0.75rem;background:#ef4444;border:none;border-radius:6px;color:#fff;cursor:pointer;font-weight:700;">Yes, Reset Everything</button>
-      <button id="task-reset-cancel" style="margin-top:8px;margin-left:8px;padding:6px 16px;font-size:0.75rem;background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-dim);cursor:pointer;">Cancel</button>
-    </p>
+  <!-- Deleted Tasks Section -->
+  <div style="margin-top:40px;padding:16px;border-top:1px solid var(--border);">
+    <div id="deleted-tasks-section">
+      <h4 style="font-size:0.85rem;color:var(--text-dim);margin-bottom:12px;">Recently Deleted Tasks <span style="font-size:0.65rem;font-weight:400;opacity:0.6;">(auto-clears after 7 days)</span></h4>
+      <p style="font-style:italic;font-size:0.78rem;color:var(--text-dim);">No deleted tasks.</p>
+    </div>
   </div>
 
 </div>
@@ -7566,15 +7564,9 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       // Sync to Supabase
       if (_sbReady && sbRows.length) {
         _lastSaveTime = Date.now();
-        console.log('[Supabase] Saving', sbRows.length, 'tasks...');
-        _sb.from('tasks').delete().neq('id', 0).then(function(delRes) {
-          console.log('[Supabase] Delete result:', delRes.error ? delRes.error.message : 'ok');
-          _sb.from('tasks').insert(sbRows).then(function(insRes) {
-            console.log('[Supabase] Insert result:', insRes.error ? insRes.error.message : 'ok, ' + (insRes.data ? insRes.data.length : 0) + ' rows');
-          });
+        _sb.from('tasks').delete().neq('id', 0).then(function() {
+          _sb.from('tasks').insert(sbRows).then(function() {});
         });
-      } else {
-        console.log('[Supabase] Skip sync, ready:', _sbReady, 'rows:', sbRows.length);
       }
     }
 
@@ -7701,6 +7693,10 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
           if (Date.now() - _lastSaveTime < 3000) return;
           loadAuditFromSupabase();
         })
+        .on('postgres_changes', {event: '*', schema: 'public', table: 'deleted_tasks'}, function() {
+          if (Date.now() - _lastSaveTime < 3000) return;
+          loadDeletedTasks();
+        })
         .subscribe();
     }
 
@@ -7716,7 +7712,6 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 
     // Then load fresh from Supabase (async)
     loadTasksFromSupabase().then(function(loaded) {
-      console.log('[Supabase] loadTasks result:', loaded);
       if (loaded) {
         updateBlockedStates(); updateProgress();
         columns.forEach(function(col) {
@@ -7725,9 +7720,9 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       }
       _sbReady = true;
       subscribeToChanges();
+      loadDeletedTasks();
       // If Supabase was empty but localStorage has data, seed Supabase
       if (!loaded && localStorage.getItem(STORAGE_KEY)) {
-        console.log('[Supabase] Seeding from localStorage...');
         saveTasks();
       }
     }).catch(function(err) {
@@ -7987,39 +7982,95 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       if (overlay) overlay.remove();
     }
 
-    // ── Reset All (2-step confirm) ──
-    var resetBtn = document.getElementById('task-reset-btn');
-    var resetWarning = document.getElementById('task-reset-warning');
-    var resetConfirm = document.getElementById('task-reset-confirm');
-    var resetCancel = document.getElementById('task-reset-cancel');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', function() {
-        resetWarning.style.display = 'block';
-        resetBtn.style.display = 'none';
+    // ── Deleted Tasks Section ──
+    function loadDeletedTasks() {
+      if (!_sbReady) return;
+      var sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      // Auto-cleanup old entries
+      _sb.from('deleted_tasks').delete().lt('deleted_at', sevenDaysAgo).then(function() {});
+      // Load recent
+      _sb.from('deleted_tasks').select('*').order('deleted_at', {ascending: false}).then(function(res) {
+        renderDeletedTasks(res.data || []);
       });
     }
-    if (resetCancel) {
-      resetCancel.addEventListener('click', function() {
-        resetWarning.style.display = 'none';
-        resetBtn.style.display = '';
+
+    function renderDeletedTasks(rows) {
+      var section = document.getElementById('deleted-tasks-section');
+      if (!section) return;
+      if (!rows.length) {
+        section.innerHTML = '<h4 style="font-size:0.85rem;color:var(--text-dim);margin-bottom:12px;">Recently Deleted Tasks <span style="font-size:0.65rem;font-weight:400;opacity:0.6;">(auto-clears after 7 days)</span></h4><p style="font-style:italic;font-size:0.78rem;color:var(--text-dim);">No deleted tasks.</p>';
+        return;
+      }
+      var html = '<h4 style="font-size:0.85rem;color:var(--text-dim);margin-bottom:12px;">Recently Deleted Tasks <span style="font-size:0.65rem;font-weight:400;opacity:0.6;">(auto-clears after 7 days)</span></h4>';
+      rows.forEach(function(r) {
+        var dd = new Date(r.deleted_at);
+        var ts = (dd.getMonth()+1) + '/' + dd.getDate() + '/' + String(dd.getFullYear()).slice(-2);
+        html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;margin:4px 0;background:var(--surface);border:1px solid var(--border);border-left:3px solid #ef4444;border-radius:6px;font-size:0.78rem;">'
+          + '<span style="flex:1;color:var(--text);text-decoration:line-through;opacity:0.7;">' + escapeHtmlInline(r.text) + '</span>'
+          + '<span style="color:var(--text-dim);font-size:0.65rem;white-space:nowrap;">' + escapeHtmlInline(r.member) + ' &middot; ' + escapeHtmlInline(r.deleted_by) + ', ' + ts + '</span>'
+          + '<button onclick="restoreTask(' + r.id + ')" style="background:none;border:1px solid var(--glow-green);color:var(--glow-green);font-size:0.65rem;padding:2px 8px;border-radius:4px;cursor:pointer;white-space:nowrap;">Restore</button>'
+          + '</div>';
       });
+      section.innerHTML = html;
     }
-    if (resetConfirm) {
-      resetConfirm.addEventListener('click', function() {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem('ae-candle-audit');
-        localStorage.removeItem('ae-candle-user');
-        // Also clear Supabase
+
+    function escapeHtmlInline(str) {
+      var d = document.createElement('div');
+      d.appendChild(document.createTextNode(str || ''));
+      return d.innerHTML;
+    }
+
+    // Make restoreTask global so onclick works
+    window.restoreTask = function(id) {
+      if (!_sbReady) return;
+      _sb.from('deleted_tasks').select('*').eq('id', id).single().then(function(res) {
+        if (res.error || !res.data) return;
+        var r = res.data;
+        // Find the target column
+        var col = board.querySelector('.task-column[data-phase="' + r.phase + '"][data-member="' + r.member + '"]');
+        if (!col) return;
+        var item = createTaskItem({
+          text: r.text, stamp: stampStr(), status: r.status || 'todo',
+          flagged: false, dueDate: '', taskId: '', blockedBy: '',
+          originalIndex: 0, note: ''
+        });
+        var addBtn = col.querySelector('.task-add');
+        col.insertBefore(item, addBtn);
+        var dueEl = item.querySelector('.task-due');
+        if (dueEl) renderDueDate(dueEl, item);
+        saveTasks();
+        logAction('restored "' + r.text + '"');
+        // Remove from deleted_tasks
+        _sb.from('deleted_tasks').delete().eq('id', id).then(function() {
+          loadDeletedTasks();
+        });
+      });
+    };
+
+    // Patch the delete handler to save to deleted_tasks
+    var _origDeleteHandler = null;
+    board.addEventListener('click', function(e) {
+      if (e.target.classList.contains('task-delete')) {
+        var item = e.target.closest('.task-item');
+        if (!item) return;
+        var col = item.closest('.task-column');
+        if (!col) return;
+        // Save to deleted_tasks before DOM removal
         if (_sbReady) {
-          Promise.all([
-            _sb.from('tasks').delete().neq('id', 0),
-            _sb.from('audit_log').delete().neq('id', 0)
-          ]).then(function() { location.reload(); });
-        } else {
-          location.reload();
+          _lastSaveTime = Date.now();
+          _sb.from('deleted_tasks').insert({
+            phase: col.dataset.phase,
+            member: col.dataset.member,
+            text: getTaskText(item),
+            status: getStatus(item),
+            deleted_by: getUser()
+          }).then(function() {
+            loadDeletedTasks();
+          });
         }
-      });
-    }
+        // Don't prevent default — let the original handler do the DOM removal
+      }
+    }, true); // capture phase to run before the existing handler
   })();
 
 
