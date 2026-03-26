@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>IC Candle Co. — Business Plan 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -6615,6 +6616,14 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 <!-- ═══════════════ JAVASCRIPT ═══════════════════════════════════════ -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <script>
+  // ═══════════════ SUPABASE ═══════════════
+  var _sb = window.supabase.createClient(
+    'https://kygaopbxrosssjnbyxiwq.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5Z2FvcGJ4cm9zc2puYnl4aXdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1Mzc3NDcsImV4cCI6MjA5MDExMzc0N30.5p5orvRFIh0RaJ3RdW0eDoRdxL11G1Ju08Jt4H2N_Uc'
+  );
+  var _sbReady = false;
+  var _sbSessionId = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+
   // ═══════════════ SEARCH ═══════════════
   var searchIndex = [];
   var searchActiveIdx = -1;
@@ -6959,11 +6968,17 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
 
     // ── Audit Log ──
     function logAction(action) {
+      var entry = {action: action, user: getUser(), time: new Date().toISOString()};
+      // Save to localStorage cache
       var logs = JSON.parse(localStorage.getItem('ae-candle-audit') || '[]');
-      logs.unshift({action: action, user: getUser(), time: new Date().toISOString()});
+      logs.unshift(entry);
       if (logs.length > 50) logs.length = 50;
       localStorage.setItem('ae-candle-audit', JSON.stringify(logs));
       renderAuditLog();
+      // Save to Supabase
+      if (_sbReady) {
+        _sb.from('audit_log').insert({action: entry.action, user_name: entry.user}).then(function() {});
+      }
     }
     function renderAuditLog() {
       var el = document.getElementById('task-audit-log-v2');
@@ -6972,9 +6987,9 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       if (!logs.length) { el.innerHTML = '<h4>Change Log</h4><p style="font-style:italic;">No changes yet.</p>'; return; }
       var html = '<h4>Change Log</h4>';
       logs.forEach(function(l) {
-        var dd = new Date(l.time);
+        var dd = new Date(l.time || l.created_at);
         var ts = dd.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + dd.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        html += '<p><strong>' + l.user + '</strong> ' + l.action + ' <span style="opacity:0.5;">(' + ts + ')</span></p>';
+        html += '<p><strong>' + (l.user || l.user_name) + '</strong> ' + l.action + ' <span style="opacity:0.5;">(' + ts + ')</span></p>';
       });
       el.innerHTML = html;
     }
@@ -7473,23 +7488,37 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       if (!undoStack.length) return;
       var prev = undoStack.pop();
       localStorage.setItem(STORAGE_KEY, prev);
-      // Reload tasks from the restored snapshot
       var data = JSON.parse(prev);
-      board.querySelectorAll('.task-column').forEach(function(col) {
-        var key = col.dataset.phase + '-' + col.dataset.member;
-        if (!data[key]) return;
-        col.querySelectorAll('.task-item, .task-block-header, .task-completed-header').forEach(function(el) { el.remove(); });
-        var addBtn = col.querySelector('.task-add');
-        data[key].forEach(function(t) {
-          var item = createTaskItem(t);
-          col.insertBefore(item, addBtn);
-          var dueEl = item.querySelector('.task-due');
-          if (dueEl) renderDueDate(dueEl, item);
-        });
+      // Clear completed headers before reloading
+      board.querySelectorAll('.task-completed-header').forEach(function(el) { el.remove(); });
+      loadTasksFromData(data);
+      columns.forEach(function(col) {
         if (col.querySelector('.task-item.completed')) moveCompletedToBottom(col);
       });
       updateBlockedStates(); updateProgress(); updateUndoBtn();
       logAction('undid last change');
+      // Sync undo to Supabase
+      if (_sbReady) {
+        var sbRows = [];
+        board.querySelectorAll('.task-column').forEach(function(col) {
+          var sortIdx = 0;
+          col.querySelectorAll('.task-item').forEach(function(item) {
+            sbRows.push({
+              phase: col.dataset.phase, member: col.dataset.member,
+              text: getTaskText(item), status: getStatus(item),
+              flagged: item.querySelector('.task-flag.flagged') !== null,
+              due_date: item.dataset.dueDate || null,
+              task_id: item.dataset.taskId || '', blocked_by: item.dataset.blockedBy || '',
+              original_index: parseInt(item.dataset.originalIndex) || 0,
+              note: item.dataset.note || '', stamp: getTaskStamp(item),
+              sort_order: sortIdx++, updated_at: new Date().toISOString()
+            });
+          });
+        });
+        _sb.from('tasks').delete().neq('id', 0).then(function() {
+          _sb.from('tasks').insert(sbRows).then(function() {});
+        });
+      }
     }
     if (undoBtn) undoBtn.addEventListener('click', performUndo);
     updateUndoBtn();
@@ -7497,11 +7526,13 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
     function saveTasks() {
       snapshotForUndo();
       var data = {};
+      var sbRows = [];
       board.querySelectorAll('.task-column').forEach(function(col) {
         var key = col.dataset.phase + '-' + col.dataset.member;
         data[key] = [];
+        var sortIdx = 0;
         col.querySelectorAll('.task-item').forEach(function(item) {
-          data[key].push({
+          var t = {
             text: getTaskText(item), stamp: getTaskStamp(item),
             status: getStatus(item),
             flagged: item.querySelector('.task-flag.flagged') !== null,
@@ -7510,10 +7541,33 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
             blockedBy: item.dataset.blockedBy || '',
             originalIndex: item.dataset.originalIndex || '',
             note: item.dataset.note || ''
+          };
+          data[key].push(t);
+          // Build Supabase row
+          sbRows.push({
+            phase: col.dataset.phase,
+            member: col.dataset.member,
+            text: t.text,
+            status: t.status,
+            flagged: t.flagged,
+            due_date: t.dueDate || null,
+            task_id: t.taskId,
+            blocked_by: t.blockedBy,
+            original_index: parseInt(t.originalIndex) || 0,
+            note: t.note,
+            stamp: t.stamp,
+            sort_order: sortIdx++,
+            updated_at: new Date().toISOString()
           });
         });
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      // Sync to Supabase
+      if (_sbReady && sbRows.length) {
+        _sb.from('tasks').delete().neq('id', 0).then(function() {
+          _sb.from('tasks').insert(sbRows).then(function() {});
+        });
+      }
     }
 
     function createTaskItem(t) {
@@ -7563,10 +7617,7 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       return div;
     }
 
-    function loadTasks() {
-      var saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return false;
-      var data = JSON.parse(saved);
+    function loadTasksFromData(data) {
       var loaded = false;
       board.querySelectorAll('.task-column').forEach(function(col) {
         var key = col.dataset.phase + '-' + col.dataset.member;
@@ -7584,7 +7635,66 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       return loaded;
     }
 
-    var didLoad = loadTasks();
+    function loadTasks() {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return false;
+      return loadTasksFromData(JSON.parse(saved));
+    }
+
+    function loadTasksFromSupabase() {
+      return _sb.from('tasks').select('*').order('sort_order').then(function(res) {
+        if (res.error || !res.data || !res.data.length) return false;
+        // Group by phase-member
+        var data = {};
+        res.data.forEach(function(row) {
+          var key = row.phase + '-' + row.member;
+          if (!data[key]) data[key] = [];
+          data[key].push({
+            text: row.text, stamp: row.stamp || '',
+            status: row.status, flagged: row.flagged,
+            dueDate: row.due_date || '', taskId: row.task_id || '',
+            blockedBy: row.blocked_by || '',
+            originalIndex: row.original_index || 0,
+            note: row.note || ''
+          });
+        });
+        // Cache in localStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        return loadTasksFromData(data);
+      });
+    }
+
+    function loadAuditFromSupabase() {
+      return _sb.from('audit_log').select('*').order('created_at', {ascending: false}).limit(50).then(function(res) {
+        if (res.error || !res.data) return;
+        var logs = res.data.map(function(r) {
+          return {action: r.action, user: r.user_name, time: r.created_at};
+        });
+        localStorage.setItem('ae-candle-audit', JSON.stringify(logs));
+        renderAuditLog();
+      });
+    }
+
+    // Subscribe to real-time changes
+    function subscribeToChanges() {
+      _sb.channel('board-sync')
+        .on('postgres_changes', {event: '*', schema: 'public', table: 'tasks'}, function() {
+          // Reload all tasks from Supabase when any change detected
+          loadTasksFromSupabase().then(function() {
+            updateBlockedStates(); updateProgress();
+            columns.forEach(function(col) {
+              if (col.querySelector('.task-item.completed')) moveCompletedToBottom(col);
+            });
+          });
+        })
+        .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'audit_log'}, function() {
+          loadAuditFromSupabase();
+        })
+        .subscribe();
+    }
+
+    // Initial load: try Supabase first, fall back to localStorage
+    var didLoad = loadTasks(); // instant from cache
     if (!didLoad) {
       board.querySelectorAll('.task-item').forEach(function(item) {
         var dueEl = item.querySelector('.task-due');
@@ -7592,6 +7702,24 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
       });
     }
     renderAuditLog(); updateBlockedStates(); updateProgress();
+
+    // Then load fresh from Supabase (async)
+    loadTasksFromSupabase().then(function(loaded) {
+      if (loaded) { updateBlockedStates(); updateProgress(); }
+      _sbReady = true;
+      subscribeToChanges();
+      // If Supabase was empty but localStorage has data, seed Supabase
+      if (!loaded && localStorage.getItem(STORAGE_KEY)) {
+        saveTasks();
+      }
+    }).catch(function() {
+      // Supabase unreachable, localStorage-only mode
+      _sbReady = false;
+      console.warn('Supabase unreachable, running in offline mode');
+    });
+
+    // Also load audit from Supabase
+    loadAuditFromSupabase().catch(function() {});
     // Move initially-completed items under completed headers
     columns.forEach(function(col) {
       if (col.querySelector('.task-item.completed')) moveCompletedToBottom(col);
@@ -7863,7 +7991,15 @@ Negative: blurry, misspelled, vertical layout, photorealistic, black background,
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem('ae-candle-audit');
         localStorage.removeItem('ae-candle-user');
-        location.reload();
+        // Also clear Supabase
+        if (_sbReady) {
+          Promise.all([
+            _sb.from('tasks').delete().neq('id', 0),
+            _sb.from('audit_log').delete().neq('id', 0)
+          ]).then(function() { location.reload(); });
+        } else {
+          location.reload();
+        }
       });
     }
   })();
